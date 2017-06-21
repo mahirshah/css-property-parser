@@ -1,0 +1,13 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "max-len": ["error", {
+      "code": 120
+    }],
+    "no-bitwise": ["error", {
+      "allow": ["~"]
+    }],
+    "no-underscore-dangle": "off",
+    "no-shadow": "off"
+  }
+}

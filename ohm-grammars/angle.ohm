@@ -1,0 +1,7 @@
+Angle {
+  exp = number angleUnit
+  number = float | scientific
+  float = (("+"| "-")? digit* "."? digit+)
+  scientific = (("+"| "-")? digit* "."? digit+ "e" "-"? digit+)
+  angleUnit = "deg" | "grad" | "rad" | "turn"
+}
