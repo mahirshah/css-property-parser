@@ -1,0 +1,5 @@
+[
+  ["__base__", "float | scientific"],
+  ["float", "((\"+\"| \"-\")? digit* \".\"? digit+)"],
+  ["scientific", "((\"+\"| \"-\")? digit* \".\"? digit+ \"e\" \"-\"? digit+)"]
+]
