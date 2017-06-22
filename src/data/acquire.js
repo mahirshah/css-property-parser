@@ -1,5 +1,6 @@
 /**
  * Script used to acquire CSS data from MDN repo. Writes json files out to DATA_PATH.
+ * TODO: once MDN publishes data via npm, we can remove this
  */
 const fetch = require('node-fetch');
 const fs = require('fs-extra');
