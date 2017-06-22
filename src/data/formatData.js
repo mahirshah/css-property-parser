@@ -7,6 +7,7 @@ const properties = require('../../data/properties.json');
 
 const FORMATTED_DATA_PATH = './formatted-data/';
 const SHORTHAND_FORMATTED_DATA_FILE_NAME = 'shorthand-properties.json';
+
 const SHORTHAND_TYPE_MAP = {
   TRBL: /^\[? ?<['a-z-]+> ?(\| <?['a-z-]+>? ?)*]?\{1,4\}$/, // top left bottom right properties
   COMMA_SEPARATED_LIST: /<[a-z-]+>#/, // <ident>#
