@@ -1,12 +1,12 @@
 const CaseConverterUtils = require('../utils/CaseConverterUtils');
 const fs = require('fs-extra');
 const PATHS = require('../constants/paths');
+const GRAMMAR_CONSTANTS = require('../constants/grammars');
 
 const BASE_GRAMMAR_FORMATTER_MAP = {
-  __base__: 'exp',
-  __Base__: 'Exp',
+  [GRAMMAR_CONSTANTS.LEXICAL_BASE_KEY]: 'exp',
+  [GRAMMAR_CONSTANTS.SYNTACTIC_BASE_KEY]: 'Exp',
 };
-const R_GRAMMAR_IDENT = /<(([a-z-]+)(\(\))?)>/;
 
 /**
  * Class to format a JSON Grammar into an Ohm Grammar
@@ -25,15 +25,15 @@ module.exports = class OhmGrammarFormatter {
     OhmGrammarFormatter._isGrammarValid(jsonGrammar);
 
     // get the file name for each grammar that needs to be pulled into this grammar. Grab the files for those
-    // grammars and pull in the rule definitions in those grammars.
+    // jsonGrammars and pull in the rule definitions in those jsonGrammars.
     const recursivelyResolvedGrammarArr = OhmGrammarFormatter
       ._getGrammarsToResolve(jsonGrammar)
       .map(fileToResolve => [fileToResolve, fs.readJsonSync(`${PATHS.JSON_GRAMMAR_PATH}${fileToResolve}.json`)])
       .filter(([, json]) => OhmGrammarFormatter._isGrammarValid(json))
       .map(([fileName, json]) => json
-        .filter(grammarPair => grammarPair.length === 2) // filter out any grammars that need resolution
+        .filter(grammarPair => grammarPair.length === 2) // filter out any jsonGrammars that need resolution
         .map(([ruleName, ruleBody]) => (Object.keys(BASE_GRAMMAR_FORMATTER_MAP).includes(ruleName)
-          ? [OhmGrammarFormatter._formatJsonRuleName(`<${fileName}>`), ruleBody]
+          ? [CaseConverterUtils.formalSyntaxIdentToOhmIdent(`<${fileName}>`), ruleBody]
           : [ruleName, ruleBody])));
     const [baseKey, baseValue] = jsonGrammar[0];
     // the base key for this grammar should be mapped to exp or Exp, then concat the rest of the rules and
@@ -49,17 +49,17 @@ module.exports = class OhmGrammarFormatter {
   }
 
   /**
-   * Given a json grammar recursively finds all additional grammars that the grammar depends on. Returns a list
-   * of unique file names indicating which grammars need to be resolved.
+   * Given a json grammar recursively finds all additional jsonGrammars that the grammar depends on. Returns a list
+   * of unique file names indicating which jsonGrammars need to be resolved.
    *
    * @param {Array} jsonGrammar - a json structure representing a grammar
-   * @returns {Array} - an set of unique file names indicating which grammars need to resolved.
+   * @returns {Array} - an set of unique file names indicating which jsonGrammars need to resolved.
    * @private
    */
   static _getGrammarsToResolve(jsonGrammar) {
     const resolutions = jsonGrammar
       .filter(grammarLine => grammarLine.length === 1)
-      .map(([grammarName]) => R_GRAMMAR_IDENT.exec(grammarName)[1]);
+      .map(([grammarName]) => GRAMMAR_CONSTANTS.R_GRAMMAR_IDENT.exec(grammarName)[1]);
 
     if (resolutions.length === 0) {
       return [];
@@ -73,27 +73,14 @@ module.exports = class OhmGrammarFormatter {
 
   /**
    * Formats the given rule body into a string that is compatible with Ohm.
+   *
    * @param {string} ruleBody - the JSON grammar body
    * @returns {string} - the formatted rule body
    * @private
    */
   static _formatJsonRuleBody(ruleBody) {
-    return ruleBody.split(' ').map(OhmGrammarFormatter._formatJsonRuleName).join(' ');
-  }
-
-  /**
-   * Formats the given rule name into a string that is compatible with Ohm.
-   * @param {string} ruleName - the JSON grammar rule name
-   * @returns {string} - the formatted rule name in camelCase format, with an optional Func suffix
-   * @private
-   */
-  static _formatJsonRuleName(ruleName) {
-    if (R_GRAMMAR_IDENT.test(ruleName)) {
-      const [, , name, parens] = R_GRAMMAR_IDENT.exec(ruleName);
-      return `${CaseConverterUtils.kebabToCamel(name)}${parens ? 'Func' : ''}`;
-    }
-
-    return ruleName;
+    console.log(ruleBody.split(' ').map(CaseConverterUtils.formalSyntaxIdentToOhmIdent));
+    return ruleBody.split(' ').map(CaseConverterUtils.formalSyntaxIdentToOhmIdent).join(' ');
   }
 
   /**
