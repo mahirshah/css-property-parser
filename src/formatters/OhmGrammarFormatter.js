@@ -79,8 +79,7 @@ module.exports = class OhmGrammarFormatter {
    * @private
    */
   static _formatJsonRuleBody(ruleBody) {
-    console.log(ruleBody.split(' ').map(CaseConverterUtils.formalSyntaxIdentToOhmIdent));
-    return ruleBody.split(' ').map(CaseConverterUtils.formalSyntaxIdentToOhmIdent).join(' ');
+    return CaseConverterUtils.formalSyntaxIdentToOhmIdent(ruleBody);
   }
 
   /**

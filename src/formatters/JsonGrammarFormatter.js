@@ -1,4 +1,5 @@
 const GRAMMAR_CONSTANTS = require('../constants/grammars');
+const CaseConverterUtils = require('../utils/CaseConverterUtils');
 
 const INTERMEDIATE_GRAMMAR_PREFIX = 'IntermediateRule';
 const TERMINAL_GRAMMARS = ['dataName', 'literal', 'node'];
@@ -135,6 +136,11 @@ module.exports = class JsonGrammarFormatter {
         return `${minimumString} ${maximumString}`;
       },
 
+      // syntax of the form: "<expression>#"
+      HashMark(expression, hashmark) {
+        return `listOf< ${expression.eval()} , "," >`;
+      },
+
       // syntax of the form: "<data-name>" or "<'data-name'>
       node(leftBracket, leftQuote, dataName, rightQuote, rightBracket) {
         const dataNameValue = dataName.eval();
@@ -143,9 +149,13 @@ module.exports = class JsonGrammarFormatter {
         return `<${dataNameValue}>`;
       },
 
+      nodeName(expression) {
+        return this.sourceString;
+      },
+
       // any string
       dataName(e) {
-        return this.sourceString;
+        return `"${this.sourceString}"`;
       },
 
       // a character literal like "," or "/"
@@ -177,6 +187,6 @@ module.exports = class JsonGrammarFormatter {
    * @private
    */
   _generateIntermediateGrammarRuleName() {
-    return `${this.propertyName}${INTERMEDIATE_GRAMMAR_PREFIX}${this.intermediateGrammarIndex++}`;
+    return `${CaseConverterUtils.formalSyntaxIdentToOhmIdent(`<${this.propertyName}>`)}${INTERMEDIATE_GRAMMAR_PREFIX}${this.intermediateGrammarIndex++}`;
   }
 };
