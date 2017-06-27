@@ -1,4 +1,10 @@
 {
+  "parserOptions": {
+    "ecmaVersion": 7
+  },
+  "env": {
+    "node": true
+  },
   "extends": "airbnb",
   "rules": {
     "max-len": ["error", {
