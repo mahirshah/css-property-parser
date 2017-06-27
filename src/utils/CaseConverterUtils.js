@@ -39,11 +39,8 @@ module.exports = class CaseConverterUtils {
    * @returns {string} - the formatted rule name in camelCase format, with an optional Func suffix
    */
   static formalSyntaxIdentToOhmIdent(formalSyntaxIdent) {
-    if (GRAMMAR_CONSTANTS.R_GRAMMAR_IDENT.test(formalSyntaxIdent)) {
-      const [, , name, parens] = GRAMMAR_CONSTANTS.R_GRAMMAR_IDENT.exec(formalSyntaxIdent);
-      return `${CaseConverterUtils.kebabToCamel(name)}${parens ? 'Func' : ''}`;
-    }
-
-    return formalSyntaxIdent;
+    return formalSyntaxIdent.replace(GRAMMAR_CONSTANTS.R_GRAMMAR_IDENT_GLOBAL, (fullMatch, innerIdent, identName, parens) => (
+      `${CaseConverterUtils.kebabToCamel(identName)}${parens ? 'Func' : ''}`
+    ));
   }
 };
