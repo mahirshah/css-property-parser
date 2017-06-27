@@ -1,16 +1,17 @@
 FormalSyntax {
-  Exp = Brackets | Juxtaposition | DoubleAmpersand | DoubleBar | SingleBar | Asterisk | Plus | QuestionMark | CurlyBraces | HashMark | node | dataName | literal
-  Brackets = "[" Exp "]"
-  Juxtaposition = Exp Exp
-  DoubleAmpersand = Exp "&&" Exp
-  DoubleBar = Exp "||" Exp
-  SingleBar = Exp "|" Exp
+  Exp = Asterisk | Plus | QuestionMark | CurlyBraces | HashMark | Juxtaposition | DoubleAmpersand | DoubleBar | SingleBar | node | dataName | literal | Brackets
   Asterisk = Exp #"*"
   Plus = Exp #"+"
   QuestionMark = Exp #"?"
   CurlyBraces = Exp #"{" digit "," digit "}"
   HashMark = Exp #"#"
-  node = "<" "'"? dataName "'"? ">"
+  Brackets = "[" Exp "]"
+  Juxtaposition = Exp Exp
+  DoubleAmpersand = Exp "&&" Exp
+  DoubleBar = Exp "||" Exp
+  SingleBar = Exp "|" Exp
+  node = "<" "'"? nodeName "'"? ">"
+  nodeName = (letter | "-" | "(" | ")" )+
   dataName = (letter | "-" | "(" | ")" )+
   literal = "," | "/"
 }
