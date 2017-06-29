@@ -187,6 +187,6 @@ module.exports = class JsonGrammarFormatter {
    * @private
    */
   _generateIntermediateGrammarRuleName() {
-    return `${CaseConverterUtils.formalSyntaxIdentToOhmIdent(`<${this.propertyName}>`)}${INTERMEDIATE_GRAMMAR_PREFIX}${this.intermediateGrammarIndex++}`;
+    return `${INTERMEDIATE_GRAMMAR_PREFIX}${this.intermediateGrammarIndex++}`;
   }
 };
