@@ -23,11 +23,31 @@ describe('OhmGrammarFormatter#formatOhmGrammarFromJson', function () {
   const tests = [
     {
       args: [[
+        ['__base__', '( "test" )'],
+      ], 'test1'],
+      expected: 'test1 {\n  exp = ( "test" )\n}',
+    },
+    {
+      args: [[
+        ['__Base__', '( "test" )'],
+      ], 'test2'],
+      expected: 'test2 {\n  Exp = ( "test" )\n}',
+    },
+    {
+      args: [[
+        ['__base__', 'float | exponent'],
+        ['float', '"float"'],
+        ['exponent', '"exponent"'],
+      ], 'number'],
+      expected: 'number {\n  exp = number_float | number_exponent\n  number_float = "float"\n  number_exponent = "exponent"\n}',
+    },
+    {
+      args: [[
         ['__base__', '<number> <angle-unit>'],
         ['<number>'],
         ['<angle-unit>'],
       ], 'angle'],
-      expected: 'angle {\n  exp = number angleUnit\n  number = float | scientific\n  float = (("+"| "-")? digit* "."? digit+)\n  scientific = (("+"| "-")? digit* "."? digit+ "e" "-"? digit+)\n  angleUnit = "deg" | "grad" | "rad" | "turn"\n}',
+      expected: 'angle {\n  exp = number angleUnit\n  number = number_float | number_scientific\n  number_float = (("+"| "-")? digit* "."? digit+)\n  number_scientific = (("+"| "-")? digit* "."? digit+ "e" "-"? digit+)\n  angleUnit = "deg" | "grad" | "rad" | "turn"\n}',
     },
   ];
 
