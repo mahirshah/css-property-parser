@@ -65,7 +65,7 @@ module.exports = class OhmGrammarFormatter {
    * of unique file names indicating which jsonGrammars need to be resolved.
    *
    * @param {Array} jsonGrammar - a json structure representing a grammar
-   * @returns {Array} - an set of unique file names indicating which json grammars need to resolved.
+   * @returns {Array} - a set of unique file names indicating which json grammars need to resolved.
    * @private
    */
   static _getGrammarsToResolve(jsonGrammar) {
