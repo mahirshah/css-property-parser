@@ -1,5 +1,5 @@
 [
-  ["__base__", "<number> <angle-unit> float"],
+  ["__base__", "<number> <angle-unit>"],
   ["<number>"],
   ["<angle-unit>"]
 ]
