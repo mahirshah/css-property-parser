@@ -44,9 +44,9 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
     {
       args: ['side-or-corner', '[ left | right ] || [ top | bottom ]'],
       expected: [
-        ['__base__', 'UnorderedOptionalTuple< sideOrCornerIntermediateRule0 , sideOrCornerIntermediateRule1 >'],
-        ['sideOrCornerIntermediateRule0', '( "left" | "right" )'],
-        ['sideOrCornerIntermediateRule1', '( "top" | "bottom" )'],
+        ['__base__', 'UnorderedOptionalTuple< IntermediateRule0 , IntermediateRule1 >'],
+        ['IntermediateRule0', '( "left" | "right" )'],
+        ['IntermediateRule1', '( "top" | "bottom" )'],
       ],
     },
   ];
