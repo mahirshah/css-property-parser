@@ -1,0 +1,3 @@
+[
+  ["__base__", "( alnum | \"-\" | \"_\" | ( \"\\\" digit digit digit digit digit digit ) | ( \"\\\" any ))+"]
+]
