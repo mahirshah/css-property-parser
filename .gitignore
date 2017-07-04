@@ -1,3 +1,19 @@
 .idea
 node_modules
 .DS_STORE
+
+# ignore all generated json grammars, except the ones we have to define manually, since they don't exist in
+# syntaxes.json that MDN provides
+src/jsonGrammars/*
+!src/jsonGrammars/angle.json
+!src/jsonGrammars/custom-ident.json
+!src/jsonGrammars/frequency.json
+!src/jsonGrammars/integer.json
+!src/jsonGrammars/length.json
+!src/jsonGrammars/number.json
+!src/jsonGrammars/percentage.json
+!src/jsonGrammars/ratio.json
+!src/jsonGrammars/resolution.json
+!src/jsonGrammars/string.json
+!src/jsonGrammars/time.json
+!src/jsonGrammars/url.json

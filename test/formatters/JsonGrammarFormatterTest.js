@@ -49,6 +49,21 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
         ['IntermediateRule1', '( "top" | "bottom" )'],
       ],
     },
+    {
+      args: ['side-or-corner', '[ left | right ] || [ top | bottom ]'],
+      expected: [
+        ['__base__', 'UnorderedOptionalTuple< IntermediateRule0 , IntermediateRule1 >'],
+        ['IntermediateRule0', '( "left" | "right" )'],
+        ['IntermediateRule1', '( "top" | "bottom" )'],
+      ],
+    },
+    {
+      args: ['color-stop-list', '<color-stop>#{2,}'],
+      expected: [
+        ['__base__', 'listOf< <color-stop> , "," > listOf< <color-stop> , "," > listOf< <color-stop> , "," >*'],
+        ['<color-stop>'],
+      ],
+    },
   ];
 
   tests.forEach(({ args, expected }) => {

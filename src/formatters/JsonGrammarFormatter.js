@@ -129,9 +129,18 @@ module.exports = class JsonGrammarFormatter {
       // syntax of the form: "<expression>{<integer>, <integer>}"
       CurlyBraces(expression, b1, lowerLimit, comma, upperLimit, b2) {
         const min = +lowerLimit.sourceString;
-        const max = +upperLimit.sourceString;
         const minimumString = new Array(min).fill().map(() => expression.eval()).join(' ');
-        const maximumString = new Array(max - min).fill().map(() => `${expression.eval()}?`).join(' ');
+        let maximumString;
+        if (upperLimit.sourceString) {
+          if (comma.sourceString) {
+            const max = +upperLimit.sourceString;
+            maximumString = new Array(max - min).fill().map(() => `${expression.eval()}?`).join(' ');
+          }
+
+          maximumString = '';
+        } else {
+          maximumString = `${expression.eval()}*`;
+        }
 
         return `${minimumString} ${maximumString}`;
       },
@@ -161,6 +170,10 @@ module.exports = class JsonGrammarFormatter {
       // a character literal like "," or "/"
       literal(e) {
         return `"${this.sourceString}"`;
+      },
+
+      quotedLiteral(leftQuote, literal, rightQuote) {
+        return `"${literal.sourceString}"`;
       },
     });
   }
