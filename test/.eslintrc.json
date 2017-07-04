@@ -5,6 +5,7 @@
   },
   "rules": {
     "prefer-arrow-callback": "off",
-    "func-names": "off"
+    "func-names": "off",
+    "max-len": "off"
   }
 }
