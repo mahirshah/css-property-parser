@@ -4,7 +4,8 @@
   "description": "Expand css shorthand properties into their longhand equivalents",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec --recursive"
+    "test": "./node_modules/.bin/mocha --reporter spec --recursive",
+    "start": "node ./src/updateBasicDataUnits.js && node ./src/formatFormalSyntaxes.js"
   },
   "author": "mahirshah",
   "license": "ISC",
