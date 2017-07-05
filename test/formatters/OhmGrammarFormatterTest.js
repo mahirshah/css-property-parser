@@ -9,6 +9,20 @@ const OhmGrammarFormatter = require('../../src/formatters/OhmGrammarFormatter');
  */
 describe('OhmGrammarFormatter#formatOhmGrammarFromJson', function () {
   sinon.stub(fs, 'readJsonSync')
+    .withArgs(`${PATHS.JSON_GRAMMAR_PATH}ra.json`)
+    .returns([
+      ['__base__', '<rb>'],
+      ['<rb>'],
+    ])
+    .withArgs(`${PATHS.JSON_GRAMMAR_PATH}rb.json`)
+    .returns([
+      ['__base__', '<rc>'],
+      ['<rc>'],
+    ])
+    .withArgs(`${PATHS.JSON_GRAMMAR_PATH}rc.json`)
+    .returns([
+      ['__base__', '"d"'],
+    ])
     .withArgs(`${PATHS.JSON_GRAMMAR_PATH}angle-unit.json`)
     .returns([[
       '__base__', '"deg" | "grad" | "rad" | "turn"',
@@ -48,6 +62,13 @@ describe('OhmGrammarFormatter#formatOhmGrammarFromJson', function () {
         ['<angle-unit>'],
       ], 'angle'],
       expected: 'angle {\n  exp = number angleUnit\n  number = number_float | number_scientific\n  number_float = (("+"| "-")? digit* "."? digit+)\n  number_scientific = (("+"| "-")? digit* "."? digit+ "e" "-"? digit+)\n  angleUnit = "deg" | "grad" | "rad" | "turn"\n}',
+    },
+    {
+      args: [[
+        ['__base__', '<ra>'],
+        ['<ra>'],
+      ], 'r'],
+      expected: 'r {\n  exp = ra\n  ra = rb\n  rb = rc\n  rc = "d"\n}',
     },
   ];
 
