@@ -3,6 +3,7 @@
  */
 const fs = require('fs-extra');
 const ohm = require('ohm-js');
+const { css: { properties, syntaxes } } = require('mdn-data');
 const PATHS = require('./constants/paths');
 const JsonGrammarFormatter = require('./formatters/JsonGrammarFormatter');
 
@@ -13,16 +14,13 @@ const manualSyntaxes = ['image()', 'offset'];
 fs.readFile(`${PATHS.FORMAL_SYNTAX_GRAMMAR_PATH}formalSyntax.ohm`)
   .then(grammarContents => ohm.grammar(grammarContents))
   .then(formalSyntaxGrammar => new JsonGrammarFormatter(formalSyntaxGrammar))
-  .then(jsonGrammarFormatter => Promise.all([
-    fs.readJson(`${PATHS.DATA_PATH}syntaxes.json`),
-    fs.readJson(`${PATHS.DATA_PATH}properties.json`),
-  ])
+  .then((jsonGrammarFormatter) => {
     // combine properties and syntaxes into one object mapping property names to syntaxes
-    .then(([syntaxes, properties]) => Object.entries(properties).reduce((syntaxMap, [propertyName, { syntax }]) => (
+    const propertySyntaxMap = Object.entries(properties).reduce((syntaxMap, [propertyName, { syntax }]) => (
       Object.assign({ [propertyName]: syntax }, syntaxMap)
-    ), syntaxes))
-    .then(Object.entries.bind(Object))
-    .then(syntaxEntries => syntaxEntries
+    ), syntaxes);
+
+    Object.entries(propertySyntaxMap)
       // filter out any entries that we need to do manually
       .filter(([grammarName]) => !manualSyntaxes.includes(grammarName))
       // format each formal syntax into a json grammar
@@ -31,5 +29,6 @@ fs.readFile(`${PATHS.FORMAL_SYNTAX_GRAMMAR_PATH}formalSyntax.ohm`)
       // write each json grammar to a file
       .forEach(([grammarName, jsonGrammar]) => (
         fs.writeJson(`${PATHS.JSON_GRAMMAR_PATH}${grammarName}.json`, jsonGrammar, { spaces: 2 })
-      ))))
+      ));
+  })
   .catch(e => console.log(e));

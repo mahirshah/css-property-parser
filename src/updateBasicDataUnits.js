@@ -3,7 +3,7 @@
  * Each type of unit is defined in the TYPE_MAP below, which maps the unit type to the grammar file name.
  * For example, CSS Lengths units will be written to the file 'length-units.json'.
  */
-const units = require('../data/units.json');
+const { css: { units } } = require('mdn-data');
 const fs = require('fs-extra');
 const PATHS = require('./constants/paths');
 
