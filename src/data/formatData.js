@@ -3,7 +3,7 @@
  * Writes the formatted data to FORMATTED_DATA_PATH.
  */
 const fs = require('fs-extra');
-const properties = require('../../data/properties.json');
+const { css: { properties } } = require('mdn-data');
 
 const FORMATTED_DATA_PATH = './formatted-data/';
 const SHORTHAND_FORMATTED_DATA_FILE_NAME = 'shorthand-properties.json';
