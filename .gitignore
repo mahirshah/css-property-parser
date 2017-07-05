@@ -2,6 +2,9 @@
 node_modules
 .DS_STORE
 
+# ignore generated ohm grammars
+ohm-grammars
+
 # ignore all generated json grammars, except the ones we have to define manually, since they don't exist in
 # syntaxes.json that MDN provides
 src/jsonGrammars/*
@@ -17,3 +20,11 @@ src/jsonGrammars/*
 !src/jsonGrammars/string.json
 !src/jsonGrammars/time.json
 !src/jsonGrammars/url.json
+!src/jsonGrammars/declaration-value.json
+!src/jsonGrammars/hex-color.json
+!src/jsonGrammars/outline-radius.json
+!src/jsonGrammars/image().json
+!src/jsonGrammars/id-selector.json
+!src/jsonGrammars/x.json
+!src/jsonGrammars/y.json
+!src/jsonGrammars/path().json
