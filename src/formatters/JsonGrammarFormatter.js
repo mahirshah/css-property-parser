@@ -1,5 +1,4 @@
 const GRAMMAR_CONSTANTS = require('../constants/grammars');
-const CaseConverterUtils = require('../utils/CaseConverterUtils');
 
 const INTERMEDIATE_GRAMMAR_PREFIX = 'IntermediateRule';
 const TERMINAL_GRAMMARS = ['dataName', 'literal', 'node'];
@@ -84,7 +83,7 @@ module.exports = class JsonGrammarFormatter {
         const expression1Eval = expression1.eval();
         const expression2Eval = expression2.eval();
 
-        return `( ${expression1Eval} ${expression2Eval} ) | ( ${expression2Eval} ${expression1} )`;
+        return `( ${expression1Eval} ${expression2Eval} ) | ( ${expression2Eval} ${expression1Eval} )`;
       },
 
       // syntax of the form: "<expression> || <expression>"
@@ -135,9 +134,9 @@ module.exports = class JsonGrammarFormatter {
           if (comma.sourceString) {
             const max = +upperLimit.sourceString;
             maximumString = new Array(max - min).fill().map(() => `${expression.eval()}?`).join(' ');
+          } else {
+            maximumString = '';
           }
-
-          maximumString = '';
         } else {
           maximumString = `${expression.eval()}*`;
         }

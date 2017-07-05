@@ -2,7 +2,7 @@ const CaseConverterUtils = require('../utils/CaseConverterUtils');
 const fs = require('fs-extra');
 const PATHS = require('../constants/paths');
 const GRAMMAR_CONSTANTS = require('../constants/grammars');
-const OhmGrammarFormatterTest = require('../../test/formatters/OhmGrammarFormatterTest');
+// const OhmGrammarFormatterTest = require('../../test/formatters/OhmGrammarFormatterTest');
 
 const BASE_GRAMMAR_FORMATTER_MAP = {
   [GRAMMAR_CONSTANTS.LEXICAL_BASE_KEY]: 'exp',
@@ -65,22 +65,25 @@ module.exports = class OhmGrammarFormatter {
    * of unique file names indicating which jsonGrammars need to be resolved.
    *
    * @param {Array} jsonGrammar - a json structure representing a grammar
+   * @param {Array} [resolved=[]] - cached array of grammar names that have already been resolved. Caller does not
+   *                           need to use this param, since it only used for recursive grammars.
    * @returns {Array} - a set of unique file names indicating which json grammars need to resolved.
    * @private
    */
-  static _getGrammarsToResolve(jsonGrammar) {
+  static _getGrammarsToResolve(jsonGrammar, resolved = []) {
     const resolutions = jsonGrammar
       .filter(grammarLine => grammarLine.length === 1)
-      .map(([grammarName]) => GRAMMAR_CONSTANTS.R_GRAMMAR_IDENT.exec(grammarName)[1]);
+      .map(([grammarName]) => GRAMMAR_CONSTANTS.R_GRAMMAR_IDENT.exec(grammarName)[1])
+      .filter(grammarName => !resolved.includes(grammarName));
 
     if (resolutions.length === 0) {
       return [];
     }
 
-    return [...new Set(resolutions.concat(
+    return resolutions.concat(
       ...resolutions
         .map(file => fs.readJsonSync(`${PATHS.JSON_GRAMMAR_PATH}${file}.json`))
-        .map(OhmGrammarFormatter._getGrammarsToResolve)))];
+        .map(grammar => OhmGrammarFormatter._getGrammarsToResolve(grammar, resolved.concat(resolutions))));
   }
 
   /**
