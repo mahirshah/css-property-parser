@@ -1,5 +1,4 @@
 const GRAMMAR_CONSTANTS = require('../constants/grammars');
-const ArrayUtils = require('../utils/ArrayUtils');
 
 const INTERMEDIATE_GRAMMAR_PREFIX = 'IntermediateRule';
 const TERMINAL_GRAMMARS = ['dataName', 'literal', 'node'];
