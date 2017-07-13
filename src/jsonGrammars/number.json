@@ -1,5 +1,7 @@
 [
-  ["__base__", "float | scientific"],
+  ["__base__", "floatScientific | simpleScientific | float | simple | float"],
+  ["simple", "(\"+\"| \"-\")? digit+"],
   ["float", "((\"+\"| \"-\")? digit* \".\"? digit+)"],
-  ["scientific", "((\"+\"| \"-\")? digit* \".\"? digit+ \"e\" \"-\"? digit+)"]
+  ["simpleScientific", "((\"+\"| \"-\")? digit+ \"e\" \"-\"? digit+)"],
+  ["floatScientific", "((\"+\"| \"-\")? digit* \".\"? digit+ \"e\" \"-\"? digit+)"]
 ]

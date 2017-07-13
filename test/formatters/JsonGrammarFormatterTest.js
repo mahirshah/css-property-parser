@@ -12,63 +12,113 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
   const formalSyntaxGrammar = ohm.grammar(grammarContents);
   const jsonGrammarFormatter = new JsonGrammarFormatter(formalSyntaxGrammar);
 
-  const tests = [
-    {
-      args: ['display-inside', 'flow | flow-root | table | flex | grid | subgrid | ruby'],
-      expected: [['__base__', '"flow" | "flow-root" | "table" | "flex" | "grid" | "subgrid" | "ruby"']],
-    },
-    {
-      args: ['angle-percentage', '<angle> | <percentage>'],
-      expected: [
-        ['__base__', '<angle> | <percentage>'],
-        ['<angle>'],
-        ['<percentage>'],
-      ],
-    },
-    {
-      args: ['attr()', 'attr( <attr-name> <type-or-unit>? [, <attr-fallback> ]? )'],
-      expected: [
-        ['__base__', '"attr(" <attr-name> <type-or-unit>? ( "," <attr-fallback> )? ")"'],
-        ['<attr-name>'],
-        ['<type-or-unit>'],
-        ['<attr-fallback>'],
-      ],
-    },
-    {
-      args: ['bg-size', '[ <length-percentage> | auto ]{1,2} | cover | contain'],
-      expected: [
-        ['__base__', '( <length-percentage> | "auto" ) ( <length-percentage> | "auto" )? | "cover" | "contain"'],
-        ['<length-percentage>'],
-      ],
-    },
-    {
-      args: ['side-or-corner', '[ left | right ] || [ top | bottom ]'],
-      expected: [
-        ['__base__', 'UnorderedOptionalTuple< IntermediateRule0 , IntermediateRule1 >'],
-        ['IntermediateRule0', '( "left" | "right" )'],
-        ['IntermediateRule1', '( "top" | "bottom" )'],
-      ],
-    },
-    {
-      args: ['side-or-corner', '[ left | right ] || [ top | bottom ]'],
-      expected: [
-        ['__base__', 'UnorderedOptionalTuple< IntermediateRule0 , IntermediateRule1 >'],
-        ['IntermediateRule0', '( "left" | "right" )'],
-        ['IntermediateRule1', '( "top" | "bottom" )'],
-      ],
-    },
-    {
-      args: ['color-stop-list', '<color-stop>#{2,}'],
-      expected: [
-        ['__base__', 'listOf< <color-stop> , "," > listOf< <color-stop> , "," > listOf< <color-stop> , "," >*'],
-        ['<color-stop>'],
-      ],
-    },
-  ];
+  describe('single bar', function () {
+    it('should handle simple or', function () {
+      const result = jsonGrammarFormatter.formatFormalSyntax('test', 'foo | bar');
 
-  tests.forEach(({ args, expected }) => {
-    it(`${args[0]}`, function () {
-      assert.deepEqual(jsonGrammarFormatter.formatFormalSyntax(...args), expected);
+      assert.deepEqual(result, [['__Base__', '( "foo" | "bar" )']]);
+    });
+
+    it('should not create intermediate rules for terminal nodes', function () {
+      const result = jsonGrammarFormatter.formatFormalSyntax('test', 'foo | bar | baz');
+
+      assert.deepEqual(result, [['__Base__', '( "foo" | "bar" | "baz" )']]);
+    });
+  });
+
+  describe('curly', function () {
+    it('should handle single number case', function () {
+      const result = jsonGrammarFormatter.formatFormalSyntax('test', 'foo{3}');
+
+      assert.deepEqual(result, [['__Base__', '"foo" "foo" "foo"']]);
+    });
+
+    it('should handle single number with comma case', function () {
+      const result = jsonGrammarFormatter.formatFormalSyntax('test', 'foo{3,}');
+
+      assert.deepEqual(result, [['__Base__', '"foo" "foo" "foo" "foo"*']]);
+    });
+
+    it('should handle both number case', function () {
+      const result = jsonGrammarFormatter.formatFormalSyntax('test', 'foo{3,5}');
+
+      assert.deepEqual(result, [['__Base__', '"foo" "foo" "foo" "foo"? "foo"?']]);
+    });
+
+    it('should handle hash curly case', function () {
+      const result = jsonGrammarFormatter.formatFormalSyntax('test', 'foo#{3}');
+
+      assert.deepEqual(result, [['__Base__', '"foo" "," "foo" "," "foo"']]);
+    });
+  });
+
+  describe('double bar', function () {
+    it('should handle simple double bar', function () {
+      const result = jsonGrammarFormatter.formatFormalSyntax('test', 'foo || bar');
+
+      assert.deepEqual(result, [['__Base__', '( "foo" | "bar" )+']]);
+    });
+
+    it('should handle complex double bar list', function () {
+      const result = jsonGrammarFormatter.formatFormalSyntax('test', 'foo || bar || baz || willow');
+
+      assert.deepEqual(result, [['__Base__', '( "foo" | "bar" | "baz" | "willow" )+']]);
+    });
+  });
+
+  describe('real use cases', function () {
+    const tests = [
+      {
+        args: ['display-inside', 'flow | flow-root | table | flex | grid | subgrid | ruby'],
+        expected: [['__Base__', '( "flow" | "flow-root" | "table" | "flex" | "grid" | "subgrid" | "ruby" )']],
+      },
+      {
+        args: ['angle-percentage', '<angle> | <percentage>'],
+        expected: [
+          ['__Base__', '( <angle> | <percentage> )'],
+          ['<angle>'],
+          ['<percentage>'],
+        ],
+      },
+      {
+        args: ['attr()', 'attr( <attr-name> <type-or-unit>? [, <attr-fallback> ]? )'],
+        expected: [
+          ['__Base__', '"attr(" <attr-name> <type-or-unit>? ( "," <attr-fallback> )? ")"'],
+          ['<attr-name>'],
+          ['<type-or-unit>'],
+          ['<attr-fallback>'],
+        ],
+      },
+      {
+        args: ['bg-size', '[ <length-percentage> | auto ]{1,2} | cover | contain'],
+        expected: [
+          ['__Base__', '( IntermediateRule0 | IntermediateRule1 )'],
+          ['IntermediateRule0', '( ( <length-percentage> | "auto" ) ) ( ( <length-percentage> | "auto" ) )?'],
+          ['IntermediateRule1', '( "cover" | "contain" )'],
+          ['<length-percentage>'],
+        ],
+      },
+      {
+        args: ['side-or-corner', '[ left | right ] | [ top | bottom ]'],
+        expected: [
+          ['__Base__', '( IntermediateRule0 | IntermediateRule1 )'],
+          ['IntermediateRule0', '( ( "left" | "right" ) )'],
+          ['IntermediateRule1', '( ( "top" | "bottom" ) )'],
+        ],
+      },
+      {
+        args: ['color-stop-list', '<color-stop>#{2,}'],
+        expected: [
+          ['__Base__', 'listOf< <color-stop> , "," > listOf< <color-stop> , "," > listOf< <color-stop> , "," >*'],
+          ['<color-stop>'],
+        ],
+      },
+    ];
+
+    tests.forEach(({ args, expected }) => {
+      it(`should handle ${args[0]}`, function () {
+        assert.deepEqual(jsonGrammarFormatter.formatFormalSyntax(...args), expected);
+      });
     });
   });
 });

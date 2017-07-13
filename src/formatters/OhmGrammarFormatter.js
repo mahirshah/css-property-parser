@@ -2,7 +2,6 @@ const CaseConverterUtils = require('../utils/CaseConverterUtils');
 const fs = require('fs-extra');
 const PATHS = require('../constants/paths');
 const GRAMMAR_CONSTANTS = require('../constants/grammars');
-// const OhmGrammarFormatterTest = require('../../test/formatters/OhmGrammarFormatterTest');
 
 const BASE_GRAMMAR_FORMATTER_MAP = {
   [GRAMMAR_CONSTANTS.LEXICAL_BASE_KEY]: 'exp',
@@ -19,9 +18,9 @@ module.exports = class OhmGrammarFormatter {
    * rules defined in the given json grammar. Any intermediate grammar rules are prefixed with the file name in order
    * to avoid rule name collisions between recursively resolved grammar rules.
    * <p>
-   * @see {@link https://github.com/harc/ohm/blob/master/doc/syntax-reference.md|Ohm Syntax}
-   * for more information on Ohm Syntax.
-   * @see {@link OhmGrammarFormatterTest} for examples usage.
+   * @see {@link https://github.com/harc/ohm/blob/master/doc/syntax-reference.md|Ohm Syntax} for more information on
+   * Ohm Syntax.
+   * @see {@link OhmGrammarFormatterTest} for example usage.
    *
    * @param {Array} jsonGrammar - json structure representing a grammar
    * @param {string} grammarName - the name of the grammar. Will be used as the name in the outputted Ohm grammar.
@@ -30,21 +29,35 @@ module.exports = class OhmGrammarFormatter {
   static formatOhmGrammarFromJson(jsonGrammar, grammarName) {
     OhmGrammarFormatter._isGrammarValid(jsonGrammar);
 
-    // get the file name for each grammar that needs to be pulled into this grammar. Grab the files for those
-    // jsonGrammars and pull in the rule definitions in those jsonGrammars.
-    const recursivelyResolvedGrammars = OhmGrammarFormatter
+    // a 2d array from a grammar name to its json grammar. All of these grammars need to be recursively resolved.
+    // i.e. [["color", [<jsonGrammar>]], ["z-index"], [<jsonGrammar>]]
+    const grammarNameToJsonGrammars = OhmGrammarFormatter
       ._getGrammarsToResolve(jsonGrammar)
       .map(fileToResolve => [fileToResolve, fs.readJsonSync(`${PATHS.JSON_GRAMMAR_PATH}${fileToResolve}.json`)])
-      .filter(([, json]) => OhmGrammarFormatter._isGrammarValid(json))
-      .map(([fileName, jsonGrammar]) => [CaseConverterUtils.formalSyntaxIdentToOhmIdent(`<${fileName}>`), jsonGrammar])
+      .filter(([, json]) => OhmGrammarFormatter._isGrammarValid(json));
+    const grammarNameToIsLexicalMap = grammarNameToJsonGrammars
+      .reduce((grammarMap, [grammarName, jsonGrammar]) => Object.assign({
+        [grammarName]: jsonGrammar[0][0] === GRAMMAR_CONSTANTS.LEXICAL_BASE_KEY,
+      }, grammarMap), {});
+
+    // get the file name for each grammar that needs to be pulled into this grammar. Grab the files for those
+    // jsonGrammars and pull in the rule definitions in those jsonGrammars.
+    const recursivelyResolvedGrammars = grammarNameToJsonGrammars
       .map(([grammarName, jsonGrammar]) => (
         [grammarName, OhmGrammarFormatter._prefixIntermediateGrammarRules(grammarName, jsonGrammar)]
       ))
       .map(([grammarName, json]) => json
         .filter(grammarPair => grammarPair.length === 2) // filter out any jsonGrammars that need resolution
-        .map(([ruleName, ruleBody]) => (Object.keys(BASE_GRAMMAR_FORMATTER_MAP).includes(ruleName)
-          ? [grammarName, ruleBody]
-          : [ruleName, ruleBody])));
+        .map(([ruleName, ruleBody]) => {
+          if (Object.keys(BASE_GRAMMAR_FORMATTER_MAP).includes(ruleName)) {
+            return [
+              CaseConverterUtils.formalSyntaxIdentToOhmIdent(grammarName, grammarNameToIsLexicalMap[grammarName]),
+              ruleBody,
+            ];
+          }
+
+          return [ruleName, ruleBody];
+        }));
     const [[baseKey, baseValue], ...otherRules] = OhmGrammarFormatter
       ._prefixIntermediateGrammarRules(grammarName, jsonGrammar);
     // the base key for this grammar should be mapped to exp or Exp, then concat the rest of the rules and
@@ -53,7 +66,7 @@ module.exports = class OhmGrammarFormatter {
       .concat(otherRules.filter(rule => rule.length === 2)) // add any rules that don't need to be resolved
       .concat(...recursivelyResolvedGrammars) // add all the rules we resolved
       .map(([ruleName, ruleBody]) => (
-        `  ${ruleName} = ${OhmGrammarFormatter._formatJsonRuleBody(ruleBody)}`
+        `  ${ruleName} = ${OhmGrammarFormatter._formatJsonRuleBody(ruleBody, grammarNameToIsLexicalMap)}`
       ))
       .join('\n');
 
@@ -66,7 +79,7 @@ module.exports = class OhmGrammarFormatter {
    *
    * @param {Array} jsonGrammar - a json structure representing a grammar
    * @param {Array} [resolved=[]] - cached array of grammar names that have already been resolved. Caller does not
-   *                           need to use this param, since it only used for recursive grammars.
+   *                                need to use this param, since it only used for recursive grammars.
    * @returns {Array} - a set of unique file names indicating which json grammars need to resolved.
    * @private
    */
@@ -80,10 +93,10 @@ module.exports = class OhmGrammarFormatter {
       return [];
     }
 
-    return resolutions.concat(
+    return [...new Set(resolutions.concat(
       ...resolutions
         .map(file => fs.readJsonSync(`${PATHS.JSON_GRAMMAR_PATH}${file}.json`))
-        .map(grammar => OhmGrammarFormatter._getGrammarsToResolve(grammar, resolved.concat(resolutions))));
+        .map(grammar => OhmGrammarFormatter._getGrammarsToResolve(grammar, resolved.concat(resolutions)))))];
   }
 
   /**
@@ -107,6 +120,7 @@ module.exports = class OhmGrammarFormatter {
       .map(([ruleName]) => (
         `(?:[^a-z"](${ruleName})$|^(${ruleName})[^a-z"]|^(${ruleName})$|[^a-z"](${ruleName})[^a-z"])`
       ));
+    const isLexicalRule = BASE_GRAMMAR_FORMATTER_MAP[jsonGrammar[0][0]] === 'exp';
 
     // iterate through all the rules and replace rule name/rule body with prefixed rule names
     if (ruleNamesToPrefix.length) {
@@ -117,7 +131,9 @@ module.exports = class OhmGrammarFormatter {
         .map(rule => rule.map(rulePart => rulePart
           .replace(ruleNamesToPrefixRegex, (completeMatch, ...ruleNameMatches) => {
             const ruleName = ruleNameMatches.find(Boolean);
-            return completeMatch.replace(ruleName, OhmGrammarFormatter._prefixRuleName(grammarName, ruleName));
+
+            return completeMatch
+              .replace(ruleName, OhmGrammarFormatter._prefixRuleName(grammarName, ruleName, isLexicalRule));
           })));
     }
 
@@ -128,11 +144,12 @@ module.exports = class OhmGrammarFormatter {
    * Prefixes the given rule name with the grammar name.
    * @param {string} grammarName - the grammar name
    * @param {string} ruleName - the rule name
+   * @param {boolean} isLexical - indicates of the given the rule is a lexical rule
    * @returns {string} - the prefixed rule name
    * @private
    */
-  static _prefixRuleName(grammarName, ruleName) {
-    return `${grammarName}_${ruleName}`;
+  static _prefixRuleName(grammarName, ruleName, isLexical) {
+    return `${CaseConverterUtils.formalSyntaxIdentToOhmIdent(grammarName, isLexical)}_${ruleName}`;
   }
 
   /**
@@ -142,8 +159,13 @@ module.exports = class OhmGrammarFormatter {
    * @returns {string} - the formatted rule body
    * @private
    */
-  static _formatJsonRuleBody(ruleBody) {
-    return CaseConverterUtils.formalSyntaxIdentToOhmIdent(ruleBody);
+  static _formatJsonRuleBody(ruleBody, grammarNameToIsLexicalMap) {
+    return ruleBody.replace(GRAMMAR_CONSTANTS.R_GRAMMAR_IDENT_GLOBAL, (fullMatch, innerIdent, identName, parens) => {
+      const ohmIdent = CaseConverterUtils
+        .formalSyntaxIdentToOhmIdent(identName, !!grammarNameToIsLexicalMap[identName]);
+
+      return `${ohmIdent}${parens ? 'Func' : ''}`;
+    });
   }
 
   /**

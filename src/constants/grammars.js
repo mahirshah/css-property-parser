@@ -1,7 +1,10 @@
 module.exports = {
-  R_GRAMMAR_IDENT_GLOBAL: /<(([a-z0-9-]+)(\(\))?)>/g,
-  R_GRAMMAR_IDENT: /<(([a-z0-9-]+)(\(\))?)>/,
+  R_GRAMMAR_IDENT_GLOBAL: /<(([^>( ]+)(\(\))?)>/g,
+  R_GRAMMAR_IDENT: /<(([^>(]+)(\(\))?)>/,
+  R_GRAMMAR_IDENT_NAME_GLOBAL: /(([^>(]+)(\(\))?)/g,
   LEXICAL_BASE_KEY: '__base__',
   SYNTACTIC_BASE_KEY: '__Base__',
-  DOUBLE_BAR_PARAMETERIZED_RULE_NAME: 'UnorderedOptionalTuple',
+  TOP_LEVEL_NODE_NAME: 'Exp',
+  ITERATION_NODE_NAME: '_iter',
+  DOUBLE_BAR_LIST_NODE_NAME: 'DoubleBarList',
 };
