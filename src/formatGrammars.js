@@ -13,7 +13,7 @@ fs.readdirSync(`${PATHS.JSON_GRAMMAR_PATH}`)
   .forEach(([fileName, jsonGrammar]) => {
     console.log(`creating ${fileName}`);
 
-    const grammarName = CaseConverterUtils.formalSyntaxIdentToOhmIdent(`<${fileName.replace('.json', '')}>`);
+    const grammarName = CaseConverterUtils.formalSyntaxIdentToOhmIdent(fileName.replace('.json', ''));
     const ohmGrammar = OhmGrammarFormatter
       .formatOhmGrammarFromJson(jsonGrammar, grammarName);
     const fileToWrite = `${PATHS.OHM_GRAMMAR_PATH}${fileName.replace('.json', '.ohm')}`;

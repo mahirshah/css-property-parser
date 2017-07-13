@@ -1,4 +1,5 @@
 const GRAMMAR_CONSTANTS = require('../constants/grammars');
+const ArrayUtils = require('../utils/ArrayUtils');
 
 const INTERMEDIATE_GRAMMAR_PREFIX = 'IntermediateRule';
 const TERMINAL_GRAMMARS = ['dataName', 'literal', 'node'];
@@ -29,8 +30,9 @@ module.exports = class JsonGrammarFormatter {
    *                                For example, "bg-color" or "color()".
    * @param {string} formalSyntax - the css formal syntax string. For example, "white | blue | red || green"
    * @returns {Object} - a JSON grammar if the formal syntax matches the formal syntax grammar, else throws
-   * a                   an error indicating why the match failed.
+   *                     an error indicating why the match failed.
    */
+  // TODO: remove property name param, since we don't need it
   formatFormalSyntax(propertyName, formalSyntax) {
     this.intermediateGrammarIndex = 0;
     this.intermediateGrammars = [];
@@ -42,7 +44,7 @@ module.exports = class JsonGrammarFormatter {
       const baseOhmGrammar = this.formalSyntaxSemantics(match).eval();
       const grammarsToResolve = Array.from(this.grammarsToResolve).map(grammarName => [grammarName]);
       return [
-        [GRAMMAR_CONSTANTS.LEXICAL_BASE_KEY, baseOhmGrammar],
+        [GRAMMAR_CONSTANTS.SYNTACTIC_BASE_KEY, baseOhmGrammar],
         ...this.intermediateGrammars,
         ...grammarsToResolve,
       ];
@@ -86,9 +88,39 @@ module.exports = class JsonGrammarFormatter {
         return `( ${expression1Eval} ${expression2Eval} ) | ( ${expression2Eval} ${expression1Eval} )`;
       },
 
-      // syntax of the form: "<expression> || <expression>"
-      DoubleBar(expression1, doubleBar, expression2) {
-        const expressionEvaluations = [expression1, expression2]
+      // syntax of the form: "<expression> || <expression> || ..."
+      DoubleBarList(startNode, doubleBar, nodeList) {
+        const nodeEvaluations = [startNode.children[0], ...grammarFormatter._getNonDoubleBarNodes(nodeList)]
+          .filter(node => node.sourceString !== '||')
+          .map(expression => [expression, expression.ctorName])
+          .map(([expression, nodeName]) => [expression, TERMINAL_GRAMMARS.includes(nodeName)])
+          .map(([expression, isTerminal]) => {
+            if (!isTerminal) {
+              const intermediateGrammarRuleName = grammarFormatter._generateIntermediateGrammarRuleName();
+              grammarFormatter.intermediateGrammars.push([intermediateGrammarRuleName, expression.eval()]);
+              return intermediateGrammarRuleName;
+            }
+
+            return expression.eval();
+          })
+          .join(' | ');
+
+        return `( ${nodeEvaluations} )+`;
+      },
+
+      // syntax of the form: <terminal> | <terminal> | <terminal> | ...
+      SingleBarList(nodeList, bar, endNode) {
+        const expressionList = [...nodeList.children, endNode]
+          .map(expression => expression.eval())
+          .join(' | ');
+
+        return `( ${expressionList} )`;
+      },
+
+      // syntax of the form: "<expression> | <expression>"
+      // todo: write tests!!
+      SingleBar(expression1, singleBar, expression2) {
+        const expressionEvaluation = [expression1, expression2]
           .map(expression => [expression, grammarFormatter._getNodeName(expression)])
           .map(([expression, nodeName]) => [expression, TERMINAL_GRAMMARS.includes(nodeName)])
           .map(([expression, isTerminal]) => {
@@ -100,14 +132,9 @@ module.exports = class JsonGrammarFormatter {
 
             return expression.eval();
           })
-          .join(' , ');
+          .join(' | ');
 
-        return `${GRAMMAR_CONSTANTS.DOUBLE_BAR_PARAMETERIZED_RULE_NAME}< ${expressionEvaluations} >`;
-      },
-
-      // syntax of the form: "<expression> | <expression>"
-      SingleBar(expression1, singleBar, expression2) {
-        return `${expression1.eval()} | ${expression2.eval()}`;
+        return `( ${expressionEvaluation} )`;
       },
 
       // syntax of the form: "<expression>*"
@@ -125,23 +152,28 @@ module.exports = class JsonGrammarFormatter {
         return `${expression.eval()}?`;
       },
 
-      // syntax of the form: "<expression>{<integer>, <integer>}"
+      // syntax of the form: "<expression>#{digit}
+      CurlyHash(expression, curlyHash, limit, curly) {
+        return Array(+limit.sourceString).fill().map(() => expression.eval()).join(' "," ');
+      },
+
+      // syntax of the form: "<expression>{<integer>, <integer>}" or "<expression>{<integer>,}" or
+      // "<expression{<integer>}"
       CurlyBraces(expression, b1, lowerLimit, comma, upperLimit, b2) {
         const min = +lowerLimit.sourceString;
         const minimumString = new Array(min).fill().map(() => expression.eval()).join(' ');
-        let maximumString;
-        if (upperLimit.sourceString) {
-          if (comma.sourceString) {
+        let maximumString = '';
+
+        if (comma.sourceString) {
+          if (upperLimit.sourceString) { // {integer,integer}
             const max = +upperLimit.sourceString;
             maximumString = new Array(max - min).fill().map(() => `${expression.eval()}?`).join(' ');
-          } else {
-            maximumString = '';
+          } else { // {integer,}
+            maximumString = `${expression.eval()}*`;
           }
-        } else {
-          maximumString = `${expression.eval()}*`;
         }
 
-        return `${minimumString} ${maximumString}`;
+        return `${minimumString} ${maximumString}`.trim();
       },
 
       // syntax of the form: "<expression>#"
@@ -175,6 +207,16 @@ module.exports = class JsonGrammarFormatter {
         return `"${literal.sourceString}"`;
       },
     });
+  }
+
+  _getNonDoubleBarNodes(node) {
+    if (node.ctorName !== GRAMMAR_CONSTANTS.TOP_LEVEL_NODE_NAME
+      && node.ctorName !== GRAMMAR_CONSTANTS.DOUBLE_BAR_LIST_NODE_NAME
+      && node.ctorName !== GRAMMAR_CONSTANTS.ITERATION_NODE_NAME) {
+      return [node];
+    }
+
+    return [].concat(...node.children.map(this._getNonDoubleBarNodes.bind(this)));
   }
 
   /**

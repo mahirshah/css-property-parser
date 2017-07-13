@@ -1,0 +1,6 @@
+{
+  "hsl()": "hsl( [ [ <hue> <percentage> <percentage> [ / <alpha-value> ]? ] | [ <hue>, <percentage>, <percentage> [ , <alpha-value> ]? ] ] )",
+  "hsla()": "hsla( [ [ <hue> <percentage> <percentage> [ / <alpha-value> ]? ] | [ <hue>, <percentage>, <percentage> [ , <alpha-value> ]? ] ] )",
+  "rgb()": "rgb( [ [ [ <percentage>{3} | <number>{3} ] [ / <alpha-value> ]? ] | [ [ <percentage>#{3} | <number>#{3} ] [ , <alpha-value> ]? ] ] )",
+  "rgba()": "rgba( [ [ [ <percentage>{3} | <number>{3} ] [ / <alpha-value> ]? ] | [ [ <percentage>#{3} | <number>#{3} ] [ , <alpha-value> ]? ] ] )"
+}

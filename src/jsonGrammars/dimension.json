@@ -1,0 +1,8 @@
+[
+  ["__base__", "<length> | <frequency> | <angle> | <resolution> | <time>"],
+  ["<length>"],
+  ["<frequency>"],
+  ["<angle>"],
+  ["<resolution>"],
+  ["<time>"]
+]

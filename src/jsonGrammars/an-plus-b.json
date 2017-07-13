@@ -1,0 +1,7 @@
+[
+  ["__base__", "an | b | anb"],
+  ["an", "<integer> \"n\""],
+  ["b", "<integer>"],
+  ["anb", "<integer> \"n\" \"+\" <integer>"],
+  ["<integer>"]
+]

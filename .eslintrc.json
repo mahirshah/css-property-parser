@@ -29,6 +29,7 @@
       "imports": "always-multiline",
       "exports": "always-multiline",
       "functions": "ignore"
-    }]
+    }],
+    "global-require": "off"
   }
 }
