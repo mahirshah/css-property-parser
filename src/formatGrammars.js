@@ -2,7 +2,7 @@
  * Format each JSON grammar into an Ohm grammar
  */
 const fs = require('fs-extra');
-const OhmGrammarFormatter = require('./formatters/OhmGrammarFormatter');
+const OhmGrammarFormatter = require('./formatters/grammarFormatters/OhmGrammarFormatter');
 const CaseConverterUtils = require('./utils/CaseConverterUtils');
 const PATHS = require('./constants/paths');
 
