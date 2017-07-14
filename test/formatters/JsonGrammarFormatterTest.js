@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const { assert } = require('chai');
 const ohm = require('ohm-js');
 const PATHS = require('../../src/constants/paths');
-const JsonGrammarFormatter = require('../../src/formatters/JsonGrammarFormatter');
+const JsonGrammarFormatter = require('../../src/formatters/grammarFormatters/JsonGrammarFormatter');
 
 /**
  * Tests for {@link JsonGrammarFormatter}

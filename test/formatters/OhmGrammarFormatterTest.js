@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const fs = require('fs-extra');
 const { assert } = require('chai');
 const PATHS = require('../../src/constants/paths');
-const OhmGrammarFormatter = require('../../src/formatters/OhmGrammarFormatter');
+const OhmGrammarFormatter = require('../../src/formatters/grammarFormatters/OhmGrammarFormatter');
 
 /**
  * Tests for {@link OhmGrammarFormatter}
