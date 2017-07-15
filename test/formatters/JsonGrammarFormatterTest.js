@@ -70,12 +70,12 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
     const tests = [
       {
         args: ['display-inside', 'flow | flow-root | table | flex | grid | subgrid | ruby'],
-        expected: [['__Base__', '( "flow" | "flow-root" | "table" | "flex" | "grid" | "subgrid" | "ruby" )']],
+        expected: [['__Base__', '( "flow-root" | "subgrid" | "table" | "flow" | "flex" | "grid" | "ruby" )']],
       },
       {
         args: ['angle-percentage', '<angle> | <percentage>'],
         expected: [
-          ['__Base__', '( <angle> | <percentage> )'],
+          ['__Base__', '( <percentage> | <angle> )'],
           ['<angle>'],
           ['<percentage>'],
         ],
@@ -94,7 +94,7 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
         expected: [
           ['__Base__', '( IntermediateRule0 | IntermediateRule1 )'],
           ['IntermediateRule0', '( ( <length-percentage> | "auto" ) ) ( ( <length-percentage> | "auto" ) )?'],
-          ['IntermediateRule1', '( "cover" | "contain" )'],
+          ['IntermediateRule1', '( "contain" | "cover" )'],
           ['<length-percentage>'],
         ],
       },
@@ -102,8 +102,8 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
         args: ['side-or-corner', '[ left | right ] | [ top | bottom ]'],
         expected: [
           ['__Base__', '( IntermediateRule0 | IntermediateRule1 )'],
-          ['IntermediateRule0', '( ( "left" | "right" ) )'],
-          ['IntermediateRule1', '( ( "top" | "bottom" ) )'],
+          ['IntermediateRule0', '( ( "right" | "left" ) )'],
+          ['IntermediateRule1', '( ( "bottom" | "top" ) )'],
         ],
       },
       {
