@@ -1,7 +1,7 @@
-const CaseConverterUtils = require('../utils/CaseConverterUtils');
+const CaseConverterUtils = require('../../utils/CaseConverterUtils');
 const fs = require('fs-extra');
-const PATHS = require('../constants/paths');
-const GRAMMAR_CONSTANTS = require('../constants/grammars');
+const PATHS = require('../../constants/paths');
+const GRAMMAR_CONSTANTS = require('../../constants/grammars');
 
 const BASE_GRAMMAR_FORMATTER_MAP = {
   [GRAMMAR_CONSTANTS.LEXICAL_BASE_KEY]: 'exp',

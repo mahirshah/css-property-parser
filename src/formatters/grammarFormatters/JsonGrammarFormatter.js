@@ -1,4 +1,4 @@
-const GRAMMAR_CONSTANTS = require('../constants/grammars');
+const GRAMMAR_CONSTANTS = require('../../constants/grammars');
 
 const INTERMEDIATE_GRAMMAR_PREFIX = 'IntermediateRule';
 const TERMINAL_GRAMMARS = ['dataName', 'literal', 'node'];
@@ -111,12 +111,14 @@ module.exports = class JsonGrammarFormatter {
       SingleBarList(nodeList, bar, endNode) {
         const expressionList = [...nodeList.children, endNode]
           .map(expression => expression.eval())
+          .sort((str1, str2) => str2.length - str1.length)
           .join(' | ');
 
         return `( ${expressionList} )`;
       },
 
       // syntax of the form: "<expression> | <expression>"
+      // TODO: this.rules[actionName].body.getArity(); use to check if arity is same on right an left side
       // todo: write tests!!
       SingleBar(expression1, singleBar, expression2) {
         const expressionEvaluation = [expression1, expression2]

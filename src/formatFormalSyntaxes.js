@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const ohm = require('ohm-js');
 const { css: { properties, syntaxes } } = require('mdn-data');
 const { PATHS, SYNTAX_OVERRIDES } = require('./constants');
-const JsonGrammarFormatter = require('./formatters/JsonGrammarFormatter');
+const JsonGrammarFormatter = require('./formatters/grammarFormatters/JsonGrammarFormatter');
 
 // array of syntax/property names that require manual generation.
 // TODO: export this property and check that manual syntax jsons exist in pre commit
