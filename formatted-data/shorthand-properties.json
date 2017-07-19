@@ -26,7 +26,7 @@
     "status": "standard"
   },
   "text-emphasis": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<'text-emphasis-style'> || <'text-emphasis-color'>",
     "media": "visual",
     "inherited": false,
@@ -51,7 +51,7 @@
     "status": "standard"
   },
   "text-decoration": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<'text-decoration-line'> || <'text-decoration-style'> || <'text-decoration-color'>",
     "media": "visual",
     "inherited": false,
@@ -113,7 +113,7 @@
     "status": "standard"
   },
   "outline": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "[ <'outline-color'> || <'outline-style'> || <'outline-width'> ]",
     "media": "visual, interactive",
     "inherited": false,
@@ -237,7 +237,7 @@
     "status": "standard"
   },
   "list-style": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<'list-style-type'> || <'list-style-position'> || <'list-style-image'>",
     "media": "visual",
     "inherited": true,
@@ -470,7 +470,7 @@
     "status": "standard"
   },
   "flex-flow": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<'flex-direction'> || <'flex-wrap'>",
     "media": "visual",
     "inherited": false,
@@ -520,7 +520,7 @@
     "status": "standard"
   },
   "columns": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<'column-width'> || <'column-count'>",
     "media": "visual",
     "inherited": false,
@@ -545,7 +545,7 @@
     "status": "standard"
   },
   "column-rule": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<'column-rule-width'> || <'column-rule-style'> || <'column-rule-color'>",
     "media": "visual",
     "inherited": false,
@@ -607,7 +607,7 @@
     "status": "standard"
   },
   "border-top": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<br-width> || <br-style> || <color>",
     "media": "visual",
     "inherited": false,
@@ -667,7 +667,7 @@
     "status": "standard"
   },
   "border-right": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<br-width> || <br-style> || <color>",
     "media": "visual",
     "inherited": false,
@@ -732,7 +732,7 @@
     "status": "standard"
   },
   "border-left": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<br-width> || <br-style> || <color>",
     "media": "visual",
     "inherited": false,
@@ -763,7 +763,7 @@
     "status": "standard"
   },
   "border-inline-start": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<'border-width'> || <'border-style'> || <'color'>",
     "media": "visual",
     "inherited": false,
@@ -787,7 +787,7 @@
     "status": "standard"
   },
   "border-inline-end": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<'border-width'> || <'border-style'> || <'color'>",
     "media": "visual",
     "inherited": false,
@@ -879,7 +879,7 @@
     "status": "standard"
   },
   "border-bottom": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<br-width> || <br-style> || <color>",
     "media": "visual",
     "inherited": false,
@@ -910,7 +910,7 @@
     "status": "standard"
   },
   "border-block-start": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<'border-width'> || <'border-style'> || <'color'>",
     "media": "visual",
     "inherited": false,
@@ -934,7 +934,7 @@
     "status": "standard"
   },
   "border-block-end": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<'border-width'> || <'border-style'> || <'color'>",
     "media": "visual",
     "inherited": false,
@@ -958,7 +958,7 @@
     "status": "standard"
   },
   "border": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<br-width> || <br-style> || <color>",
     "media": "visual",
     "inherited": false,
@@ -1073,7 +1073,7 @@
     "status": "standard"
   },
   "-webkit-text-stroke": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<length> || <color>",
     "media": "visual",
     "inherited": true,
@@ -1099,7 +1099,7 @@
   },
   "-webkit-mask": {
     "shorthandType": "OTHER",
-    "syntax": "<mask-image> [ <mask-repeat> || <mask-attachment> || <mask-position> || <mask-origin> || <mask-clip> ]*",
+    "syntax": "<mask-image> [ <'-webkit-mask-repeat'> || <'-webkit-mask-attachment'> || <'-webkit-mask-position'> || <'-webkit-mask-origin'> || <'-webkit-mask-clip'> ]*",
     "media": "visual",
     "inherited": false,
     "animationType": "discrete",
@@ -1128,7 +1128,7 @@
     "status": "nonstandard"
   },
   "-webkit-border-before": {
-    "shorthandType": "OPTIONAL_UNORDERED_LIST",
+    "shorthandType": "UNORDERED_OPTIONAL_TUPLE",
     "syntax": "<'border-width'> || <'border-style'> || <'color'>",
     "media": "visual",
     "inherited": true,

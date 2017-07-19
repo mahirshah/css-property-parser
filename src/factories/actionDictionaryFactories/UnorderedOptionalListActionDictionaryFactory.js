@@ -7,6 +7,7 @@ const unorderedOptionalTupleComputedProperties = require('../../constants/unorde
  * @param {Object} propertyNode - the shorthand property node
  * @returns {Object} - mapping between longhand property names and their corresponding values, parsed from the given
  *                     propertyNode.
+ * TODO: make sure there are no duplicate props
  */
 function getPropertyMapping(propertyName, propertyNode) {
   const longhandRuleNameToPropertyNameMap = unorderedOptionalTupleComputedProperties[propertyName];
@@ -34,7 +35,7 @@ module.exports = class UnorderedOptionalListActionDictionaryFormatter {
    * @param {string} propertyName - the css property name. For example, 'border' or 'flex-flow'.
    * @returns {Object} - the semantic action dictionary for the given property's Ohm grammar.
    */
-  static formatActionDictionary(propertyName) {
+  static createActionDictionary(propertyName) {
     return {
       Exp(baseNode) {
         return getPropertyMapping(propertyName, baseNode);

@@ -7,4 +7,5 @@ module.exports = {
   TOP_LEVEL_NODE_NAME: 'Exp',
   ITERATION_NODE_NAME: '_iter',
   DOUBLE_BAR_LIST_NODE_NAME: 'DoubleBarList',
+  SINGLE_BAR_LIST_NODE_NAME: 'SingleBarList',
 };
