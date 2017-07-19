@@ -128,26 +128,6 @@ module.exports = class JsonGrammarFormatter {
         return `( ${expressionList} )`;
       },
 
-      // syntax of the form: "<expression> | <expression>"
-      // todo: write tests!!
-      // SingleBar(expression1, singleBar, expression2) {
-      //   const expressionEvaluation = [expression1, expression2]
-      //     .map(expression => [expression, grammarFormatter._getNodeName(expression)])
-      //     .map(([expression, nodeName]) => [expression, TERMINAL_GRAMMARS.includes(nodeName)])
-      //     .map(([expression, isTerminal]) => {
-      //       if (!isTerminal) {
-      //         const intermediateGrammarRuleName = grammarFormatter._generateIntermediateGrammarRuleName();
-      //         grammarFormatter.intermediateGrammars.push([intermediateGrammarRuleName, expression.eval()]);
-      //         return intermediateGrammarRuleName;
-      //       }
-      //
-      //       return expression.eval();
-      //     })
-      //     .join(' | ');
-      //
-      //   return `( ${expressionEvaluation} )`;
-      // },
-
       // syntax of the form: "<expression>*"
       Asterisk(expression, asterisk) {
         return `${expression.eval()}*`;
