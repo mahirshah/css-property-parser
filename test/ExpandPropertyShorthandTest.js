@@ -3,6 +3,7 @@ const expandPropertyShorthand = require('../src/expandShorthandProperty');
 
 /**
  * Tests for {@link expandPropertyShorthand}
+ * TODO: add tests for global values
  */
 describe('expandPropertyShorthand', function () {
   describe('margin', function () {
@@ -171,4 +172,58 @@ describe('expandPropertyShorthand', function () {
       });
     });
   });
+
+
+  describe('transition', function () {
+    it('should return expanded transition for name duration', function () {
+      const result = expandPropertyShorthand('transition', 'margin-left 4s');
+
+      assert.deepEqual(result, {
+        'transition-property': 'margin-left',
+        'transition-duration': '4s',
+      });
+    });
+
+    it('should return expanded transition for name duration delay', function () {
+      const result = expandPropertyShorthand('transition', 'margin-left 4s 1s');
+
+      assert.deepEqual(result, {
+        'transition-property': 'margin-left',
+        'transition-duration': '4s',
+        'transition-delay': '1s',
+      });
+    });
+
+    it('should return expanded transition for name duration delay timing-function delay', function () {
+      const result = expandPropertyShorthand('transition', 'margin-left 4s ease-in-out 1s');
+
+      assert.deepEqual(result, {
+        'transition-property': 'margin-left',
+        'transition-duration': '4s',
+        'transition-delay': '1s',
+        'transition-timing-function': 'ease-in-out',
+      });
+    });
+
+    it('should return expanded for list separated value', function () {
+      const result = expandPropertyShorthand('transition', 'margin-left 4s, color 1s, border 2s, padding 5s');
+
+      assert.deepEqual(result, {
+        'transition-property': 'margin-left, color, border, padding',
+        'transition-duration': '4s, 1s, 2s, 5s',
+      });
+    });
+
+    it('should return expanded for all', function () {
+      const result = expandPropertyShorthand('transition', 'all 0.5s ease-out');
+
+      assert.deepEqual(result, {
+        'transition-property': 'all',
+        'transition-duration': '0.5s',
+        'transition-timing-function': 'ease-out',
+      });
+    });
+  });
+
+
 });
