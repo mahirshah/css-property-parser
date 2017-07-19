@@ -19,7 +19,7 @@ module.exports = class TrblActionDictionaryFormatter {
    * @param {string} propertyName - the css property name. For example, 'margin' or 'padding'.
    * @returns {Object} - the semantic action dictionary for the given property's Ohm grammar.
    */
-  static formatActionDictionary(propertyName) {
+  static createActionDictionary(propertyName) {
     const trblProperties = trblComputedProperties[propertyName];
 
     return {

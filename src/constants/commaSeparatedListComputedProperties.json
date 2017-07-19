@@ -1,0 +1,26 @@
+{
+  "transition": {
+    "SingleTransitionTimingFunction": "transition-timing-function",
+    "SingleTransitionProperty": "transition-property",
+    "time": [
+      "transition-duration",
+      "transition-delay"
+    ]
+  },
+  "mask": {
+    "MaskClip": "mask-clip",
+    "MaskOrigin": "mask-origin"
+  },
+  "animation": {
+    "SingleAnimationPlayState": "animation-play-state",
+    "SingleAnimationFillMode": "animation-fill-mode",
+    "SingleAnimationIterationCount": "animation-iteration-count",
+    "SingleAnimationDirection": "animation-direction",
+    "SingleAnimationTimingFunction": "animation-timing-function",
+    "SingleAnimationName": "animation-name",
+    "time": [
+      "animation-duration",
+      "animation-delay"
+    ]
+  }
+}

@@ -1,4 +1,5 @@
 const GRAMMAR_CONSTANTS = require('../../constants/grammars');
+const ArrayUtils = require('../../utils/ArrayUtils');
 
 const INTERMEDIATE_GRAMMAR_PREFIX = 'IntermediateRule';
 const TERMINAL_GRAMMARS = ['dataName', 'literal', 'node'];
@@ -108,9 +109,19 @@ module.exports = class JsonGrammarFormatter {
       },
 
       // syntax of the form: <terminal> | <terminal> | <terminal> | ...
-      SingleBarList(nodeList, bar, endNode) {
-        const expressionList = [...nodeList.children, endNode]
-          .map(expression => expression.eval())
+      SingleBarList(startNode, bar, nodeList) {
+        const [terminals, nonTerminals] = ArrayUtils
+          .partition([startNode.children[0], ...grammarFormatter._getNonSingleBarNodes(nodeList)],
+            node => TERMINAL_GRAMMARS.includes(node.ctorName)
+          );
+        const expressionList = nonTerminals
+          .filter(node => node.sourceString !== '|')
+          .map((expression) => {
+            const intermediateGrammarRuleName = grammarFormatter._generateIntermediateGrammarRuleName();
+            grammarFormatter.intermediateGrammars.push([intermediateGrammarRuleName, expression.eval()]);
+            return intermediateGrammarRuleName;
+          })
+          .concat(terminals.map(terminal => terminal.eval()))
           .sort((str1, str2) => str2.length - str1.length)
           .join(' | ');
 
@@ -118,25 +129,24 @@ module.exports = class JsonGrammarFormatter {
       },
 
       // syntax of the form: "<expression> | <expression>"
-      // TODO: this.rules[actionName].body.getArity(); use to check if arity is same on right an left side
       // todo: write tests!!
-      SingleBar(expression1, singleBar, expression2) {
-        const expressionEvaluation = [expression1, expression2]
-          .map(expression => [expression, grammarFormatter._getNodeName(expression)])
-          .map(([expression, nodeName]) => [expression, TERMINAL_GRAMMARS.includes(nodeName)])
-          .map(([expression, isTerminal]) => {
-            if (!isTerminal) {
-              const intermediateGrammarRuleName = grammarFormatter._generateIntermediateGrammarRuleName();
-              grammarFormatter.intermediateGrammars.push([intermediateGrammarRuleName, expression.eval()]);
-              return intermediateGrammarRuleName;
-            }
-
-            return expression.eval();
-          })
-          .join(' | ');
-
-        return `( ${expressionEvaluation} )`;
-      },
+      // SingleBar(expression1, singleBar, expression2) {
+      //   const expressionEvaluation = [expression1, expression2]
+      //     .map(expression => [expression, grammarFormatter._getNodeName(expression)])
+      //     .map(([expression, nodeName]) => [expression, TERMINAL_GRAMMARS.includes(nodeName)])
+      //     .map(([expression, isTerminal]) => {
+      //       if (!isTerminal) {
+      //         const intermediateGrammarRuleName = grammarFormatter._generateIntermediateGrammarRuleName();
+      //         grammarFormatter.intermediateGrammars.push([intermediateGrammarRuleName, expression.eval()]);
+      //         return intermediateGrammarRuleName;
+      //       }
+      //
+      //       return expression.eval();
+      //     })
+      //     .join(' | ');
+      //
+      //   return `( ${expressionEvaluation} )`;
+      // },
 
       // syntax of the form: "<expression>*"
       Asterisk(expression, asterisk) {
@@ -218,6 +228,16 @@ module.exports = class JsonGrammarFormatter {
     }
 
     return [].concat(...node.children.map(this._getNonDoubleBarNodes.bind(this)));
+  }
+
+  _getNonSingleBarNodes(node) {
+    if (node.ctorName !== GRAMMAR_CONSTANTS.TOP_LEVEL_NODE_NAME
+      && node.ctorName !== GRAMMAR_CONSTANTS.SINGLE_BAR_LIST_NODE_NAME
+      && node.ctorName !== GRAMMAR_CONSTANTS.ITERATION_NODE_NAME) {
+      return [node];
+    }
+
+    return [].concat(...node.children.map(this._getNonSingleBarNodes.bind(this)));
   }
 
   /**

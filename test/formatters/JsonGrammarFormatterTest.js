@@ -92,9 +92,8 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
       {
         args: ['bg-size', '[ <length-percentage> | auto ]{1,2} | cover | contain'],
         expected: [
-          ['__Base__', '( IntermediateRule0 | IntermediateRule1 )'],
+          ['__Base__', '( IntermediateRule0 | "contain" | "cover" )'],
           ['IntermediateRule0', '( ( <length-percentage> | "auto" ) ) ( ( <length-percentage> | "auto" ) )?'],
-          ['IntermediateRule1', '( "contain" | "cover" )'],
           ['<length-percentage>'],
         ],
       },
