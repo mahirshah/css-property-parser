@@ -52,6 +52,52 @@ describe('expandPropertyShorthand', function () {
     });
   });
 
+  describe('padding', function () {
+    it('should expand 1px', function () {
+      const result = expandPropertyShorthand('padding', '1px');
+
+      assert.deepEqual(result, {
+        'padding-top': '1px',
+        'padding-right': '1px',
+        'padding-bottom': '1px',
+        'padding-left': '1px',
+      });
+    });
+
+    it('should expand 1px 2px', function () {
+      const result = expandPropertyShorthand('padding', '1px 2px');
+
+      assert.deepEqual(result, {
+        'padding-top': '1px',
+        'padding-right': '2px',
+        'padding-bottom': '1px',
+        'padding-left': '2px',
+      });
+    });
+
+    it('should expand 1px 2px 3px', function () {
+      const result = expandPropertyShorthand('padding', '1px 2px 3px');
+
+      assert.deepEqual(result, {
+        'padding-top': '1px',
+        'padding-right': '2px',
+        'padding-bottom': '3px',
+        'padding-left': '2px',
+      });
+    });
+
+    it('should expand 1px 2px 3px 4px', function () {
+      const result = expandPropertyShorthand('padding', '1px 2px 3px 4px');
+
+      assert.deepEqual(result, {
+        'padding-top': '1px',
+        'padding-right': '2px',
+        'padding-bottom': '3px',
+        'padding-left': '4px',
+      });
+    });
+  });
+
   describe('border', function () {
     it('should return expanded border with width, style, color', function () {
       const result = expandPropertyShorthand('border', '1px solid black');
@@ -170,6 +216,44 @@ describe('expandPropertyShorthand', function () {
         'list-style-position': 'outside',
         'list-style-image': "url('../img/dino.png')",
       });
+    });
+  });
+
+  describe('outline', function () {
+    it('should expand 1px solid #000', function () {
+      const result = expandPropertyShorthand('outline', '1px solid #000');
+
+      assert.deepEqual(result, { 'outline-width': '1px', 'outline-style': 'solid', 'outline-color': '#000' });
+    });
+
+    it('should expand solid 1px #000', function () {
+      const result = expandPropertyShorthand('outline', 'solid 1px #000');
+
+      assert.deepEqual(result, { 'outline-width': '1px', 'outline-style': 'solid', 'outline-color': '#000' });
+    });
+
+    it('should expand solid #000000 1px', function () {
+      const result = expandPropertyShorthand('outline', 'solid #000000 1px');
+
+      assert.deepEqual(result, { 'outline-width': '1px', 'outline-style': 'solid', 'outline-color': '#000000' });
+    });
+
+    it('should expand solid', function () {
+      const result = expandPropertyShorthand('outline', 'solid');
+
+      assert.deepEqual(result, { 'outline-style': 'solid' });
+    });
+
+    it('should expand black', function () {
+      const result = expandPropertyShorthand('outline', 'black');
+
+      assert.deepEqual(result, { 'outline-color': 'black' });
+    });
+
+    it('should expand 1px', function () {
+      const result = expandPropertyShorthand('outline', '1px');
+
+      assert.deepEqual(result, { 'outline-width': '1px' });
     });
   });
 
