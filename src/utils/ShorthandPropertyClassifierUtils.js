@@ -1,4 +1,4 @@
-const { R_CLASSIFICATION_MAP, CLASSIFICATIONS } = require('../constants/shorthandProperties');
+const { R_CLASSIFICATION_MAP, CLASSIFICATIONS, OTHER_PROPERTY_CLASSIFICATION_MAP } = require('../constants/shorthandProperties');
 
 module.exports = class ShorthandPropertyClassifierUtils {
   /**
@@ -10,9 +10,11 @@ module.exports = class ShorthandPropertyClassifierUtils {
    *                     {@link CLASSIFICATIONS} for possible classification.
    */
   static classifyLonghandProperty(propertyName, formalSyntax) {
-    const [classification = CLASSIFICATIONS.OTHER] = Object.entries(R_CLASSIFICATION_MAP)
+    const [otherClassification] = Object.entries(OTHER_PROPERTY_CLASSIFICATION_MAP)
+      .find(([, properties]) => properties.includes(propertyName)) || [];
+    const [standardClassification = CLASSIFICATIONS.OTHER] = Object.entries(R_CLASSIFICATION_MAP)
       .find(([, regex]) => regex.test(formalSyntax)) || [];
 
-    return classification;
+    return otherClassification || standardClassification;
   }
 };

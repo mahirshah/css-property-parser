@@ -6,5 +6,7 @@
   "list-style": "<'list-style-position'> || <'list-style-image'> || <'list-style-type'>",
   "step-timing-function": "step-start | step-end | [ steps( <integer> [ , [ start | end ] ]? ) ]",
   "cubic-bezier-timing-function": "ease | ease-in | ease-out | ease-in-out | [ cubic-bezier(<number> , <number> , <number> , <number> ) ]",
-  "single-transition": "<time> || <single-transition-timing-function> || [ none | <single-transition-property> ]"
+  "single-transition": "<time> || <single-transition-timing-function> || [ none | <single-transition-property> ]",
+  "flex": "none | auto | initial | <number> | [ <'flex-basis'> [ <'flex-grow'> <'flex-shrink'>? ]? ] | [ <'flex-grow'> <'flex-basis'> ] | [ <'flex-grow'> <'flex-shrink'> <'flex-basis'>? ]",
+  "width": "[ [ <length> | <percentage> ] && [ border-box | content-box ]? ] | available | min-content | max-content | fit-content | auto"
 }
