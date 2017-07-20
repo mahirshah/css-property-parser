@@ -10,12 +10,16 @@ const TrblActionDictionaryFactory = require('./factories/actionDictionaryFactori
 const UnorderedOptionalListActionDictionaryFactory = require('./factories/actionDictionaryFactories/UnorderedOptionalListActionDictionaryFactory');
 const CommaSeparatedListActionDictionaryFactory = require('./factories/actionDictionaryFactories/CommaSeparatedListActionDictionaryFactory');
 const FlexActionDictionaryFactory = require('./factories/actionDictionaryFactories/FlexActionDictionaryFactory');
+const BorderRadiusActionDictionaryFactory = require('./factories/actionDictionaryFactories/BorderRadiusActionDictionaryFactory');
+const BackgroundActionDictionaryFactory = require('./factories/actionDictionaryFactories/BackgroundActionDictionaryFactory');
 
 const shorthandPropertyTypeToActionDictionaryFactoryMap = {
   [CLASSIFICATIONS.TRBL]: TrblActionDictionaryFactory,
   [CLASSIFICATIONS.UNORDERED_OPTIONAL_TUPLE]: UnorderedOptionalListActionDictionaryFactory,
   [CLASSIFICATIONS.COMMA_SEPARATED_LIST]: CommaSeparatedListActionDictionaryFactory,
   [CLASSIFICATIONS.FLEX]: FlexActionDictionaryFactory,
+  [CLASSIFICATIONS.BORDER_RADIUS]: BorderRadiusActionDictionaryFactory,
+  [CLASSIFICATIONS.BACKGROUND]: BackgroundActionDictionaryFactory,
 };
 
 /**

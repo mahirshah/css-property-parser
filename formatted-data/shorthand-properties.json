@@ -698,7 +698,7 @@
     "status": "standard"
   },
   "border-radius": {
-    "shorthandType": "OTHER",
+    "shorthandType": "BORDER_RADIUS",
     "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
     "media": "visual",
     "inherited": false,
@@ -989,7 +989,7 @@
     "status": "standard"
   },
   "background": {
-    "shorthandType": "OTHER",
+    "shorthandType": "BACKGROUND",
     "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
     "media": "visual",
     "inherited": false,

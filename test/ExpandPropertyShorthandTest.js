@@ -312,5 +312,93 @@ describe('expandPropertyShorthand', function () {
     });
   });
 
+  describe('border-radius', function () {
+    it('should expand radius is set for all 4 sides', function () {
+      const result = expandPropertyShorthand('border-radius', '10px');
 
+      assert.deepEqual(result, {
+        'border-top-left-radius': '10px',
+        'border-top-right-radius': '10px',
+        'border-bottom-left-radius': '10px',
+        'border-bottom-right-radius': '10px',
+      });
+    });
+
+    it('should expand top-left-and-bottom-right | top-right-and-bottom-left', function () {
+      const result = expandPropertyShorthand('border-radius', '10px 5%');
+
+      assert.deepEqual(result, {
+        'border-top-left-radius': '10px',
+        'border-top-right-radius': '5%',
+        'border-bottom-left-radius': '5%',
+        'border-bottom-right-radius': '10px',
+      });
+    });
+
+    it('should expand top-left | top-right-and-bottom-left | bottom-right', function () {
+      const result = expandPropertyShorthand('border-radius', '2px 4px 3px');
+
+      assert.deepEqual(result, {
+        'border-top-left-radius': '2px',
+        'border-top-right-radius': '4px',
+        'border-bottom-left-radius': '4px',
+        'border-bottom-right-radius': '3px',
+      });
+    });
+
+    it('should expand top-left | top-right | bottom-right | bottom-left', function () {
+      const result = expandPropertyShorthand('border-radius', '1px 0 3px 4px');
+
+      assert.deepEqual(result, {
+        'border-top-left-radius': '1px',
+        'border-top-right-radius': '0',
+        'border-bottom-left-radius': '4px',
+        'border-bottom-right-radius': '3px',
+      });
+    });
+
+    it('should expand (first radius values) / radius', function () {
+      const result = expandPropertyShorthand('border-radius', '10px 5% / 20px');
+
+      assert.deepEqual(result, {
+        'border-top-left-radius': '10px / 20px',
+        'border-top-right-radius': '5% / 20px',
+        'border-bottom-left-radius': '5% / 20px',
+        'border-bottom-right-radius': '10px / 20px',
+      });
+    });
+
+    it('should expand (first radius values) / top-left-and-bottom-right | top-right-and-bottom-left', function () {
+      const result = expandPropertyShorthand('border-radius', '10px 5% / 20px 30px');
+
+      assert.deepEqual(result, {
+        'border-top-left-radius': '10px / 20px',
+        'border-top-right-radius': '5% / 30px',
+        'border-bottom-left-radius': '5% / 30px',
+        'border-bottom-right-radius': '10px / 20px',
+      });
+    });
+
+    it('should expand (first radius values) / top-left | top-right-and-bottom-left | bottom-right', function () {
+      const result = expandPropertyShorthand('border-radius', '10px 5px 2em / 20px 25px 30%');
+
+      assert.deepEqual(result, {
+        'border-top-left-radius': '10px / 20px',
+        'border-top-right-radius': '5px / 25px',
+        'border-bottom-left-radius': '5px / 25px',
+        'border-bottom-right-radius': '2em / 30%',
+      });
+    });
+
+    it('should expand (first radius values) / top-left | top-right | bottom-right | bottom-left', function () {
+      const result = expandPropertyShorthand('border-radius', '10px 5% / 20px 25em 30px 35em');
+
+      assert.deepEqual(result, {
+        'border-top-left-radius': '10px / 20px',
+        'border-top-right-radius': '5% / 25em',
+        'border-bottom-left-radius': '5% / 35em',
+        'border-bottom-right-radius': '10px / 30px',
+      });
+    });
+  });
 });

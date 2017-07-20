@@ -1,7 +1,7 @@
-const commaSeparatedListComputedProperties = require('../../constants/commaSeparatedListComputedProperties.json');
+const otherComputedPropertiesMap = require('../../constants/otherComputedPropertiesMap.json');
 
 function getPropertyMapping(propertyName, propertyNode) {
-  const longhandRuleNameToPropertyNameMap = commaSeparatedListComputedProperties[propertyName];
+  const longhandRuleNameToPropertyNameMap = otherComputedPropertiesMap[propertyName];
   const longhandRuleNames = Object.keys(longhandRuleNameToPropertyNameMap);
 
   // for rule names, such as "time" in animation and transition that are mapped to an array of properties, we need
