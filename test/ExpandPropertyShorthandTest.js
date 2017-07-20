@@ -176,10 +176,10 @@ describe('expandPropertyShorthand', function () {
   // ["square", "url('../img/dino.png')", "inside", "georgian inside", "lower-roman url('../img/dino.png') outside", "none", "inherit", "initial", "unset"]
   describe('list-style', function () {
     it('should return expanded list-style with just type', function () {
-      const result = expandPropertyShorthand('list-style', 'sqaure');
+      const result = expandPropertyShorthand('list-style', 'square');
 
       assert.deepEqual(result, {
-        'list-style-type': 'sqaure',
+        'list-style-type': 'square',
       });
     });
 
