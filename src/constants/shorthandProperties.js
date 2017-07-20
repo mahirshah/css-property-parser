@@ -6,6 +6,8 @@ module.exports = {
     AND_LIST: 'AND_LIST',
     OTHER: 'OTHER',
     FLEX: 'FLEX',
+    BACKGROUND: 'BACKGROUND',
+    BORDER_RADIUS: 'BORDER_RADIUS',
   },
   R_CLASSIFICATION_MAP: {
     TRBL: /^\[? ?<['a-z-]+> ?(\| <?['a-z-]+>? ?)*]?\{1,4\}$/, // top left bottom right properties
@@ -15,5 +17,7 @@ module.exports = {
   },
   OTHER_PROPERTY_CLASSIFICATION_MAP: {
     FLEX: ['flex'],
+    BACKGROUND: ['background'],
+    BORDER_RADIUS: ['border-radius'],
   },
 };
