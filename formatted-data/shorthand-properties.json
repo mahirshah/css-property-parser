@@ -492,7 +492,7 @@
     "status": "standard"
   },
   "flex": {
-    "shorthandType": "OTHER",
+    "shorthandType": "FLEX",
     "syntax": "none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]",
     "media": "visual",
     "inherited": false,

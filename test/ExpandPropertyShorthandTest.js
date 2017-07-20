@@ -226,4 +226,91 @@ describe('expandPropertyShorthand', function () {
   });
 
 
+  describe('flex', function () {
+    it('should expand auto', function () {
+      const result = expandPropertyShorthand('flex', 'auto');
+
+      assert.deepEqual(result, {
+        'flex-grow': '1',
+        'flex-shrink': '1',
+        'flex-basis': 'auto',
+      });
+    });
+
+    it('should expand initial', function () {
+      const result = expandPropertyShorthand('flex', 'initial');
+
+      assert.deepEqual(result, {
+        'flex-grow': '0',
+        'flex-shrink': '1',
+        'flex-basis': 'auto',
+      });
+    });
+
+    it('should expand none', function () {
+      const result = expandPropertyShorthand('flex', 'none');
+
+      assert.deepEqual(result, {
+        'flex-grow': '0',
+        'flex-shrink': '0',
+        'flex-basis': 'auto',
+      });
+    });
+
+    it('should expand single number', function () {
+      const result = expandPropertyShorthand('flex', '2');
+
+      assert.deepEqual(result, {
+        'flex-grow': '2',
+        'flex-shrink': '1',
+        'flex-basis': '0',
+      });
+    });
+
+    it('should expand one value, width/height: flex-basis', function () {
+      const result = expandPropertyShorthand('flex', '10em');
+
+      assert.deepEqual(result, {
+        'flex-basis': '10em',
+      });
+    });
+
+    it('should expand one value, width/height: flex-basis keyword', function () {
+      const result = expandPropertyShorthand('flex', 'content');
+
+      assert.deepEqual(result, {
+        'flex-basis': 'content',
+      });
+    });
+
+    it('should expand two values: flex-grow | flex-basis', function () {
+      const result = expandPropertyShorthand('flex', '1 30px');
+
+      assert.deepEqual(result, {
+        'flex-grow': '1',
+        'flex-basis': '30px',
+      });
+    });
+
+    it('should expand two values: flex-grow | flex-shrink', function () {
+      const result = expandPropertyShorthand('flex', '2 2');
+
+      assert.deepEqual(result, {
+        'flex-grow': '2',
+        'flex-shrink': '2',
+      });
+    });
+
+    it('should expand three values: flex-grow | flex-shrink | flex-basis', function () {
+      const result = expandPropertyShorthand('flex', '2 2 10%');
+
+      assert.deepEqual(result, {
+        'flex-grow': '2',
+        'flex-shrink': '2',
+        'flex-basis': '10%',
+      });
+    });
+  });
+
+
 });

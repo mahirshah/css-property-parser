@@ -1,0 +1,7 @@
+{
+  "flex": {
+    "FlexGrow": "flex-grow",
+    "FlexShrink": "flex-shrink",
+    "FlexBasis": "flex-basis"
+  }
+}

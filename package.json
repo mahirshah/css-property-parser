@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec --recursive",
-    "start": "node ./src/updateBasicDataUnits.js && node ./src/formatFormalSyntaxes.js && node ./src/formatGrammars.js"
+    "start": "node ./src/updateBasicDataUnits.js && ./src/data/formatData.js && node ./src/formatFormalSyntaxes.js && node ./src/formatGrammars.js"
   },
   "author": "mahirshah",
   "license": "ISC",

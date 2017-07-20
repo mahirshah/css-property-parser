@@ -9,11 +9,13 @@ const { CLASSIFICATIONS } = require('./constants/shorthandProperties');
 const TrblActionDictionaryFactory = require('./factories/actionDictionaryFactories/TrblActionDictionaryFactory');
 const UnorderedOptionalListActionDictionaryFactory = require('./factories/actionDictionaryFactories/UnorderedOptionalListActionDictionaryFactory');
 const CommaSeparatedListActionDictionaryFactory = require('./factories/actionDictionaryFactories/CommaSeparatedListActionDictionaryFactory');
+const FlexActionDictionaryFactory = require('./factories/actionDictionaryFactories/FlexActionDictionaryFactory');
 
 const shorthandPropertyTypeToActionDictionaryFactoryMap = {
   [CLASSIFICATIONS.TRBL]: TrblActionDictionaryFactory,
   [CLASSIFICATIONS.UNORDERED_OPTIONAL_TUPLE]: UnorderedOptionalListActionDictionaryFactory,
   [CLASSIFICATIONS.COMMA_SEPARATED_LIST]: CommaSeparatedListActionDictionaryFactory,
+  [CLASSIFICATIONS.FLEX]: FlexActionDictionaryFactory,
 };
 
 /**
@@ -33,11 +35,13 @@ const shorthandPropertyTypeToActionDictionaryFactoryMap = {
 module.exports = function expandShorthandProperty(propertyName, propertyValue, recursivelyResolve = true) {
   if (!isShorthandProperty(propertyName)) {
     return { [propertyName]: propertyValue };
-  } else if (CSS.globalValues.includes(propertyValue)) {
-    return getShorthandComputedProperties(propertyName).reduce((propertyMap, computedPropertyName) => (
-      Object.assign({ [computedPropertyName]: propertyValue }, propertyMap)
-    ), {});
   }
+
+  // else if (CSS.globalValues.includes(propertyValue)) {
+  //   return getShorthandComputedProperties(propertyName).reduce((propertyMap, computedPropertyName) => (
+  //     Object.assign({ [computedPropertyName]: propertyValue }, propertyMap)
+  //   ), {});
+  // }
 
   const propertyGrammarContents = fs.readFileSync(`${PATHS.OHM_GRAMMAR_PATH}${propertyName}.ohm`);
   const propertyGrammar = ohm.grammar(propertyGrammarContents);
@@ -54,5 +58,5 @@ module.exports = function expandShorthandProperty(propertyName, propertyValue, r
     return propertySemantics(propertyMatch).eval();
   }
 
-  return {};
+  throw new Error('no match');
 };

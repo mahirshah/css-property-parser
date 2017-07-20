@@ -54,4 +54,14 @@ describe('isValidDeclaration', function () {
         });
       });
   });
+
+  describe('width', function () {
+    ['300px', '25em', '75%', '25em border-box', '75% content-box', 'max-content', 'min-content', 'available',
+      'fit-content', 'auto']
+      .forEach((value) => {
+        it(`should return true for ${value}`, function () {
+          assert(isValidDeclaration('width', value));
+        });
+      });
+  });
 });
