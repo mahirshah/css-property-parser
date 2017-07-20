@@ -1,5 +1,6 @@
 const ohm = require('ohm-js');
 const fs = require('fs-extra');
+// TODO: don't require mdn-data at runtime
 const { css: { properties } } = require('mdn-data');
 const { PATHS, CSS } = require('./constants');
 
