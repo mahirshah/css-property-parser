@@ -12,13 +12,10 @@ const valueLengthToCornerPropertyIndexMap = {
 
 module.exports = class BorderRadiusActionDictionaryFactory {
   /**
-   * Generates the semantic action dictionary for the given CommaSeparatedList shorthand property.
-   * CommaSeparatedList shorthand properties are those that have formal syntaxes of the form
-   * "<prop>#". The returned action dictionary converts a property value to its expanded format.
-   * For example, given 'mask', this function will return an action dictionary that will expand a mask property
-   * value to its longhand form.
+   * Generates the semantic action dictionary for the given BorderRadius shorthand property.
+   * The returned action dictionary converts a border-radius value to its expanded format.
    *
-   * @param {string} propertyName - the css property name. For example, 'mask' or 'animation'.
+   * @param {string} propertyName - the css property name. i.e. 'border-radius'
    * @returns {Object} - the semantic action dictionary for the given property's Ohm grammar.
    */
   static createActionDictionary(propertyName) {
