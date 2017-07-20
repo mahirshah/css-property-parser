@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec --recursive",
-    "start": "node ./src/updateBasicDataUnits.js && ./src/data/formatData.js && node ./src/formatFormalSyntaxes.js && node ./src/formatGrammars.js"
+    "start": "node ./src/updateBasicDataUnits.js && node ./src/data/formatData.js && node ./src/formatFormalSyntaxes.js && node ./src/formatGrammars.js"
   },
   "author": "mahirshah",
   "license": "ISC",
@@ -16,13 +16,13 @@
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
+    "mdn-data": "1.0.0",
     "mocha": "^3.4.2",
     "sinon": "^2.3.5"
   },
   "dependencies": {
     "ends-with": "^1.0.1",
     "fs-extra": "^3.0.1",
-    "mdn-data": "^1.0.0",
     "node-fetch": "^1.7.1",
     "ohm-js": "^0.13.1",
     "postcss-value-parser": "^3.3.0"
