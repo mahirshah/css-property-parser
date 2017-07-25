@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec --recursive",
-    "start": "node ./src/updateBasicDataUnits.js && ./src/data/formatData.js && node ./src/formatFormalSyntaxes.js && node ./src/formatGrammars.js"
+    "start": "node ./src/updateBasicDataUnits.js && ./src/data/formatData.js && node ./src/formatFormalSyntaxes.js && node ./src/formatGrammars.js",
+    "start2": "node ./node_modules/nearley/bin/nearleyc.js ./src/grammars/formalSyntax.ne > ./src/grammars/formalSyntaxNearley.js"
   },
   "author": "mahirshah",
   "license": "ISC",
@@ -17,6 +18,8 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
     "mocha": "^3.4.2",
+    "nearley": "^2.10.2",
+    "nearley-make": "^1.0.1",
     "sinon": "^2.3.5"
   },
   "dependencies": {
