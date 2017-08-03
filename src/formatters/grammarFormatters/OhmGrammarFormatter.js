@@ -7,6 +7,8 @@ const BASE_GRAMMAR_FORMATTER_MAP = {
   [GRAMMAR_CONSTANTS.LEXICAL_BASE_KEY]: 'exp',
   [GRAMMAR_CONSTANTS.SYNTACTIC_BASE_KEY]: 'Exp',
 };
+// any nearley builtin grammars that we want to include
+const BUILTIN_GRAMMARS = ['whitespace'];
 
 /**
  * Class to format a JSON Grammar into an Ohm Grammar
@@ -20,7 +22,6 @@ module.exports = class OhmGrammarFormatter {
    * <p>
    * @see {@link https://github.com/harc/ohm/blob/master/doc/syntax-reference.md|Ohm Syntax} for more information on
    * Ohm Syntax.
-   * @see {@link OhmGrammarFormatterTest} for example usage.
    *
    * @param {Array} jsonGrammar - json structure representing a grammar
    * @param {string} grammarName - the name of the grammar. Will be used as the name in the outputted Ohm grammar.
@@ -66,11 +67,12 @@ module.exports = class OhmGrammarFormatter {
       .concat(otherRules.filter(rule => rule.length === 2)) // add any rules that don't need to be resolved
       .concat(...recursivelyResolvedGrammars) // add all the rules we resolved
       .map(([ruleName, ruleBody]) => (
-        `  ${ruleName} = ${OhmGrammarFormatter._formatJsonRuleBody(ruleBody, grammarNameToIsLexicalMap)}`
+        `  ${ruleName} -> ${OhmGrammarFormatter._formatJsonRuleBody(ruleBody, grammarNameToIsLexicalMap)}`
       ))
       .join('\n');
+    const builtinGrammarsHeader = BUILTIN_GRAMMARS.map(grammarName => `@builtin "${grammarName}.ne"`).join('\n');
 
-    return `${grammarName} {\n${ohmGrammarBody}\n}`;
+    return `${builtinGrammarsHeader}\n${ohmGrammarBody}`;
   }
 
   /**

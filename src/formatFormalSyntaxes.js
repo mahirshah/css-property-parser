@@ -3,17 +3,15 @@
  */
 const fs = require('fs-extra');
 const nearley = require('nearley');
-// const grammar = require('./grammars/formalSyntaxNearley');
 const { css: { properties, syntaxes } } = require('mdn-data');
 const { PATHS, SYNTAX_OVERRIDES } = require('./constants');
 const JsonGrammarFormatter2 = require('./formatters/grammarFormatters/JsonGrammarFormatter2');
-const make = require('nearley-make');
-const grammar = fs.readFileSync('./grammars/formalSyntax2.ne', 'utf-8');
 
 
 // array of syntax/property names that require manual generation.
 // TODO: export this property and check that manual syntax jsons exist in pre commit
-const manualSyntaxes = ['image()', 'offset', 'line-name-list'];
+// TODO: support parens next to nodes in the grammar
+const manualSyntaxes = ['image()', 'offset', 'line-name-list', 'shape', 'frames-timing-function', 'feature-value-declaration', 'cubic-bezier-timing-function'];
 
 
 // combine properties and syntaxes into one object mapping property names to syntaxes
@@ -34,9 +32,5 @@ Object.entries(overridenPropertySyntaxMap)
   });
 
 
-// const parser = make(grammar, {});
-// parser.feed('auto | <a>#');
-// const json = JsonGrammarFormatter2.format('<a>#');
-// console.log(json)
-
-
+var a = JsonGrammarFormatter2.format(overridenPropertySyntaxMap.width);
+console.log(a);
