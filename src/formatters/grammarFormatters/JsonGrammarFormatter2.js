@@ -1,15 +1,10 @@
-// todo: don't use nearely make use the js grammar directly
-const fs = require('fs-extra');
-const make = require('nearley-make');
-const grammar = fs.readFileSync('./grammars/formalSyntax2.ne', 'utf-8');
+const nearley = require('nearley');
+const grammar = require('../../grammars/js/formalSyntax');
 
-const SINGLE_EXPRESSION_PARSING_FUNCTION = nodeName => `{% function (d) { return { nodeName: ${nodeName}, values: [d[0]] } %}`;
-const DOUBLE_EXPRESSION_PARSING_FUNCTION = nodeName => `{% function (d) { return { nodeName: ${nodeName}, values: d[0].filter(Boolean) } %}`;
-const TERMINAL_EXPRESSION_PARSING_FUNCTION = () => "{% function (d) { return d[0].join(''); %}";
-
+// TODO: make all of the nodeNames enum symbols
 module.exports = class JsonGrammarFormatter2 {
   static format(formalSyntax) {
-    const parser = make(grammar, {}).feed(formalSyntax);
+    const parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart).feed(formalSyntax);
     const [rootNode] = parser.results;
     return JsonGrammarFormatter2._evaluateNode(rootNode);
   }
@@ -21,28 +16,24 @@ module.exports = class JsonGrammarFormatter2 {
         toGrammarString([expression]) {
           return `( _ ${evaluate(expression)} _ ):*`;
         },
-        parsingExpression: SINGLE_EXPRESSION_PARSING_FUNCTION,
       },
 
       Plus: {
         toGrammarString([expression]) {
           return `( _ ${evaluate(expression)} _ ):+`;
         },
-        parsingExpression: SINGLE_EXPRESSION_PARSING_FUNCTION,
       },
 
       QuestionMark: {
         toGrammarString([expression]) {
           return `${evaluate(expression)}:?`;
         },
-        parsingExpression: SINGLE_EXPRESSION_PARSING_FUNCTION,
       },
 
       CurlyHash: {
         toGrammarString([expression, number]) {
-          return Array(+number).fill(evaluate(expression)).join('_ "," _');
+          return `( ${Array(+number).fill(evaluate(expression)).join(' _ "," _ ')} )`;
         },
-        parsingExpression: DOUBLE_EXPRESSION_PARSING_FUNCTION,
       },
 
       CurlyBraces: {
@@ -50,24 +41,22 @@ module.exports = class JsonGrammarFormatter2 {
           const minimumString = new Array(+min).fill().map(() => evaluate(expression)).join(' __ ');
           let maximumString = '';
 
-          if (comma) {
-            if (max) { // {integer,integer}
-              maximumString = new Array(+max - +min).fill().map(() => `${evaluate(expression)}:?`).join(' __ ');
-            } else { // {integer,}
-              maximumString = `${evaluate(expression)}:*`;
-            }
+          if (!comma) {
+            return `( ${minimumString} )`;
+          } else if (max) { // {integer,integer}
+            maximumString = new Array(+max - +min).fill().map(() => `${evaluate(expression)}:?`).join(' __ ');
+          } else { // {integer,}
+            maximumString = `${evaluate(expression)}:*`;
           }
 
-          return `${minimumString} __ ${maximumString}`.trim();
+          return `( ${minimumString} __ ${maximumString} )`.trim();
         },
-        parsingExpression: DOUBLE_EXPRESSION_PARSING_FUNCTION,
       },
 
       HashMark: {
         toGrammarString([expression]) {
           return `( ( ${evaluate(expression)} _ "," _):* ${evaluate(expression)} )`;
         },
-        parsingExpression: DOUBLE_EXPRESSION_PARSING_FUNCTION,
       },
 
 
@@ -75,43 +64,53 @@ module.exports = class JsonGrammarFormatter2 {
         toGrammarString([left, right]) {
           return `( ${evaluate(left)} | ${evaluate(right)} )`;
         },
-        parsingExpression: DOUBLE_EXPRESSION_PARSING_FUNCTION,
       },
 
       Brackets: {
         toGrammarString([expression]) {
           return `( ${evaluate(expression)} )`;
         },
-        parsingExpression: SINGLE_EXPRESSION_PARSING_FUNCTION,
       },
 
       DoubleAmpersand: {
         toGrammarString([left, right]) {
+          if (right.nodeName === 'QuestionMark') {
+            return `( ( ${evaluate(left)} ( __ ${evaluate(right)} ):? ) | ( ${evaluate(right)} __ ${evaluate(left)} ) )`;
+          } else if (left.nodeName === 'QuestionMark') {
+            return `( ( ${evaluate(left)} __ ${evaluate(right)} ) | ( ${evaluate(right)} ( __ ${evaluate(left)} ):? ) )`;
+          }
+
           return `( ( ${evaluate(left)} __ ${evaluate(right)} ) | ( ${evaluate(right)} __ ${evaluate(left)} ) )`;
         },
-        parsingExpression: DOUBLE_EXPRESSION_PARSING_FUNCTION,
       },
 
-      DoubleBar: {
-        toGrammarString([left, right]) {
-          return `( ( ${evaluate(left)} __ ${evaluate(right)}:? ) | ( ${evaluate(right)} __ ${evaluate(left)}:? ) )`;
+      DoubleBarList: {
+        toGrammarString([list, end]) {
+          const alternationNodes = list.map(([expression]) => evaluate(expression)).concat(evaluate(end)).join(' | ');
+          const optionalValueString = `( __ ( ${alternationNodes} ) ):?`;
+
+          return `( ${alternationNodes} ) ${Array(list.length).fill(optionalValueString).join(' ')}`;
         },
-        parsingExpression: DOUBLE_EXPRESSION_PARSING_FUNCTION,
       },
 
       Juxtaposition: {
         toGrammarString([left, right]) {
           return `( ${evaluate(left)} __ ${evaluate(right)} )`;
         },
-        parsingExpression: DOUBLE_EXPRESSION_PARSING_FUNCTION,
+      },
+
+      Comma: {
+        toGrammarString([left, right]) {
+          return `${evaluate(left)} ${evaluate(right)}`;
+        },
       },
 
       node: {
         toGrammarString([nodeName]) {
           grammarsToResolve.add(nodeName);
-          return nodeName;
+          return `<${nodeName}>`;
         },
-        parsingExpression: TERMINAL_EXPRESSION_PARSING_FUNCTION,
+
       },
     };
     const rootNodeEvaluation = evaluate(node);
@@ -127,7 +126,7 @@ module.exports = class JsonGrammarFormatter2 {
     }
 
     return [
-      ['Exp', rootNodeEvaluation, tokenToEvaluationMap[node.nodeName].parsingExpression],
+      ['Exp', rootNodeEvaluation],
       ...[...grammarsToResolve].map(grammarName => [grammarName]),
     ];
   }
