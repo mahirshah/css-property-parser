@@ -1,12 +1,11 @@
-const ohm = require('ohm-js');
 const fs = require('fs-extra');
 const { PATHS, CSS } = require('./constants');
-const nearley = require('nearley');
 const isShorthandProperty = require('./isShorthandProperty');
 const getShorthandComputedProperties = require('./getShorthandComputedProperties');
 const shorthandProperties = require('../formatted-data/shorthand-properties.json');
-// const grammar = fs.readFileSync(`${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}border.ne`, 'utf-8')
-const nearleyMake = require('nearley-make');
+// const grammar = fs.readFileSync(`${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}border.ne`, 'utf-8');
+const nearley = require('nearley');
+// const nearleyMake = require('nearley-make');
 const grammar = require('./grammars/generated/js/border');
 const { CLASSIFICATIONS } = require('./constants/shorthandProperties');
 // TODO: make index.js for factories and use single require
@@ -67,6 +66,7 @@ module.exports = function expandShorthandProperty(propertyName, propertyValue, r
   // }
   const parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart).feed(propertyValue);
   const [rootNode] = parser.results;
+
   return UnorderedOptionalListActionDictionaryFactory.createActionDictionary(propertyName, rootNode, propertyValue);
 
 
