@@ -1,0 +1,3 @@
+attachment {
+  Exp = ( "scroll" | "fixed" | "local" )
+}

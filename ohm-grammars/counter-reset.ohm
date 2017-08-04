@@ -1,0 +1,6 @@
+counterReset {
+  Exp = ( CounterReset_IntermediateRule0 | "none" )
+  CounterReset_IntermediateRule0 = ( customIdent integer? )+
+  customIdent = ( alnum | "-" | "_" )+
+  integer = ( "+" | "-" )? digit+
+}

@@ -1,0 +1,3 @@
+displayInside {
+  Exp = ( "flow-root" | "subgrid" | "table" | "flow" | "flex" | "grid" | "ruby" )
+}

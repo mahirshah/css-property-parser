@@ -1,0 +1,5 @@
+counterStyle {
+  Exp = ( CounterStyleName | "symbols()" )
+  CounterStyleName = customIdent
+  customIdent = ( alnum | "-" | "_" )+
+}

@@ -1,0 +1,6 @@
+fontVariantEastAsian {
+  Exp = ( FontVariantEastAsian_IntermediateRule0 | "normal" )
+  FontVariantEastAsian_IntermediateRule0 = ( ( EastAsianVariantValues | EastAsianWidthValues | "ruby" )+ )
+  EastAsianVariantValues = ( ( "traditional" | "simplified" | "jis78" | "jis83" | "jis90" | "jis04" ) )
+  EastAsianWidthValues = ( ( "proportional-width" | "full-width" ) )
+}

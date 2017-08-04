@@ -1,0 +1,3 @@
+hyphens {
+  Exp = ( "manual" | "none" | "auto" )
+}

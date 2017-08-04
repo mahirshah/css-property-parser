@@ -1,0 +1,7 @@
+hexColor {
+  exp = "#" ( hexColor_eight | hexColor_six | hexColor_four | hexColor_three )
+  hexColor_three = hexDigit hexDigit hexDigit
+  hexColor_four = hexDigit hexDigit hexDigit hexDigit
+  hexColor_six = hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit
+  hexColor_eight = hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit
+}

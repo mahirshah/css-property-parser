@@ -1,0 +1,3 @@
+functionToken {
+  exp = any+
+}

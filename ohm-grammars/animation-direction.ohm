@@ -1,0 +1,4 @@
+animationDirection {
+  Exp = listOf< SingleAnimationDirection , "," >
+  SingleAnimationDirection = ( "alternate-reverse" | "alternate" | "reverse" | "normal" )
+}

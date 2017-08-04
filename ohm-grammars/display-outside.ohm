@@ -1,0 +1,3 @@
+displayOutside {
+  Exp = ( "inline" | "run-in" | "block" )
+}

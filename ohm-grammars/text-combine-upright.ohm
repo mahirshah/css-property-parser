@@ -1,0 +1,5 @@
+textCombineUpright {
+  Exp = ( TextCombineUpright_IntermediateRule0 | "none" | "all" )
+  TextCombineUpright_IntermediateRule0 = ( "digits" integer? )
+  integer = ( "+" | "-" )? digit+
+}

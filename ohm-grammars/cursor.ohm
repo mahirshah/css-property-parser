@@ -1,0 +1,6 @@
+cursor {
+  Exp = ( ( url ( x y )? "," )* ( ( "vertical-text" | "context-menu" | "nwse-resize" | "nesw-resize" | "not-allowed" | "all-scroll" | "row-resize" | "col-resize" | "crosshair" | "ns-resize" | "ew-resize" | "sw-resize" | "nw-resize" | "se-resize" | "ne-resize" | "n-resize" | "progress" | "e-resize" | "zoom-out" | "w-resize" | "grabbing" | "s-resize" | "default" | "no-drop" | "pointer" | "zoom-in" | "alias" | "text" | "cell" | "move" | "copy" | "help" | "auto" | "none" | "grab" | "wait" ) ) )
+  url = ("url(" "\"" ( ~"\"" any )+ "\"" ")") | ("url(" "'" ( ~"'" any )+ "'" ")")
+  x = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" | "30" | "31"
+  y = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" | "30" | "31"
+}

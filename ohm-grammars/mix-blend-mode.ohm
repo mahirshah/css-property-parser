@@ -1,0 +1,4 @@
+mixBlendMode {
+  Exp = BlendMode
+  BlendMode = ( "color-dodge" | "hard-light" | "saturation" | "difference" | "soft-light" | "color-burn" | "luminosity" | "exclusion" | "multiply" | "lighten" | "overlay" | "darken" | "screen" | "normal" | "color" | "hue" )
+}

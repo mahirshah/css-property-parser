@@ -1,0 +1,3 @@
+wordBreak {
+  Exp = ( "break-all" | "keep-all" | "normal" )
+}

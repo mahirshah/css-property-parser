@@ -1,0 +1,9 @@
+[
+  [
+    "Base",
+    "( \"ease\" | \"ease-in\" | \"ease-out\" | \"ease-in-out\" | \"cubic-bezier(\" _ <number> _ \",\" _ <number> _ \",\" _ <number> _ \",\" _ <number> _ \")\" )"
+  ],
+  [
+    "<number>"
+  ]
+]

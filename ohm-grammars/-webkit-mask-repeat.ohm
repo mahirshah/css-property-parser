@@ -1,0 +1,5 @@
+WebkitMaskRepeat {
+  Exp = RepeatStyle ( "," RepeatStyle )*
+  RepeatStyle = ( RepeatStyle_IntermediateRule0 | "repeat-x" | "repeat-y" )
+  RepeatStyle_IntermediateRule0 = ( ( "no-repeat" | "repeat" | "space" | "round" ) ) ( ( "no-repeat" | "repeat" | "space" | "round" ) )?
+}

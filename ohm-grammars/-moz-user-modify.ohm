@@ -1,0 +1,3 @@
+MozUserModify {
+  Exp = ( "read-write" | "write-only" | "read-only" )
+}

@@ -1,0 +1,4 @@
+animateableFeature {
+  Exp = ( "scroll-position" | customIdent | "contents" )
+  customIdent = ( alnum | "-" | "_" )+
+}

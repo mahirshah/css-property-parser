@@ -1,0 +1,3 @@
+compositeStyle {
+  Exp = ( "destination-atop" | "destination-over" | "destination-out" | "destination-in" | "source-atop" | "source-over" | "source-out" | "source-in" | "clear" | "copy" | "xor" )
+}

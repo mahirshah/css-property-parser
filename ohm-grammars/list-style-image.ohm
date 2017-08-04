@@ -1,0 +1,4 @@
+listStyleImage {
+  Exp = ( "none" | url )
+  url = ("url(" "\"" ( ~"\"" any )+ "\"" ")") | ("url(" "'" ( ~"'" any )+ "'" ")")
+}

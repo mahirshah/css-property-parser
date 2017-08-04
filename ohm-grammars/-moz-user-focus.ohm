@@ -1,0 +1,3 @@
+MozUserFocus {
+  Exp = ( "select-before" | "select-after" | "select-menu" | "select-same" | "select-all" | "ignore" | "normal" | "none" )
+}

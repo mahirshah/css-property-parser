@@ -39,17 +39,17 @@ describe('OhmGrammarFormatter#formatOhmGrammarFromJson', function () {
   describe('recursive cases', function () {
     it('should handle deeply recursive cases', function () {
       sandbox.stub(fs, 'readJsonSync')
-        .withArgs(`${PATHS.JSON_GRAMMAR_PATH}ra.json`)
+        .withArgs(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}ra.json`)
         .returns([
           ['__base__', '<rb>'],
           ['<rb>'],
         ])
-        .withArgs(`${PATHS.JSON_GRAMMAR_PATH}rb.json`)
+        .withArgs(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}rb.json`)
         .returns([
           ['__base__', '<rc>'],
           ['<rc>'],
         ])
-        .withArgs(`${PATHS.JSON_GRAMMAR_PATH}rc.json`)
+        .withArgs(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}rc.json`)
         .returns([
           ['__base__', '"d"'],
         ]);
@@ -80,11 +80,11 @@ describe('OhmGrammarFormatter#formatOhmGrammarFromJson', function () {
 
     it('should handle angle', function () {
       sandbox.stub(fs, 'readJsonSync')
-        .withArgs(`${PATHS.JSON_GRAMMAR_PATH}angle-unit.json`)
+        .withArgs(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}angle-unit.json`)
         .returns([[
           '__base__', '"deg" | "grad" | "rad" | "turn"',
         ]])
-        .withArgs(`${PATHS.JSON_GRAMMAR_PATH}number.json`)
+        .withArgs(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}number.json`)
         .returns([
           ['__base__', 'float | scientific'],
           ['float', '(("+"| "-")? digit* "."? digit+)'],

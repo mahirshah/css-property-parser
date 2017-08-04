@@ -1,0 +1,3 @@
+borderCollapse {
+  Exp = ( "collapse" | "separate" )
+}

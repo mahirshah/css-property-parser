@@ -1,0 +1,3 @@
+fontVariantCss21 {
+  Exp = ( ( "small-caps" | "normal" ) )
+}

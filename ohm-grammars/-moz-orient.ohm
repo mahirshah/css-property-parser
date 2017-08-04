@@ -1,0 +1,3 @@
+MozOrient {
+  Exp = ( "horizontal" | "vertical" | "inline" | "block" )
+}

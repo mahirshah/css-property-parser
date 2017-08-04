@@ -1,0 +1,3 @@
+initialLetterAlign {
+  Exp = ( ( "ideographic" | "alphabetic" | "hanging" | "auto" ) )
+}

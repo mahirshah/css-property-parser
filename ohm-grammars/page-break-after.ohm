@@ -1,0 +1,3 @@
+pageBreakAfter {
+  Exp = ( "always" | "avoid" | "right" | "auto" | "left" )
+}

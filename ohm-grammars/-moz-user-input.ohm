@@ -1,0 +1,3 @@
+MozUserInput {
+  Exp = ( "disabled" | "enabled" | "auto" | "none" )
+}

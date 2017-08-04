@@ -1,0 +1,5 @@
+featureValueDeclaration {
+  Exp = customIdent ":" integer+ ";"
+  customIdent = ( alnum | "-" | "_" )+
+  integer = ( "+" | "-" )? digit+
+}

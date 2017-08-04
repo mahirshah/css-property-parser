@@ -1,0 +1,3 @@
+scrollBehavior {
+  Exp = ( "smooth" | "auto" )
+}

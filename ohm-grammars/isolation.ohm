@@ -1,0 +1,3 @@
+isolation {
+  Exp = ( "isolate" | "auto" )
+}

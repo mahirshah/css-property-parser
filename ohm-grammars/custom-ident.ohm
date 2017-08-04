@@ -1,0 +1,3 @@
+customIdent {
+  exp = ( alnum | "-" | "_" )+
+}

@@ -1,0 +1,3 @@
+fontVariantPosition {
+  Exp = ( "normal" | "super" | "sub" )
+}

@@ -1,0 +1,8 @@
+nth {
+  Exp = ( anPlusB | "even" | "odd" )
+  anPlusB = anPlusB_an | anPlusB_b | anPlusB_anb
+  anPlusB_an = integer "n"
+  anPlusB_b = integer
+  anPlusB_anb = integer "n" "+" integer
+  integer = ( "+" | "-" )? digit+
+}

@@ -14,13 +14,15 @@ function getPropertyMapping(propertyName, propertyNode) {
   const longhandRuleNames = Object.keys(longhandRuleNameToPropertyNameMap);
 
   return (function recurseLonghandPropertyNode(node, obj = {}) {
-    if (node.isTerminal()) {
+    if (typeof node !== 'object' || node === null) {
       return obj;
-    } else if (longhandRuleNames.includes(node.ctorName)) {
-      return { [longhandRuleNameToPropertyNameMap[node.ctorName]]: node.sourceString };
+    } else if (longhandRuleNames.includes(node.name)) {
+      return { [longhandRuleNameToPropertyNameMap[node.name]]: node.l };
+    } else if (Array.isArray(node)) {
+      return Object.assign(...node.map(inner => recurseLonghandPropertyNode(inner, obj)));
     }
 
-    return Object.assign(...node.children.map(child => recurseLonghandPropertyNode(child, obj)));
+    return Object.assign(...node.values.map(child => recurseLonghandPropertyNode(child, obj)));
   })(propertyNode);
 }
 
@@ -35,11 +37,15 @@ module.exports = class UnorderedOptionalListActionDictionaryFormatter {
    * @param {string} propertyName - the css property name. For example, 'border' or 'flex-flow'.
    * @returns {Object} - the semantic action dictionary for the given property's Ohm grammar.
    */
-  static createActionDictionary(propertyName) {
-    return {
-      Exp(baseNode) {
-        return getPropertyMapping(propertyName, baseNode);
-      },
-    };
+  static createActionDictionary(propertyName, node, value) {
+    const a = getPropertyMapping(propertyName, node);
+    return Object.entries(a)
+      .map(([property, location], idx, entries) => {
+        if (idx === entries.length - 1) return [property, value.slice(location)];
+
+        return [property, value.slice(location, entries[idx + 1][1] - 1)];
+      })
+      .reduce((o, [k, v]) => Object.assign({ [k]: v }, o), {});
+
   }
 };

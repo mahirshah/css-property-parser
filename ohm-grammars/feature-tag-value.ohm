@@ -1,0 +1,5 @@
+featureTagValue {
+  Exp = string ( ( integer | "off" | "on" ) )?
+  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
+  integer = ( "+" | "-" )? digit+
+}

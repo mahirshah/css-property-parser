@@ -1,0 +1,4 @@
+textDecorationSkip {
+  Exp = ( TextDecorationSkip_IntermediateRule0 | "none" )
+  TextDecorationSkip_IntermediateRule0 = ( ( "objects" | "spaces" | "ink" | "edges" | "box-decoration" )+ )
+}

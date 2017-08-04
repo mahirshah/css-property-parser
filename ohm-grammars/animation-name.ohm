@@ -1,0 +1,6 @@
+animationName {
+  Exp = listOf< ( ( KeyframesName | "none" ) ) , "," >
+  KeyframesName = ( customIdent | string )
+  customIdent = ( alnum | "-" | "_" )+
+  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
+}

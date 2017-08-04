@@ -1,4 +1,5 @@
 const nearley = require('nearley');
+const GRAMMAR_CONSTANTS  = require('../../constants/grammars');
 const grammar = require('../../grammars/js/formalSyntax');
 
 // TODO: make all of the nodeNames enum symbols
@@ -31,7 +32,11 @@ module.exports = class JsonGrammarFormatter2 {
       },
 
       CurlyHash: {
-        toGrammarString([expression, number]) {
+        toGrammarString([expression, number, comma]) {
+          if (comma) {
+            return `( ${Array(+number).fill(evaluate(expression)).join(' _ "," _ ')} ( _ "," _ ${evaluate(expression)} ):* )`;
+          }
+
           return `( ${Array(+number).fill(evaluate(expression)).join(' _ "," _ ')} )`;
         },
       },
@@ -107,7 +112,7 @@ module.exports = class JsonGrammarFormatter2 {
 
       node: {
         toGrammarString([nodeName]) {
-          grammarsToResolve.add(nodeName);
+          grammarsToResolve.add(`<${nodeName}>`);
           return `<${nodeName}>`;
         },
 
@@ -126,7 +131,7 @@ module.exports = class JsonGrammarFormatter2 {
     }
 
     return [
-      ['Exp', rootNodeEvaluation],
+      [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, rootNodeEvaluation],
       ...[...grammarsToResolve].map(grammarName => [grammarName]),
     ];
   }

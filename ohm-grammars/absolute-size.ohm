@@ -1,0 +1,3 @@
+absoluteSize {
+  Exp = ( "xx-small" | "xx-large" | "x-small" | "x-large" | "medium" | "small" | "large" )
+}

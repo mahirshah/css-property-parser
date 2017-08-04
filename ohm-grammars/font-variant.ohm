@@ -1,0 +1,22 @@
+fontVariant {
+  Exp = ( FontVariant_IntermediateRule0 | "normal" | "none" )
+  FontVariant_IntermediateRule7 = ( ( "all-petite-caps" | "all-small-caps" | "titling-caps" | "petite-caps" | "small-caps" | "unicase" ) )
+  FontVariant_IntermediateRule6 = "annotation(" FeatureValueName ( ")" | FontVariant_IntermediateRule7 | NumericFigureValues | NumericSpacingValues | NumericFractionValues | "ordinal" | "slashed-zero" | EastAsianVariantValues | EastAsianWidthValues | "ruby" )+
+  FontVariant_IntermediateRule5 = "ornaments(" FeatureValueName ( ")" | FontVariant_IntermediateRule6 )+
+  FontVariant_IntermediateRule4 = "swash(" FeatureValueName ( ")" | FontVariant_IntermediateRule5 )+
+  FontVariant_IntermediateRule3 = "character-variant(" listOf< FeatureValueName , "," > ( ")" | FontVariant_IntermediateRule4 )+
+  FontVariant_IntermediateRule2 = "styleset(" listOf< FeatureValueName , "," > ( ")" | FontVariant_IntermediateRule3 )+
+  FontVariant_IntermediateRule1 = "stylistic(" FeatureValueName ( ")" | "historical-forms" | FontVariant_IntermediateRule2 )+
+  FontVariant_IntermediateRule0 = ( ( CommonLigValues | DiscretionaryLigValues | HistoricalLigValues | ContextualAltValues | FontVariant_IntermediateRule1 )+ )
+  CommonLigValues = ( ( "no-common-ligatures" | "common-ligatures" ) )
+  DiscretionaryLigValues = ( ( "no-discretionary-ligatures" | "discretionary-ligatures" ) )
+  HistoricalLigValues = ( ( "no-historical-ligatures" | "historical-ligatures" ) )
+  ContextualAltValues = ( ( "no-contextual" | "contextual" ) )
+  FeatureValueName = customIdent
+  NumericFigureValues = ( ( "oldstyle-nums" | "lining-nums" ) )
+  NumericSpacingValues = ( ( "proportional-nums" | "tabular-nums" ) )
+  NumericFractionValues = ( ( "diagonal-fractions" | "stacked-fractions" ) )
+  EastAsianVariantValues = ( ( "traditional" | "simplified" | "jis78" | "jis83" | "jis90" | "jis04" ) )
+  EastAsianWidthValues = ( ( "proportional-width" | "full-width" ) )
+  customIdent = ( alnum | "-" | "_" )+
+}

@@ -1,0 +1,5 @@
+targetTextFunc {
+  Exp = "target-text(" ( ( string | url ) ) "," ( ( "first-letter" | "content" | "before" | "after" ) )? ")"
+  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
+  url = ("url(" "\"" ( ~"\"" any )+ "\"" ")") | ("url(" "'" ( ~"'" any )+ "'" ")")
+}

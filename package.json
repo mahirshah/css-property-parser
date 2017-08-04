@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec --recursive",
-    "start": "node ./src/updateBasicDataUnits.js && ./src/data/formatData.js && node ./src/formatFormalSyntaxes.js && node ./src/formatGrammars.js",
-    "start2": "node ./node_modules/nearley/bin/nearleyc.js ./src/grammars/nearley/formalSyntax.ne > ./src/grammars/js/formalSyntax.js"
+    "start": "node ./node_modules/nearley/bin/nearleyc.js ./src/grammars/nearley/formalSyntax.ne > ./src/grammars/js/formalSyntax.js && node ./src/updateBasicDataUnits.js && node ./src/data/formatData.js && node ./src/formatFormalSyntaxes.js && node ./src/formatGrammars.js"
   },
   "author": "mahirshah",
   "license": "ISC",

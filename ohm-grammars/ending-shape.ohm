@@ -1,0 +1,3 @@
+endingShape {
+  Exp = ( "ellipse" | "circle" )
+}

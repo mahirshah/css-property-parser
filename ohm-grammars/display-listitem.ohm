@@ -1,0 +1,4 @@
+displayListitem {
+  Exp = ( "list-item" ( DisplayOutside? ( ( "flow-root" | "flow" ) )? ) | ( ( ( "flow-root" | "flow" ) )? DisplayOutside? ) ) | ( ( DisplayOutside? ( ( "flow-root" | "flow" ) )? ) | ( ( ( "flow-root" | "flow" ) )? DisplayOutside? ) "list-item" )
+  DisplayOutside = ( "inline" | "run-in" | "block" )
+}

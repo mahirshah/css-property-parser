@@ -1,0 +1,6 @@
+familyName {
+  Exp = ( FamilyName_IntermediateRule0 | string )
+  FamilyName_IntermediateRule0 = customIdent+
+  customIdent = ( alnum | "-" | "_" )+
+  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
+}

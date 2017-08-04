@@ -1,0 +1,3 @@
+displayLegacy {
+  Exp = ( "inline-list-item" | "inline-block" | "inline-table" | "inline-flex" | "inline-grid" )
+}

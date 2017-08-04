@@ -1,0 +1,3 @@
+whiteSpace {
+  Exp = ( "pre-wrap" | "pre-line" | "normal" | "nowrap" | "pre" )
+}

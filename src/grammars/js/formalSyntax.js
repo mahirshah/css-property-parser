@@ -137,7 +137,9 @@ var grammar = {
            return { nodeName: 'CurlyBraces', values: [d[0], d[2], d[4], d[6]] };
         } },
     {"name": "Combinator$string$1", "symbols": [{"literal":"#"}, {"literal":"{"}], "postprocess": function joiner(d) {return d.join('');}},
-    {"name": "Combinator", "symbols": ["Brackets", "Combinator$string$1", "unsigned_int", {"literal":"}"}], "postprocess": function (d) { return { nodeName: 'CurlyHash', values: [d[0], d[2]] }; }},
+    {"name": "Combinator$ebnf$3", "symbols": [{"literal":","}], "postprocess": id},
+    {"name": "Combinator$ebnf$3", "symbols": [], "postprocess": function(d) {return null;}},
+    {"name": "Combinator", "symbols": ["Brackets", "Combinator$string$1", "unsigned_int", "_", "Combinator$ebnf$3", {"literal":"}"}], "postprocess": function (d) { return { nodeName: 'CurlyHash', values: [d[0], d[2], d[4]] }; }},
     {"name": "Combinator", "symbols": ["Brackets", {"literal":"#"}], "postprocess": function (d) { return { nodeName: 'HashMark', values: [d[0][0]] }; }},
     {"name": "Combinator", "symbols": ["terminal"], "postprocess": id},
     {"name": "SingleBar$subexpression$1", "symbols": ["SingleBar", "__", {"literal":"|"}, "__", "DoubleBarList"]},

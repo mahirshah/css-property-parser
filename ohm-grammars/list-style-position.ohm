@@ -1,0 +1,3 @@
+listStylePosition {
+  Exp = ( "outside" | "inside" )
+}
