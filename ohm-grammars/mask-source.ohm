@@ -1,0 +1,4 @@
+maskSource {
+  Exp = url
+  url = ("url(" "\"" ( ~"\"" any )+ "\"" ")") | ("url(" "'" ( ~"'" any )+ "'" ")")
+}

@@ -1,0 +1,4 @@
+MozForceBrokenImageIcon {
+  Exp = integer
+  integer = ( "+" | "-" )? digit+
+}

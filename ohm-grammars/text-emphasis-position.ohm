@@ -1,0 +1,3 @@
+textEmphasisPosition {
+  Exp = ( ( ( "under" | "over" ) ) ( ( "right" | "left" ) ) ) | ( ( ( "right" | "left" ) ) ( ( "under" | "over" ) ) )
+}

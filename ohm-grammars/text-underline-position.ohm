@@ -1,0 +1,5 @@
+textUnderlinePosition {
+  Exp = ( TextUnderlinePosition_IntermediateRule0 | "auto" )
+  TextUnderlinePosition_IntermediateRule1 = ( ( "right" | "left" ) )
+  TextUnderlinePosition_IntermediateRule0 = ( ( "under" | TextUnderlinePosition_IntermediateRule1 )+ )
+}

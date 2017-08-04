@@ -1,0 +1,5 @@
+keyframesName {
+  Exp = ( customIdent | string )
+  customIdent = ( alnum | "-" | "_" )+
+  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
+}

@@ -1,0 +1,3 @@
+scrollSnapTypeY {
+  Exp = ( "mandatory" | "proximity" | "none" )
+}

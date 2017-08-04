@@ -1,0 +1,4 @@
+fontLanguageOverride {
+  Exp = ( "normal" | string )
+  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
+}

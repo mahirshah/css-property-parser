@@ -1,0 +1,3 @@
+overflowWrap {
+  Exp = ( "break-word" | "normal" )
+}

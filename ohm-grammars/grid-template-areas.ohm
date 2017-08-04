@@ -1,0 +1,5 @@
+gridTemplateAreas {
+  Exp = ( GridTemplateAreas_IntermediateRule0 | "none" )
+  GridTemplateAreas_IntermediateRule0 = string+
+  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
+}

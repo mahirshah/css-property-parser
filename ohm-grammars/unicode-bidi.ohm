@@ -1,0 +1,3 @@
+unicodeBidi {
+  Exp = ( "isolate-override" | "bidi-override" | "plaintext" | "isolate" | "normal" | "embed" )
+}

@@ -1,0 +1,3 @@
+pointerEvents {
+  Exp = ( "visiblePainted" | "visibleStroke" | "visibleFill" | "visible" | "inherit" | "painted" | "stroke" | "none" | "fill" | "auto" | "all" )
+}

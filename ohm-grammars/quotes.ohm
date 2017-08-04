@@ -1,0 +1,5 @@
+quotes {
+  Exp = ( Quotes_IntermediateRule0 | "none" )
+  Quotes_IntermediateRule0 = ( string string )+
+  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
+}

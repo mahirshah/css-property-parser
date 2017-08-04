@@ -1,0 +1,4 @@
+animationFillMode {
+  Exp = listOf< SingleAnimationFillMode , "," >
+  SingleAnimationFillMode = ( "backwards" | "forwards" | "none" | "both" )
+}

@@ -1,0 +1,7 @@
+listStyleType {
+  Exp = ( CounterStyle | string | "none" )
+  CounterStyle = ( CounterStyleName | "symbols()" )
+  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
+  CounterStyleName = customIdent
+  customIdent = ( alnum | "-" | "_" )+
+}

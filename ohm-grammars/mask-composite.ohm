@@ -1,0 +1,4 @@
+maskComposite {
+  Exp = listOf< CompositingOperator , "," >
+  CompositingOperator = ( "intersect" | "subtract" | "exclude" | "add" )
+}

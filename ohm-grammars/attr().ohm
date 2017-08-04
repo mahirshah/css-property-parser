@@ -1,0 +1,6 @@
+attrFunc {
+  Exp = "attr(" attrName TypeOrUnit? ( "," attrFallback )? ")"
+  attrName = any+
+  TypeOrUnit = ( "frequency" | "integer" | "integer" | "string" | "number" | "length" | "color" | "angle" | "time" | "vmin" | "vmax" | "grad" | "kHz" | "rem" | "deg" | "url" | "rad" | "pt" | "mm" | "px" | "cm" | "in" | "vw" | "pc" | "vh" | "ex" | "em" | "ms" | "Hz" | "s" | "q" | "%" )
+  attrFallback = any+
+}

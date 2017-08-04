@@ -1,0 +1,3 @@
+textTransform {
+  Exp = ( "capitalize" | "full-width" | "uppercase" | "lowercase" | "none" )
+}

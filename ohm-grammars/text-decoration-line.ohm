@@ -1,0 +1,4 @@
+textDecorationLine {
+  Exp = ( TextDecorationLine_IntermediateRule0 | "none" )
+  TextDecorationLine_IntermediateRule0 = ( ( "underline" | "overline" | "line-through" | "blink" )+ )
+}

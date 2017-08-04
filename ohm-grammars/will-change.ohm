@@ -1,0 +1,6 @@
+willChange {
+  Exp = ( WillChange_IntermediateRule0 | "auto" )
+  WillChange_IntermediateRule0 = listOf< AnimateableFeature , "," >
+  AnimateableFeature = ( "scroll-position" | customIdent | "contents" )
+  customIdent = ( alnum | "-" | "_" )+
+}

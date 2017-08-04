@@ -1,0 +1,3 @@
+singleAnimationDirection {
+  Exp = ( "alternate-reverse" | "alternate" | "reverse" | "normal" )
+}

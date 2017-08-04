@@ -1,0 +1,4 @@
+mediaType {
+  Exp = ident
+  ident = any+
+}

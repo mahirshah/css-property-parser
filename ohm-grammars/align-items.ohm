@@ -1,0 +1,3 @@
+alignItems {
+  Exp = ( "flex-start" | "flex-end" | "baseline" | "stretch" | "center" )
+}

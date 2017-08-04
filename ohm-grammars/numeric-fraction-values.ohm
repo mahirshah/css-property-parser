@@ -1,0 +1,3 @@
+numericFractionValues {
+  Exp = ( ( "diagonal-fractions" | "stacked-fractions" ) )
+}

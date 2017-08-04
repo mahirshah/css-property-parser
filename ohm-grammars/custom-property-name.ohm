@@ -1,0 +1,3 @@
+customPropertyName {
+  exp = "--" any+
+}

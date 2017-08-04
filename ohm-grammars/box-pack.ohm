@@ -1,0 +1,3 @@
+boxPack {
+  Exp = ( "justify" | "center" | "start" | "end" )
+}

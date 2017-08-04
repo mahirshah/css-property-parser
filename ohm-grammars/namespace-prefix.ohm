@@ -1,0 +1,4 @@
+namespacePrefix {
+  Exp = ident
+  ident = any+
+}

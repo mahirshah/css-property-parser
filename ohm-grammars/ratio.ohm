@@ -1,0 +1,3 @@
+ratio {
+  Exp = digit+ "/" digit+
+}

@@ -1,0 +1,3 @@
+singleAnimationPlayState {
+  Exp = ( "running" | "paused" )
+}

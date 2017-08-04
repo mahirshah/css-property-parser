@@ -1,0 +1,3 @@
+overflowX {
+  Exp = ( "visible" | "hidden" | "scroll" | "auto" )
+}

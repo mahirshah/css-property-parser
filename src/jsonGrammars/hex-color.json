@@ -1,7 +1,0 @@
-[
-  ["__base__", "\"#\" ( eight | six | four | three )"],
-  ["three", "hexDigit hexDigit hexDigit"],
-  ["four", "hexDigit hexDigit hexDigit hexDigit"],
-  ["six", "hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit"],
-  ["eight", "hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit"]
-]

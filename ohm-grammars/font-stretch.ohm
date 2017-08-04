@@ -1,0 +1,3 @@
+fontStretch {
+  Exp = ( "ultra-condensed" | "extra-condensed" | "semi-condensed" | "extra-expanded" | "ultra-expanded" | "semi-expanded" | "condensed" | "expanded" | "normal" )
+}

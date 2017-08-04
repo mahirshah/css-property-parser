@@ -1,0 +1,3 @@
+relativeSize {
+  Exp = ( "smaller" | "larger" )
+}

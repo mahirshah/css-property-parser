@@ -1,0 +1,7 @@
+[
+  ["Base", "( an | b | anb )"],
+  ["an", "<integer> \"n\""],
+  ["b", "<integer>"],
+  ["anb", "<integer> \"n\" _ \"+\" _ <integer>"],
+  ["<integer>"]
+]

@@ -1,0 +1,5 @@
+varFunc {
+  Exp = "var(" customPropertyName ( "," declarationValue )? ")"
+  customPropertyName = "--" any+
+  declarationValue = any+
+}

@@ -1,0 +1,3 @@
+textOrientation {
+  Exp = ( "sideways" | "upright" | "mixed" )
+}

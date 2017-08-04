@@ -1,0 +1,3 @@
+pathFunc {
+  exp = "path(" "''" any+ "''" ")"
+}

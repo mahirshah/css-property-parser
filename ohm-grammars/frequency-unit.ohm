@@ -1,0 +1,3 @@
+frequencyUnit {
+  exp = "hz" | "khz"
+}

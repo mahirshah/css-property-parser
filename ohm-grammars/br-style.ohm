@@ -1,0 +1,3 @@
+brStyle {
+  Exp = ( "hidden" | "dotted" | "dashed" | "double" | "groove" | "outset" | "solid" | "ridge" | "inset" | "none" )
+}

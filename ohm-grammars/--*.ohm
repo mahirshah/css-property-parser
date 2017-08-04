@@ -1,0 +1,4 @@
+--* {
+  Exp = declarationValue
+  declarationValue = any+
+}

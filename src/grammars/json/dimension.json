@@ -1,0 +1,8 @@
+[
+  ["Base", "( <length> | <frequency> | <angle> | <resolution> | <time> )"],
+  ["<length>"],
+  ["<frequency>"],
+  ["<angle>"],
+  ["<resolution>"],
+  ["<time>"]
+]

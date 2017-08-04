@@ -1,0 +1,3 @@
+resize {
+  Exp = ( "horizontal" | "vertical" | "none" | "both" )
+}

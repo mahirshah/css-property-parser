@@ -1,0 +1,3 @@
+boxDecorationBreak {
+  Exp = ( "slice" | "clone" )
+}

@@ -1,0 +1,3 @@
+numericSpacingValues {
+  Exp = ( ( "proportional-nums" | "tabular-nums" ) )
+}

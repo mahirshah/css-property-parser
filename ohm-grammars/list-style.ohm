@@ -1,0 +1,11 @@
+listStyle {
+  Exp = ( ListStylePosition | ListStyleImage | ListStyleType )+
+  ListStylePosition = ( "outside" | "inside" )
+  ListStyleImage = ( "none" | url )
+  ListStyleType = ( CounterStyle | string | "none" )
+  url = ("url(" "\"" ( ~"\"" any )+ "\"" ")") | ("url(" "'" ( ~"'" any )+ "'" ")")
+  CounterStyle = ( CounterStyleName | "symbols()" )
+  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
+  CounterStyleName = customIdent
+  customIdent = ( alnum | "-" | "_" )+
+}

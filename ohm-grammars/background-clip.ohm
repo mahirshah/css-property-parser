@@ -1,0 +1,4 @@
+backgroundClip {
+  Exp = listOf< Box , "," >
+  Box = ( "padding-box" | "content-box" | "border-box" )
+}

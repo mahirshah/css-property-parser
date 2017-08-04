@@ -14,7 +14,7 @@ Combinator ->   Brackets "*" {% function (d) { return { nodeName: 'Asterisk', va
 
                                                                             return { nodeName: 'CurlyBraces', values: [d[0], d[2], d[4], d[6]] };
                                                                          } %}
-             | Brackets "#{" unsigned_int "}" {% function (d) { return { nodeName: 'CurlyHash', values: [d[0], d[2]] }; } %}
+             | Brackets "#{" unsigned_int _ ",":? "}" {% function (d) { return { nodeName: 'CurlyHash', values: [d[0], d[2], d[4]] }; } %}
              |  Brackets "#" {% function (d) { return { nodeName: 'HashMark', values: [d[0][0]] }; } %}
              |  terminal {% id %}
 

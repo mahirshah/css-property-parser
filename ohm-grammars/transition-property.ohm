@@ -1,0 +1,6 @@
+transitionProperty {
+  Exp = ( TransitionProperty_IntermediateRule0 | "none" )
+  TransitionProperty_IntermediateRule0 = listOf< SingleTransitionProperty , "," >
+  SingleTransitionProperty = ( customIdent | "all" )
+  customIdent = ( alnum | "-" | "_" )+
+}

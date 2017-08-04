@@ -1,0 +1,3 @@
+rubyAlign {
+  Exp = ( "space-between" | "space-around" | "center" | "start" )
+}

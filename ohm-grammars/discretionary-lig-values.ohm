@@ -1,0 +1,3 @@
+discretionaryLigValues {
+  Exp = ( ( "no-discretionary-ligatures" | "discretionary-ligatures" ) )
+}

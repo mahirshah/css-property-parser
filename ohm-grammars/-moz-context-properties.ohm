@@ -1,0 +1,4 @@
+MozContextProperties {
+  Exp = ( MozContextProperties_IntermediateRule0 | "none" )
+  MozContextProperties_IntermediateRule0 = listOf< ( ( "stroke-opacity" | "fill-opacity" | "stroke" | "fill" ) ) , "," >
+}

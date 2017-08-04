@@ -1,0 +1,6 @@
+counterIncrement {
+  Exp = ( CounterIncrement_IntermediateRule0 | "none" )
+  CounterIncrement_IntermediateRule0 = ( customIdent integer? )+
+  customIdent = ( alnum | "-" | "_" )+
+  integer = ( "+" | "-" )? digit+
+}

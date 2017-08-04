@@ -1,0 +1,3 @@
+MsOverflowStyle {
+  Exp = ( "-ms-autohiding-scrollbar" | "scrollbar" | "auto" | "none" )
+}

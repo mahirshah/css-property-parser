@@ -1,0 +1,5 @@
+flexFlow {
+  Exp = ( FlexDirection | FlexWrap )+
+  FlexDirection = ( "column-reverse" | "row-reverse" | "column" | "row" )
+  FlexWrap = ( "wrap-reverse" | "nowrap" | "wrap" )
+}
