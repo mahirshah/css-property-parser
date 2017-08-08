@@ -1,0 +1,7 @@
+[
+  ["Base", "\"hsla(\" _ ( ( <hue> __ <percentage> __ <percentage> ( _ \"/\" _ <alpha-value> ):? ) | ( <hue> _ \",\" _ <percentage> _ \",\" _ <percentage> ( _ \",\" _ <alpha-value> ):? ) ) _ \")\""],
+  ["<hue>"],
+  ["<percentage>"],
+  ["<alpha-value>"]
+]
+

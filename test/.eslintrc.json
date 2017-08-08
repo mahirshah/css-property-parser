@@ -6,6 +6,7 @@
   "rules": {
     "prefer-arrow-callback": "off",
     "func-names": "off",
-    "max-len": "off"
+    "max-len": "off",
+    "import/no-dynamic-require": "off"
   }
 }

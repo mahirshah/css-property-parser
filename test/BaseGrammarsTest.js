@@ -1,6 +1,5 @@
 const { assert } = require('chai');
-const ohm = require('ohm-js');
-const fs = require('fs-extra');
+const nearley = require('nearley');
 const { PATHS } = require('../src/constants');
 
 
@@ -9,27 +8,44 @@ const { PATHS } = require('../src/constants');
  */
 describe('baseGrammars', function () {
   describe('number', function () {
-    const numberGrammarContent = fs.readFileSync(`${PATHS.OHM_GRAMMAR_PATH}number.ohm`);
-    const numberGrammar = ohm.grammar(numberGrammarContent);
+    const propertyGrammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}number.js`);
 
-    ['1', '22', '200', '+1', '-1', '.4', '.5', '-.4', '+.4', '1.0', '1.04', '12.04', '1e3', '12e30', '1.2e31', '+1e3',
-      '-1e3']
-      .forEach((val) => {
-        it(`should match ${val}`, function () {
-          assert(numberGrammar.match(val).succeeded());
-        });
+    [
+      '1',
+      '22',
+      '200',
+      '+1',
+      '-1',
+      '.4',
+      '.5',
+      '-.4',
+      '+.4',
+      '1.0',
+      '1.04',
+      '12.04',
+    ].forEach((val) => {
+      it(`should match ${val}`, function () {
+        const parser = new nearley.Parser(propertyGrammar.ParserRules, propertyGrammar.ParserStart).feed(val);
+
+        assert.equal(parser.results.length, 1);
       });
+    });
   });
 
   describe('length', function () {
-    const lengthGrammarContent = fs.readFileSync(`${PATHS.OHM_GRAMMAR_PATH}length.ohm`);
-    const lengthGrammar = ohm.grammar(lengthGrammarContent);
+    const propertyGrammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}length.js`);
 
-    ['1px', '1em', '0', '2rem']
-      .forEach((val) => {
-        it(`should match ${val}`, function () {
-          assert(lengthGrammar.match(val).succeeded());
-        });
+    [
+      '1px',
+      '1em',
+      '0',
+      '2rem',
+    ].forEach((val) => {
+      it(`should match ${val}`, function () {
+        const parser = new nearley.Parser(propertyGrammar.ParserRules, propertyGrammar.ParserStart).feed(val);
+
+        assert.equal(parser.results.length, 1);
       });
+    });
   });
 });

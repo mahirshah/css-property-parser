@@ -6,12 +6,9 @@ const { css: { properties, syntaxes } } = require('mdn-data');
 const { PATHS, SYNTAX_OVERRIDES } = require('./constants');
 const JsonGrammarFormatter2 = require('./formatters/grammarFormatters/JsonGrammarFormatter2');
 
-
 // array of syntax/property names that require manual generation.
 // TODO: export this property and check that manual syntax jsons exist in pre commit
-// TODO: support parens next to nodes in the grammar
-const manualSyntaxes = ['image()', 'offset', 'shape', 'frames-timing-function', 'feature-value-declaration', 'cubic-bezier-timing-function'];
-
+const manualSyntaxes = ['image()', 'offset', 'shape', 'frames-timing-function', 'feature-value-declaration', 'cubic-bezier-timing-function', 'rgb()', 'rgba()', 'hsl()', 'hsla()', 'flex'];
 
 // combine properties and syntaxes into one object mapping property names to syntaxes
 const syntaxesSyntaxMap = Object.entries(syntaxes)
@@ -34,7 +31,3 @@ Object.entries(overridenPropertySyntaxMap)
     const jsonGrammar = JsonGrammarFormatter2.format(formalSyntax);
     fs.writeJson(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}${grammarName}.json`, jsonGrammar, { spaces: 2 });
   });
-
-
-const a = JsonGrammarFormatter2.format(overridenPropertySyntaxMap.width);
-console.log(a);

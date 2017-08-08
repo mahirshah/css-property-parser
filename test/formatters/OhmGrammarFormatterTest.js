@@ -2,6 +2,7 @@ const sinon = require('sinon');
 const fs = require('fs-extra');
 const { assert } = require('chai');
 const PATHS = require('../../src/constants/paths');
+const GRAMMAR_CONSTANTS = require('../../src/constants/grammars');
 const OhmGrammarFormatter = require('../../src/formatters/grammarFormatters/OhmGrammarFormatter');
 
 /**
@@ -19,20 +20,12 @@ describe('OhmGrammarFormatter#formatOhmGrammarFromJson', function () {
   });
 
   describe('simple base key conversions', function () {
-    it('should convert syntatic base key correctly', function () {
+    it('should convert base key correctly', function () {
       const result = OhmGrammarFormatter.formatOhmGrammarFromJson([
-        ['__Base__', '( "test" )'],
+        [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '( "test" )'],
       ], 'test');
 
-      assert.equal(result, 'test {\n  Exp = ( "test" )\n}');
-    });
-
-    it('should convert lexical base key correctly', function () {
-      const result = OhmGrammarFormatter.formatOhmGrammarFromJson([
-        ['__base__', '( "test" )'],
-      ], 'test');
-
-      assert.equal(result, 'test {\n  exp = ( "test" )\n}');
+      assert.equal(result, '@builtin "whitespace.ne"\n\nBase -> ( "test" ) {% function (d,l) { return { name: \'Base\', values: d.filter(Boolean), l }; }  %}');
     });
   });
 
@@ -41,25 +34,25 @@ describe('OhmGrammarFormatter#formatOhmGrammarFromJson', function () {
       sandbox.stub(fs, 'readJsonSync')
         .withArgs(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}ra.json`)
         .returns([
-          ['__base__', '<rb>'],
+          [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '<rb>'],
           ['<rb>'],
         ])
         .withArgs(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}rb.json`)
         .returns([
-          ['__base__', '<rc>'],
+          [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '<rc>'],
           ['<rc>'],
         ])
         .withArgs(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}rc.json`)
         .returns([
-          ['__base__', '"d"'],
+          [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '"d"'],
         ]);
 
       const result = OhmGrammarFormatter.formatOhmGrammarFromJson([
-        ['__base__', '<ra>'],
+        [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '<ra>'],
         ['<ra>'],
       ], 'r');
 
-      assert.equal(result, 'r {\n  exp = ra\n  ra = rb\n  rb = rc\n  rc = "d"\n}');
+      assert.equal(result, '@builtin "whitespace.ne"\n\nBase -> Ra {% function (d,l) { return { name: \'Base\', values: d.filter(Boolean), l }; }  %}\nRa -> Rb {% id  %}\nRb -> Rc {% id  %}\nRc -> "d" {% id  %}');
     });
 
     it('should filter out duplicate recursively resolved keys', function () {
@@ -68,6 +61,19 @@ describe('OhmGrammarFormatter#formatOhmGrammarFromJson', function () {
   });
 
   describe('real use cases', function () {
+    it('should handle hexColor', function () {
+      const result = OhmGrammarFormatter.formatOhmGrammarFromJson([
+        [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '( "#" ( eight | six | four | three ) )'],
+        ['three', 'hexDigit hexDigit hexDigit'],
+        ['four', 'hexDigit hexDigit hexDigit hexDigit'],
+        ['six', 'hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit'],
+        ['eight', 'hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit hexDigit'],
+        ['hexDigit', '[0-9A-Fa-f]'],
+      ], 'hexColor');
+
+      assert.equal(result, '');
+    });
+
     it('should handle number', function () {
       const result = OhmGrammarFormatter.formatOhmGrammarFromJson([
         ['__base__', 'float | exponent'],

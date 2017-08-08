@@ -1,0 +1,30 @@
+[
+  [
+    "Base",
+    "( oneValueSyntax | twoValueSyntax | threeValueSyntax )"
+  ],
+  [
+    "oneValueSyntax",
+    "( \"auto\" | \"initial\" | \"none\" | <flex-basis> | <flex-grow> )"
+  ],
+  [
+    "twoValueSyntax",
+    "( <flex-grow> __ ( <flex-basis> | <flex-shrink> ) )"
+  ],
+  [
+    "threeValueSyntax",
+    "( <flex-grow> __ <flex-shrink> __ <flex-basis> )"
+  ],
+  [
+    "<number>"
+  ],
+  [
+    "<flex-basis>"
+  ],
+  [
+    "<flex-grow>"
+  ],
+  [
+    "<flex-shrink>"
+  ]
+]

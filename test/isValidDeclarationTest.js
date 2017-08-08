@@ -11,7 +11,6 @@ describe('isValidDeclaration', function () {
       'rgb(34 12 64 / 0.3)', 'rgba(34 12 64 / 0.3)',
       'hsl(30, 100%, 50%, 0.3)', 'hsla(30, 100%, 50%, 0.3)', 'hsl(30 100% 50% / 0.3)',
       'hsla(30 100% 50% / 0.3)', 'inherit', 'initial', 'unset']
-    // ['rgba(34 12 64 / 0.3)']
       .forEach((value) => {
         it(`should return true for ${value}`, function () {
           assert(isValidDeclaration('color', value));
