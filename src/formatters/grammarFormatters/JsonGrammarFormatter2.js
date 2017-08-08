@@ -3,6 +3,7 @@ const GRAMMAR_CONSTANTS  = require('../../constants/grammars');
 const grammar = require('../../grammars/js/formalSyntax');
 
 // TODO: make all of the nodeNames enum symbols
+// TODO: replace jsonGrammarFormatter
 module.exports = class JsonGrammarFormatter2 {
   static format(formalSyntax) {
     const parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart).feed(formalSyntax);
@@ -49,12 +50,12 @@ module.exports = class JsonGrammarFormatter2 {
           if (!comma) {
             return `( ${minimumString} )`;
           } else if (max) { // {integer,integer}
-            maximumString = new Array(+max - +min).fill().map(() => `${evaluate(expression)}:?`).join(' __ ');
+            maximumString = new Array(+max - +min).fill().map(() => `( __ ${evaluate(expression)} ):?`).join(' ');
           } else { // {integer,}
             maximumString = `${evaluate(expression)}:*`;
           }
 
-          return `( ${minimumString} __ ${maximumString} )`.trim();
+          return `( ${minimumString} ${maximumString} )`.trim();
         },
       },
 

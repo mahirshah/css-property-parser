@@ -132,15 +132,15 @@ var grammar = {
     {"name": "Combinator$ebnf$2", "symbols": ["unsigned_int"], "postprocess": id},
     {"name": "Combinator$ebnf$2", "symbols": [], "postprocess": function(d) {return null;}},
     {"name": "Combinator", "symbols": ["Brackets", {"literal":"{"}, "unsigned_int", "_", "Combinator$ebnf$1", "_", "Combinator$ebnf$2", {"literal":"}"}], "postprocess":  function (d, l, r) {
-           if(d[0] && d[0].nodeName === 'HashMark') return r;
+            if(d[0] && d[0].nodeName === 'HashMark') return r;
         
-           return { nodeName: 'CurlyBraces', values: [d[0], d[2], d[4], d[6]] };
+            return { nodeName: 'CurlyBraces', values: [d[0], d[2], d[4], d[6]] };
         } },
     {"name": "Combinator$string$1", "symbols": [{"literal":"#"}, {"literal":"{"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "Combinator$ebnf$3", "symbols": [{"literal":","}], "postprocess": id},
     {"name": "Combinator$ebnf$3", "symbols": [], "postprocess": function(d) {return null;}},
     {"name": "Combinator", "symbols": ["Brackets", "Combinator$string$1", "unsigned_int", "_", "Combinator$ebnf$3", {"literal":"}"}], "postprocess": function (d) { return { nodeName: 'CurlyHash', values: [d[0], d[2], d[4]] }; }},
-    {"name": "Combinator", "symbols": ["Brackets", {"literal":"#"}], "postprocess": function (d) { return { nodeName: 'HashMark', values: [d[0][0]] }; }},
+    {"name": "Combinator", "symbols": ["Brackets", {"literal":"#"}], "postprocess": function (d) { return { nodeName: 'HashMark', values: [d[0]] }; }},
     {"name": "Combinator", "symbols": ["terminal"], "postprocess": id},
     {"name": "SingleBar$subexpression$1", "symbols": ["SingleBar", "__", {"literal":"|"}, "__", "DoubleBarList"]},
     {"name": "SingleBar", "symbols": ["SingleBar$subexpression$1"], "postprocess":  function (d) {

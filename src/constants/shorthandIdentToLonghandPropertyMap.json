@@ -1,0 +1,161 @@
+{
+  "transition": {
+    "SingleTransitionTimingFunction": "transition-timing-function",
+    "SingleTransitionProperty": "transition-property",
+    "Time": [
+      "transition-duration",
+      "transition-delay"
+    ]
+  },
+  "mask": {
+    "MaskClip": "mask-clip",
+    "MaskOrigin": "mask-origin"
+  },
+  "animation": {
+    "SingleAnimationPlayState": "animation-play-state",
+    "SingleAnimationFillMode": "animation-fill-mode",
+    "SingleAnimationIterationCount": "animation-iteration-count",
+    "SingleAnimationDirection": "animation-direction",
+    "SingleAnimationTimingFunction": "animation-timing-function",
+    "SingleAnimationName": "animation-name",
+    "Time": [
+      "animation-duration",
+      "animation-delay"
+    ]
+  },
+  "flex": {
+    "FlexGrow": "flex-grow",
+    "FlexShrink": "flex-shrink",
+    "FlexBasis": "flex-basis"
+  },
+  "background": {
+    "Bgimage": "background-image",
+    "BackgroundColor": "background-color",
+    "Box": [
+      "background-origin",
+      "background-clip"
+    ],
+    "Position": "background-position",
+    "BgSize": "background-size",
+    "RepeatStyle": "background-repeat",
+    "Attachment": "background-attachment"
+  },
+  "border-radius": [
+    "border-top-left-radius",
+    "border-top-right-radius",
+    "border-bottom-right-radius",
+    "border-bottom-left-radius"
+  ],
+  "padding": [
+    "padding-top",
+    "padding-right",
+    "padding-bottom",
+    "padding-left"
+  ],
+  "margin": [
+    "margin-top",
+    "margin-right",
+    "margin-bottom",
+    "margin-left"
+  ],
+  "border-width": [
+    "border-top-width",
+    "border-right-width",
+    "border-bottom-width",
+    "border-left-width"
+  ],
+  "border-style": [
+    "border-top-style",
+    "border-right-style",
+    "border-bottom-style",
+    "border-left-style"
+  ],
+  "border-color": [
+    "border-top-color",
+    "border-right-color",
+    "border-bottom-color",
+    "border-left-color"
+  ],
+  "text-emphasis": {
+    "TextEmphasisColor": "text-emphasis-color",
+    "TextEmphasisStyle": "text-emphasis-style"
+  },
+  "text-decoration": {
+    "TextDecorationColor": "text-decoration-color",
+    "TextDecorationStyle": "text-decoration-style",
+    "TextDecorationLine": "text-decoration-line"
+  },
+  "outline": {
+    "OutlineStyle": "outline-style",
+    "OutlineWidth": "outline-width",
+    "OutlineColor": "outline-color"
+  },
+  "list-style": {
+    "ListStyleType": "list-style-type",
+    "ListStylePosition": "list-style-position",
+    "ListStyleImage": "list-style-image"
+  },
+  "flex-flow": {
+    "FlexWrap": "flex-wrap",
+    "FlexDirection": "flex-direction"
+  },
+  "columns": {
+    "ColumnCount": "column-count",
+    "ColumnWidth": "column-width"
+  },
+  "column-rule": {
+    "ColumnRuleWidth": "column-rule-width",
+    "ColumnRuleStyle": "column-rule-style",
+    "ColumnRuleColor": "column-rule-color"
+  },
+  "border-top": {
+    "Color": "border-top-color",
+    "BrStyle": "border-top-style",
+    "BrWidth": "border-top-width"
+  },
+  "border-right": {
+    "Color": "border-right-color",
+    "BrStyle": "border-right-style",
+    "BrWidth": "border-right-width"
+  },
+  "border-left": {
+    "Color": "border-left-color",
+    "BrStyle": "border-left-style",
+    "BrWidth": "border-left-width"
+  },
+  "border-bottom": {
+    "Color": "border-bottom-color",
+    "BrStyle": "border-bottom-style",
+    "BrWidth": "border-bottom-width"
+  },
+  "border-inline-start": {
+    "Color": "color",
+    "BorderStyle": "border-style",
+    "BorderWidth": "border-width"
+  },
+  "border-inline-end": {
+    "Color": "color",
+    "BorderStyle": "border-style",
+    "BorderWidth": "border-width"
+  },
+  "border-block-start": {
+    "Color": "color",
+    "BorderStyle": "border-style",
+    "BorderWidth": "border-width"
+  },
+  "border-block-end": {
+    "Color": "color",
+    "BorderStyle": "border-style",
+    "BorderWidth": "border-width"
+  },
+  "border": {
+    "Color": "border-color",
+    "BrStyle": "border-style",
+    "BrWidth": "border-width"
+  },
+  "-webkit-border-before": {
+    "Color": "color",
+    "BorderStyle": "border-style",
+    "BorderWidth": "border-width"
+  }
+}

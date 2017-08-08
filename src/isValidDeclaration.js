@@ -1,4 +1,5 @@
-const ohm = require('ohm-js');
+/* eslint-disable import/no-dynamic-require */
+const nearley = require('nearley');
 const fs = require('fs-extra');
 const { css: { properties } } = require('mdn-data');
 const { PATHS, CSS } = require('./constants');
@@ -10,8 +11,12 @@ module.exports = function isValidDeclaration(property, value) {
     return true;
   }
 
-  const propertyGrammarContents = fs.readFileSync(`${PATHS.OHM_GRAMMAR_PATH}${property}.ohm`);
-  const propertyGrammar = ohm.grammar(propertyGrammarContents);
+  const propertyGrammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}${property}.js`);
 
-  return propertyGrammar.match(value).succeeded();
+  try {
+    const parser = new nearley.Parser(propertyGrammar.ParserRules, propertyGrammar.ParserStart).feed(value);
+    return !!parser.results.length;
+  } catch (parseError) {
+    return false;
+  }
 };

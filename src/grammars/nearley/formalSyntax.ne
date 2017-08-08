@@ -8,14 +8,13 @@ Exp ->  SingleBar {% id %}
 Combinator ->   Brackets "*" {% function (d) { return { nodeName: 'Asterisk', values: [d[0]] }; } %}
              |  Brackets "+" {% function (d) { return { nodeName: 'Plus', values: [d[0]] }; } %}
              |  Brackets "?" {% function (d) { return { nodeName: 'QuestionMark', values: [d[0]] }; } %}
-
              |  Brackets "{" unsigned_int _ ",":? _ unsigned_int:? "}" {% function (d, l, r) {
                                                                             if(d[0] && d[0].nodeName === 'HashMark') return r;
 
                                                                             return { nodeName: 'CurlyBraces', values: [d[0], d[2], d[4], d[6]] };
-                                                                         } %}
-             | Brackets "#{" unsigned_int _ ",":? "}" {% function (d) { return { nodeName: 'CurlyHash', values: [d[0], d[2], d[4]] }; } %}
-             |  Brackets "#" {% function (d) { return { nodeName: 'HashMark', values: [d[0][0]] }; } %}
+                                                                        } %}
+             |  Brackets "#{" unsigned_int _ ",":? "}" {% function (d) { return { nodeName: 'CurlyHash', values: [d[0], d[2], d[4]] }; } %}
+             |  Brackets "#" {% function (d) { return { nodeName: 'HashMark', values: [d[0]] }; } %}
              |  terminal {% id %}
 
 SingleBar -> ( SingleBar __ "|" __ DoubleBarList ) {% function (d) {

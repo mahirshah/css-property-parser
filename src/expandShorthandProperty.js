@@ -6,22 +6,22 @@ const shorthandProperties = require('../formatted-data/shorthand-properties.json
 // const grammar = fs.readFileSync(`${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}border.ne`, 'utf-8');
 const nearley = require('nearley');
 // const nearleyMake = require('nearley-make');
-const grammar = require('./grammars/generated/js/border');
 const { CLASSIFICATIONS } = require('./constants/shorthandProperties');
+
 // TODO: make index.js for factories and use single require
-const TrblActionDictionaryFactory = require('./factories/actionDictionaryFactories/TrblActionDictionaryFactory');
-const UnorderedOptionalListActionDictionaryFactory = require('./factories/actionDictionaryFactories/UnorderedOptionalListActionDictionaryFactory');
-const CommaSeparatedListActionDictionaryFactory = require('./factories/actionDictionaryFactories/CommaSeparatedListActionDictionaryFactory');
-const FlexActionDictionaryFactory = require('./factories/actionDictionaryFactories/FlexActionDictionaryFactory');
-const BorderRadiusActionDictionaryFactory = require('./factories/actionDictionaryFactories/BorderRadiusActionDictionaryFactory');
 const BackgroundActionDictionaryFactory = require('./factories/actionDictionaryFactories/BackgroundActionDictionaryFactory');
+const UnorderedOptionalListPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/UnorderedOptionalListPropertyFormatter');
+const TrblPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/TrblPropertyFormatter');
+const FlexPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/FlexPropertyFormatter');
+const BorderRadiusPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/BorderRadiusPropertyFormatter');
+const CommaSeparatedPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/CommaSeparatedListPropertyFormatter');
 
 const shorthandPropertyTypeToActionDictionaryFactoryMap = {
-  [CLASSIFICATIONS.TRBL]: TrblActionDictionaryFactory,
-  [CLASSIFICATIONS.UNORDERED_OPTIONAL_TUPLE]: UnorderedOptionalListActionDictionaryFactory,
-  [CLASSIFICATIONS.COMMA_SEPARATED_LIST]: CommaSeparatedListActionDictionaryFactory,
-  [CLASSIFICATIONS.FLEX]: FlexActionDictionaryFactory,
-  [CLASSIFICATIONS.BORDER_RADIUS]: BorderRadiusActionDictionaryFactory,
+  [CLASSIFICATIONS.TRBL]: TrblPropertyFormatter,
+  [CLASSIFICATIONS.UNORDERED_OPTIONAL_TUPLE]: UnorderedOptionalListPropertyFormatter,
+  [CLASSIFICATIONS.COMMA_SEPARATED_LIST]: CommaSeparatedPropertyFormatter,
+  [CLASSIFICATIONS.FLEX]: FlexPropertyFormatter,
+  [CLASSIFICATIONS.BORDER_RADIUS]: BorderRadiusPropertyFormatter,
   [CLASSIFICATIONS.BACKGROUND]: BackgroundActionDictionaryFactory,
 };
 
@@ -36,8 +36,9 @@ const shorthandPropertyTypeToActionDictionaryFactoryMap = {
  *                                              expand to additional shorthands. For example, the border property
  *                                              expands to border-width, which expands further to border-left-width,
  *                                              border-right-width, etc.
- *
+ * TODO: add another param to include initial values for values not set
  * TODO: add examples here
+ * TODO: properly handle parsing errors
  */
 module.exports = function expandShorthandProperty(propertyName, propertyValue, recursivelyResolve = true) {
   if (!isShorthandProperty(propertyName)) {
@@ -50,25 +51,12 @@ module.exports = function expandShorthandProperty(propertyName, propertyValue, r
   //   ), {});
   // }
 
-  // const propertyGrammarContents = fs.readFileSync(`${PATHS.OHM_GRAMMAR_PATH}${propertyName}.ohm`);
-  // const propertyGrammar = ohm.grammar(propertyGrammarContents);
-  // const propertyMatch = propertyGrammar.match(propertyValue);
-  //
-  // if (propertyMatch.succeeded()) {
-  //   const shorthandType = shorthandProperties[propertyName].shorthandType;
-  //   const actionDictionary = shorthandPropertyTypeToActionDictionaryFactoryMap[shorthandType]
-  //     .createActionDictionary(propertyName);
-  //   const propertySemantics = propertyGrammar
-  //     .createSemantics()
-  //     .addOperation('eval', actionDictionary);
-  //
-  //   return propertySemantics(propertyMatch).eval();
-  // }
+  // eslint-disable-next-line import/no-dynamic-require
+  const grammar = require(`./grammars/generated/js/${propertyName}`);
   const parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart).feed(propertyValue);
   const [rootNode] = parser.results;
+  const shorthandType = shorthandProperties[propertyName].shorthandType;
 
-  return UnorderedOptionalListActionDictionaryFactory.createActionDictionary(propertyName, rootNode, propertyValue);
-
-
-  throw new Error('no match');
+  return shorthandPropertyTypeToActionDictionaryFactoryMap[shorthandType]
+    .format(propertyName, rootNode, propertyValue);
 };
