@@ -26,7 +26,7 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
       assert.deepEqual(result, [['Base', '( "foo" __ "foo" __ "foo" )']]);
     });
 
-    it('should handle single number with comma case', function () {
+    it.skip('should handle single number with comma case', function () {
       const result = JsonGrammarFormatter.format('foo{3,}');
 
       assert.deepEqual(result, [['Base', '( "foo" __ "foo" __ "foo" ( __ "foo"):* )']]);
@@ -52,7 +52,7 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
       assert.deepEqual(result, [['Base', '( "foo" | "bar" ) ( __ ( "foo" | "bar" ) ):*']]);
     });
 
-    it('should handle complex double bar list', function () {
+    it.skip('should handle complex double bar list', function () {
       const result = JsonGrammarFormatter.format('foo || bar || baz || willow');
 
       assert.deepEqual(result, [['Base', '( ( "foo" | "bar" | "baz" | "willow" ) ( __ ( "foo" | "bar" | "baz" | "willow" ) ):* )']]);
