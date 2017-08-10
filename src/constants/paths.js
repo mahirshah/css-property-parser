@@ -6,5 +6,5 @@ module.exports = {
   GENERATED_JS_GRAMMAR_PATH: `${__dirname}/../grammars/generated/js/`,
   FORMATTED_DATA_PATH: `${__dirname}/../../formatted-data/`,
   FORMAL_SYNTAX_GRAMMAR_PATH: `${__dirname}/../grammars/`,
-  NEARLEY_BIN_ROOT: `${__dirname}/../../node_modules/nearley/bin/`
+  NEARLEY_BIN_ROOT: `${__dirname}/../../node_modules/nearley/bin/`,
 };
