@@ -9,12 +9,12 @@ const nearley = require('nearley');
 const { CLASSIFICATIONS } = require('./constants/shorthandProperties');
 
 // TODO: make index.js for factories and use single require
-const BackgroundActionDictionaryFactory = require('./factories/actionDictionaryFactories/BackgroundActionDictionaryFactory');
 const UnorderedOptionalListPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/UnorderedOptionalListPropertyFormatter');
 const TrblPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/TrblPropertyFormatter');
 const FlexPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/FlexPropertyFormatter');
 const BorderRadiusPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/BorderRadiusPropertyFormatter');
 const CommaSeparatedPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/CommaSeparatedListPropertyFormatter');
+const BackgroundPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/BackgroundPropertyFormatter');
 
 const shorthandPropertyTypeToActionDictionaryFactoryMap = {
   [CLASSIFICATIONS.TRBL]: TrblPropertyFormatter,
@@ -22,7 +22,7 @@ const shorthandPropertyTypeToActionDictionaryFactoryMap = {
   [CLASSIFICATIONS.COMMA_SEPARATED_LIST]: CommaSeparatedPropertyFormatter,
   [CLASSIFICATIONS.FLEX]: FlexPropertyFormatter,
   [CLASSIFICATIONS.BORDER_RADIUS]: BorderRadiusPropertyFormatter,
-  [CLASSIFICATIONS.BACKGROUND]: BackgroundActionDictionaryFactory,
+  [CLASSIFICATIONS.BACKGROUND]: BackgroundPropertyFormatter,
 };
 
 /**

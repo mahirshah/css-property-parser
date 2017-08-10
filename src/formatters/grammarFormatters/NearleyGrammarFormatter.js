@@ -9,9 +9,9 @@ const BUILTIN_GRAMMARS = ['whitespace'];
 
 /**
  * Class to format a JSON Grammar into an Nearley Grammar
- * @type {OhmGrammarFormatter}
+ * @type {NearleyGrammarFormatter}
  */
-module.exports = class OhmGrammarFormatter {
+module.exports = class NearleyGrammarFormatter {
   /**
    * Given a JSON grammar format it into an Nearley Grammar string. This function, recursively resolves grammar
    * rules defined in the given json grammar. Any intermediate grammar rules are prefixed with the file name in order
@@ -24,19 +24,19 @@ module.exports = class OhmGrammarFormatter {
    * @param {string} grammarName - the name of the property being converted to nearley form. For example, "rgba()"
    * @returns {string} - the formatted Ohm Grammar string
    */
-  static formatOhmGrammarFromJson(jsonGrammar, grammarName) {
-    OhmGrammarFormatter._isGrammarValid(jsonGrammar);
+  static format(jsonGrammar, grammarName) {
+    NearleyGrammarFormatter._isGrammarValid(jsonGrammar);
 
     // Create a 2d array from a grammar name to its json grammar. All of these grammars need to be recursively resolved.
     // i.e. [["color", [<jsonGrammarForColor>]], "z-index", [<jsonGrammarForZIndex>]]
     // Then get the file name for each grammar that needs to be pulled into this grammar. Grab the files for those
     // jsonGrammars and pull in the rule definitions in those jsonGrammars.
-    const recursivelyResolvedGrammars = OhmGrammarFormatter
+    const recursivelyResolvedGrammars = NearleyGrammarFormatter
       ._getGrammarsToResolve(jsonGrammar)
       .map(fileToResolve => [fileToResolve, fs.readJsonSync(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}${fileToResolve}.json`)])
-      .filter(([, json]) => OhmGrammarFormatter._isGrammarValid(json))
+      .filter(([, json]) => NearleyGrammarFormatter._isGrammarValid(json))
       .map(([grammarName, jsonGrammar]) => (
-        [grammarName, OhmGrammarFormatter._prefixIntermediateGrammarRules(grammarName, jsonGrammar)]
+        [grammarName, NearleyGrammarFormatter._prefixIntermediateGrammarRules(grammarName, jsonGrammar)]
       ))
       .map(([grammarName, json]) => json
         .filter(grammarPair => grammarPair.length === 2) // filter out any jsonGrammars that need resolution
@@ -45,7 +45,7 @@ module.exports = class OhmGrammarFormatter {
             ? [CaseConverterUtils.formalSyntaxIdentToOhmIdent(grammarName), ruleBody]
             : [ruleName, ruleBody]
         )));
-    const [[, baseValue], ...otherRules] = OhmGrammarFormatter
+    const [[, baseValue], ...otherRules] = NearleyGrammarFormatter
       ._prefixIntermediateGrammarRules(grammarName, jsonGrammar);
     // the base key for this grammar should be mapped to Base, then concat the rest of the rules and
     // format them into nearley syntax. i.e <ruleName> -> <ruleBody>.
@@ -53,7 +53,7 @@ module.exports = class OhmGrammarFormatter {
       .concat(otherRules.filter(rule => rule.length === 2)) // add any rules that don't need to be resolved
       .concat(...recursivelyResolvedGrammars) // add all the rules we resolved
       .map(([ruleName, ruleBody]) => (
-        `${ruleName} -> ${OhmGrammarFormatter._formatJsonRuleBody(ruleBody)} ${this._getPostProcessorString(grammarName, ruleName)}`
+        `${ruleName} -> ${NearleyGrammarFormatter._formatJsonRuleBody(ruleBody)} ${this._getPostProcessorString(grammarName, ruleName)}`
       ))
       .join('\n');
     const builtinGrammarsHeader = BUILTIN_GRAMMARS
@@ -114,7 +114,7 @@ module.exports = class OhmGrammarFormatter {
     return [...new Set(resolutions.concat(
       ...resolutions
         .map(file => fs.readJsonSync(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}${file}.json`))
-        .map(grammar => OhmGrammarFormatter._getGrammarsToResolve(grammar, resolved.concat(resolutions)))))];
+        .map(grammar => NearleyGrammarFormatter._getGrammarsToResolve(grammar, resolved.concat(resolutions)))))];
   }
 
   /**
@@ -152,7 +152,7 @@ module.exports = class OhmGrammarFormatter {
               const ruleName = ruleNameMatches.find(Boolean);
 
               return completeMatch
-                .replace(ruleName, OhmGrammarFormatter._prefixRuleName(grammarName, ruleName));
+                .replace(ruleName, NearleyGrammarFormatter._prefixRuleName(grammarName, ruleName));
             }))
           .join(' ')));
     }
