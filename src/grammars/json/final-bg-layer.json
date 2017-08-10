@@ -1,0 +1,27 @@
+[
+  [
+    "Base",
+    "( <bg-image> | ( <position> ( _ \"/\" _ <bg-size> ):? ) | <repeat-style> | <attachment> | <box> | <box> | <background-color> ) ( __ ( <bg-image> | ( <position> ( _ \"/\" _ <bg-size> ):? ) | <repeat-style> | <attachment> | <box> | <box> | <background-color> ) ):*"
+  ],
+  [
+    "<bg-image>"
+  ],
+  [
+    "<position>"
+  ],
+  [
+    "<bg-size>"
+  ],
+  [
+    "<repeat-style>"
+  ],
+  [
+    "<attachment>"
+  ],
+  [
+    "<box>"
+  ],
+  [
+    "<background-color>"
+  ]
+]

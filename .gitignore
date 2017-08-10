@@ -2,40 +2,6 @@
 node_modules
 .DS_STORE
 
-# ignore generated ohm grammars
-ohm-grammars
+# ignore generated grammars
+src/grammars/generated
 
-# ignore all generated json grammars, except the ones we have to define manually, since they don't exist in
-# syntaxes.json that MDN provides
-src/jsonGrammars/*
-!src/jsonGrammars/angle.json
-!src/jsonGrammars/custom-ident.json
-!src/jsonGrammars/frequency.json
-!src/jsonGrammars/integer.json
-!src/jsonGrammars/length.json
-!src/jsonGrammars/number.json
-!src/jsonGrammars/percentage.json
-!src/jsonGrammars/ratio.json
-!src/jsonGrammars/resolution.json
-!src/jsonGrammars/string.json
-!src/jsonGrammars/time.json
-!src/jsonGrammars/url.json
-!src/jsonGrammars/declaration-value.json
-!src/jsonGrammars/hex-color.json
-!src/jsonGrammars/outline-radius.json
-!src/jsonGrammars/image().json
-!src/jsonGrammars/id-selector.json
-!src/jsonGrammars/x.json
-!src/jsonGrammars/y.json
-!src/jsonGrammars/path().json
-!src/jsonGrammars/attr-name.json
-!src/jsonGrammars/attr-fallback.json
-!src/jsonGrammars/positive-integer.json
-!src/jsonGrammars/dimension.json
-!src/jsonGrammars/function-token.json
-!src/jsonGrammars/any-value.json
-!src/jsonGrammars/ident.json
-!src/jsonGrammars/declaration-list.json
-!src/jsonGrammars/an-plus-b.json
-!src/jsonGrammars/declaration.json
-!src/jsonGrammars/custom-property-name.json

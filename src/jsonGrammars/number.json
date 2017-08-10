@@ -1,7 +1,0 @@
-[
-  ["__base__", "floatScientific | simpleScientific | float | simple | float"],
-  ["simple", "(\"+\"| \"-\")? digit+"],
-  ["float", "((\"+\"| \"-\")? digit* \".\"? digit+)"],
-  ["simpleScientific", "((\"+\"| \"-\")? digit+ \"e\" \"-\"? digit+)"],
-  ["floatScientific", "((\"+\"| \"-\")? digit* \".\"? digit+ \"e\" \"-\"? digit+)"]
-]

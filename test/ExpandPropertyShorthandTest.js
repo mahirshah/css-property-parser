@@ -258,7 +258,7 @@ describe('expandPropertyShorthand', function () {
   });
 
 
-  describe('transition', function () {
+  describe.skip('transition', function () {
     it('should return expanded transition for name duration', function () {
       const result = expandPropertyShorthand('transition', 'margin-left 4s');
 
@@ -482,6 +482,128 @@ describe('expandPropertyShorthand', function () {
         'border-top-right-radius': '5% / 25em',
         'border-bottom-left-radius': '5% / 35em',
         'border-bottom-right-radius': '10px / 30px',
+      });
+    });
+  });
+
+  describe.skip('background', function () {
+    it('should expand using a <background-color>', function () {
+      const result = expandPropertyShorthand('background', 'green');
+
+      assert.deepEqual(result, {
+        'background-color': 'green',
+      });
+    });
+
+    it('should expand using a <bg-image> and <repeat-style>', function () {
+      const result = expandPropertyShorthand('background', 'url("test.jpg") repeat-y');
+
+      assert.deepEqual(result, {
+        'background-image': 'url("test.jpg")',
+        'background-repeat': 'repeat-y',
+      });
+    });
+
+    it('should expand using a <bg-image> and double <repeat-style>', function () {
+      const result = expandPropertyShorthand('background', 'url("test.jpg") repeat space');
+
+      assert.deepEqual(result, {
+        'background-image': 'url("test.jpg")',
+        'background-repeat': 'repeat space',
+      });
+    });
+
+    it('should expand using a <box> and <background-color>', function () {
+      const result = expandPropertyShorthand('background', 'border-box red');
+
+      assert.deepEqual(result, {
+        'background-origin': 'border-box',
+        'background-clip': 'border-box',
+        'background-color': 'red',
+      });
+    });
+
+    it('should expand double repeat', function () {
+      const result = expandPropertyShorthand('background', 'no-repeat repeat');
+
+      assert.deepEqual(result, {
+        'background-repeat': 'no-repeat repeat',
+      });
+    });
+
+    it('should expand double position', function () {
+      const result = expandPropertyShorthand('background', 'left 10px');
+
+      assert.deepEqual(result, {
+        'background-position': 'left 10px',
+      });
+    });
+
+    it('should expand background position double size', function () {
+      const result = expandPropertyShorthand('background', '10% / auto 10px');
+
+      assert.deepEqual(result, {
+        'background-position': '10%',
+        'background-size': 'auto 10px',
+      });
+    });
+
+    it('should expand all properties', function () {
+      const result = expandPropertyShorthand('background', 'fixed padding-box url(image.png) rgb(255, 255, 0) 10px top / cover repeat-x');
+
+      assert.deepEqual(result, {
+        'background-attachment': 'fixed',
+        'background-clip': 'padding-box',
+        'background-image': 'url(image.png)',
+        'background-repeat': 'repeat-x',
+        'background-color': 'rgb(255, 255, 0)',
+        'background-position': '10px top',
+        'background-size': 'cover',
+      });
+    });
+
+    it('should expand using a double <box>', function () {
+      const result = expandPropertyShorthand('background', 'border-box padding-box red');
+
+      assert.deepEqual(result, {
+        'background-origin': 'border-box',
+        'background-clip': 'padding-box',
+        'background-color': 'red',
+      });
+    });
+
+    it('should expand a single image, centered and scaled', function () {
+      const result = expandPropertyShorthand('background', 'no-repeat center/80% url("../img/image.png")');
+
+      assert.deepEqual(result, {
+        'background-repeat': 'no-repeat',
+        'background-position': 'center',
+        'background-size': '80%',
+        'background-image': 'url("../img/image.png")',
+      });
+    });
+
+    it('should expand 2 layers', function () {
+      const result = expandPropertyShorthand('background', 'no-repeat center/80% url("../img/image.png"), green');
+
+      assert.deepEqual(result, {
+        'background-repeat': 'np-repeat',
+        'background-position': 'center',
+        'background-size': '80%',
+        'background-image': 'url("../img/image.png")',
+        'background-color': 'green',
+      });
+    });
+
+    it('should expand 3 layers', function () {
+      const result = expandPropertyShorthand('background', 'no-repeat center/80% url("../img/image.png"), green');
+
+      assert.deepEqual(result, {
+        'background-repeat': 'np-repeat',
+        'background-position': 'center',
+        'background-size': '80%',
+        'background-image': 'url("../img/image.png")',
+        'background-color': 'green',
       });
     });
   });
