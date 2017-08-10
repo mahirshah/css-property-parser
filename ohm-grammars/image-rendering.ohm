@@ -1,3 +1,0 @@
-imageRendering {
-  Exp = ( "crisp-edges" | "pixelated" | "auto" )
-}

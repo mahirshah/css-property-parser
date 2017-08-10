@@ -1,3 +1,0 @@
-box {
-  Exp = ( "padding-box" | "content-box" | "border-box" )
-}

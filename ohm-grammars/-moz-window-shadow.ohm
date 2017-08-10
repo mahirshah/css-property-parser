@@ -1,3 +1,0 @@
-MozWindowShadow {
-  Exp = ( "default" | "tooltip" | "sheet" | "menu" | "none" )
-}

@@ -1,3 +1,0 @@
-overflowY {
-  Exp = ( "visible" | "hidden" | "scroll" | "auto" )
-}

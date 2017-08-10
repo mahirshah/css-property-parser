@@ -1,3 +1,0 @@
-transformBox {
-  Exp = ( "border-box" | "fill-box" | "view-box" )
-}

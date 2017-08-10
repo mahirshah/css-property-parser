@@ -1,9 +1,0 @@
-featureValueBlockList {
-  Exp = FeatureValueBlock+
-  FeatureValueBlock = FeatureType "{" FeatureValueDeclarationList "}"
-  FeatureType = ( "@character-variant" | "@historical-forms" | "@annotation" | "@stylistic" | "@ornaments" | "@styleset" | "@swash" )
-  FeatureValueDeclarationList = FeatureValueDeclaration
-  FeatureValueDeclaration = customIdent ":" integer+ ";"
-  customIdent = ( alnum | "-" | "_" )+
-  integer = ( "+" | "-" )? digit+
-}

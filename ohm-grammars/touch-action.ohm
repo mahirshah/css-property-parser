@@ -1,6 +1,0 @@
-touchAction {
-  Exp = ( TouchAction_IntermediateRule0 | "manipulation" | "auto" | "none" )
-  TouchAction_IntermediateRule1 = ( ( "pan-right" | "pan-left" | "pan-x" ) )
-  TouchAction_IntermediateRule2 = ( ( "pan-down" | "pan-up" | "pan-y" ) )
-  TouchAction_IntermediateRule0 = ( ( TouchAction_IntermediateRule1 | TouchAction_IntermediateRule2 | "pinch-zoom" )+ )
-}

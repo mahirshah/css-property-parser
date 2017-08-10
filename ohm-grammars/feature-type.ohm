@@ -1,3 +1,0 @@
-featureType {
-  Exp = ( "@character-variant" | "@historical-forms" | "@annotation" | "@stylistic" | "@ornaments" | "@styleset" | "@swash" )
-}

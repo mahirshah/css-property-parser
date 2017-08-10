@@ -1,8 +1,0 @@
-gridRow {
-  Exp = GridLine ( "/" GridLine )?
-  GridLine = ( GridLine_IntermediateRule0 | GridLine_IntermediateRule1 | customIdent | "auto" )
-  GridLine_IntermediateRule0 = ( ( integer customIdent? ) | ( customIdent? integer ) )
-  GridLine_IntermediateRule1 = ( ( "span" ( ( integer | customIdent )+ ) ) | ( ( ( integer | customIdent )+ ) "span" ) )
-  integer = ( "+" | "-" )? digit+
-  customIdent = ( alnum | "-" | "_" )+
-}

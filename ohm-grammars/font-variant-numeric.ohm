@@ -1,7 +1,0 @@
-fontVariantNumeric {
-  Exp = ( FontVariantNumeric_IntermediateRule0 | "normal" )
-  FontVariantNumeric_IntermediateRule0 = ( ( NumericFigureValues | NumericSpacingValues | NumericFractionValues | "ordinal" | "slashed-zero" )+ )
-  NumericFigureValues = ( ( "oldstyle-nums" | "lining-nums" ) )
-  NumericSpacingValues = ( ( "proportional-nums" | "tabular-nums" ) )
-  NumericFractionValues = ( ( "diagonal-fractions" | "stacked-fractions" ) )
-}

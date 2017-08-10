@@ -1,4 +1,0 @@
-widows {
-  Exp = integer
-  integer = ( "+" | "-" )? digit+
-}

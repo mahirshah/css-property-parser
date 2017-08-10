@@ -1,5 +1,0 @@
-leaderFunc {
-  Exp = "leader(" LeaderType ")"
-  LeaderType = ( "dotted" | string | "solid" | "space" )
-  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
-}

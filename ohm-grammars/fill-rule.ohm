@@ -1,3 +1,0 @@
-fillRule {
-  Exp = ( "nonzero" | "evenodd" )
-}

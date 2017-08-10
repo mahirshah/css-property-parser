@@ -1,3 +1,0 @@
-textJustify {
-  Exp = ( "inter-character" | "inter-word" | "auto" | "none" )
-}

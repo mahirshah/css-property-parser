@@ -1,3 +1,0 @@
-WebkitTouchCallout {
-  Exp = ( "default" | "none" )
-}

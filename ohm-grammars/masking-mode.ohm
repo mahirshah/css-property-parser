@@ -1,3 +1,0 @@
-maskingMode {
-  Exp = ( "match-source" | "luminance" | "alpha" )
-}

@@ -1,4 +1,0 @@
-WebkitMaskAttachment {
-  Exp = Attachment ( "," Attachment )*
-  Attachment = ( "scroll" | "fixed" | "local" )
-}

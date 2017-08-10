@@ -1,3 +1,0 @@
-float {
-  Exp = ( "inline-start" | "inline-end" | "right" | "left" | "none" )
-}

@@ -1,3 +1,0 @@
-lengthUnit {
-  exp = "ch" | "cm" | "em" | "ex" | "fr" | "in" | "mm" | "pc" | "pt" | "px" | "q" | "rem" | "vh" | "vmax" | "vmin" | "vw"
-}

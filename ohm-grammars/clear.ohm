@@ -1,3 +1,0 @@
-clear {
-  Exp = ( "inline-start" | "inline-end" | "right" | "none" | "left" | "both" )
-}

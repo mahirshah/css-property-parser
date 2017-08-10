@@ -1,3 +1,0 @@
-boxSizing {
-  Exp = ( "content-box" | "border-box" )
-}

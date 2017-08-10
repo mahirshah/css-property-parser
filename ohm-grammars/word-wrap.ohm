@@ -1,3 +1,0 @@
-wordWrap {
-  Exp = ( "break-word" | "normal" )
-}

@@ -1,8 +1,0 @@
-fontFamily {
-  Exp = listOf< ( ( GenericFamily | FamilyName ) ) , "," >
-  FamilyName = ( FamilyName_IntermediateRule0 | string )
-  FamilyName_IntermediateRule0 = customIdent+
-  GenericFamily = ( "sans-serif" | "monospace" | "cursive" | "fantasy" | "serif" )
-  customIdent = ( alnum | "-" | "_" )+
-  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
-}

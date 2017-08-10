@@ -1,8 +1,0 @@
-fontVariantLigatures {
-  Exp = ( FontVariantLigatures_IntermediateRule0 | "normal" | "none" )
-  FontVariantLigatures_IntermediateRule0 = ( ( CommonLigValues | DiscretionaryLigValues | HistoricalLigValues | ContextualAltValues )+ )
-  CommonLigValues = ( ( "no-common-ligatures" | "common-ligatures" ) )
-  DiscretionaryLigValues = ( ( "no-discretionary-ligatures" | "discretionary-ligatures" ) )
-  HistoricalLigValues = ( ( "no-historical-ligatures" | "historical-ligatures" ) )
-  ContextualAltValues = ( ( "no-contextual" | "contextual" ) )
-}

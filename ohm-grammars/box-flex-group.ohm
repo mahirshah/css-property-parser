@@ -1,4 +1,0 @@
-boxFlexGroup {
-  Exp = integer
-  integer = ( "+" | "-" )? digit+
-}

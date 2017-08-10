@@ -2,8 +2,7 @@
  * Format each JSON grammar into a Nearley grammar
  */
 const fs = require('fs-extra');
-const OhmGrammarFormatter = require('./formatters/grammarFormatters/OhmGrammarFormatter');
-const CaseConverterUtils = require('./utils/CaseConverterUtils');
+const OhmGrammarFormatter = require('./formatters/grammarFormatters/NearleyGrammarFormatter');
 const PATHS = require('./constants/paths');
 const GRAMMAR_CONSTANTS = require('./constants/grammars');
 const { exec } = require('child_process');
@@ -29,8 +28,7 @@ fs.readdirSync(PATHS.GENERATED_JSON_GRAMMAR_PATH)
     console.log(`creating ${fileName}`);
 
     const grammarName = fileName.replace('.json', '');
-    const nearleyGrammar = OhmGrammarFormatter
-      .formatOhmGrammarFromJson(jsonGrammar, grammarName);
+    const nearleyGrammar = OhmGrammarFormatter.format(jsonGrammar, grammarName);
     const fileToWrite = `${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}${fileName.replace('.json', `.${GRAMMAR_CONSTANTS.GRAMMAR_FILE_EXTENSION}`)}`;
 
     fs.createFileSync(fileToWrite);

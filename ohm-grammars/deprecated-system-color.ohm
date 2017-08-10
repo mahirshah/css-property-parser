@@ -1,3 +1,0 @@
-deprecatedSystemColor {
-  Exp = ( "InactiveCaptionText" | "ThreeDLightShadow" | "ThreeDDarkShadow" | "ButtonHighlight" | "ThreeDHighlight" | "InactiveCaption" | "InfoBackground" | "InactiveBorder" | "ActiveCaption" | "HighlightText" | "ButtonShadow" | "ThreeDShadow" | "ActiveBorder" | "AppWorkspace" | "WindowFrame" | "CaptionText" | "ThreeDFace" | "Background" | "ButtonFace" | "ButtonText" | "WindowText" | "Scrollbar" | "Highlight" | "GrayText" | "MenuText" | "InfoText" | "Window" | "Menu" )
-}

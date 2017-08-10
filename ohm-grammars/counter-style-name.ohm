@@ -1,4 +1,0 @@
-counterStyleName {
-  Exp = customIdent
-  customIdent = ( alnum | "-" | "_" )+
-}

@@ -1,3 +1,0 @@
-pseudoPage {
-  Exp = ":" ( ( "right" | "first" | "blank" | "left" ) )
-}

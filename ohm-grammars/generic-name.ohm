@@ -1,3 +1,0 @@
-genericName {
-  Exp = ( "sans-serif" | "monospace" | "cursive" | "fantasy" | "serif" )
-}

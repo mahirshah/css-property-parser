@@ -1,4 +1,0 @@
-order {
-  Exp = integer
-  integer = ( "+" | "-" )? digit+
-}

@@ -1,3 +1,0 @@
-textAlignLast {
-  Exp = ( "justify" | "center" | "start" | "right" | "auto" | "left" | "end" )
-}

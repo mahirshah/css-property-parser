@@ -1,7 +1,0 @@
-pageSelector {
-  Exp = ( PageSelector_IntermediateRule0 | PageSelector_IntermediateRule1 )
-  PageSelector_IntermediateRule0 = PseudoPage+
-  PageSelector_IntermediateRule1 = ident PseudoPage*
-  PseudoPage = ":" ( ( "right" | "first" | "blank" | "left" ) )
-  ident = any+
-}

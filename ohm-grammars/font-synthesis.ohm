@@ -1,4 +1,0 @@
-fontSynthesis {
-  Exp = ( FontSynthesis_IntermediateRule0 | "none" )
-  FontSynthesis_IntermediateRule0 = ( ( "weight" | "style" )+ )
-}

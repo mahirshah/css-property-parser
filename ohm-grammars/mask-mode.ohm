@@ -1,4 +1,0 @@
-maskMode {
-  Exp = listOf< MaskingMode , "," >
-  MaskingMode = ( "match-source" | "luminance" | "alpha" )
-}

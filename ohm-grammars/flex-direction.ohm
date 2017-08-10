@@ -1,3 +1,0 @@
-flexDirection {
-  Exp = ( "column-reverse" | "row-reverse" | "column" | "row" )
-}

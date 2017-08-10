@@ -29,7 +29,7 @@
     "FlexBasis": "flex-basis"
   },
   "background": {
-    "Bgimage": "background-image",
+    "BgImage": "background-image",
     "BackgroundColor": "background-color",
     "Box": [
       "background-origin",

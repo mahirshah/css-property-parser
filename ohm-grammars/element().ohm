@@ -1,4 +1,0 @@
-elementFunc {
-  Exp = "element(" idSelector ")"
-  idSelector = "#" any+
-}

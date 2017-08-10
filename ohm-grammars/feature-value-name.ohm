@@ -1,4 +1,0 @@
-featureValueName {
-  Exp = customIdent
-  customIdent = ( alnum | "-" | "_" )+
-}

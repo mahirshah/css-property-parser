@@ -1,3 +1,0 @@
-rubyMerge {
-  Exp = ( "separate" | "collapse" | "auto" )
-}

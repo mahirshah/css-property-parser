@@ -1,3 +1,0 @@
-eastAsianVariantValues {
-  Exp = ( ( "traditional" | "simplified" | "jis78" | "jis83" | "jis90" | "jis04" ) )
-}

@@ -1,3 +1,0 @@
-visibility {
-  Exp = ( "collapse" | "visible" | "hidden" )
-}

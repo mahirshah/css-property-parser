@@ -1,5 +1,0 @@
-sideOrCorner {
-  Exp = ( SideOrCorner_IntermediateRule0 | SideOrCorner_IntermediateRule1 )+
-  SideOrCorner_IntermediateRule0 = ( ( "right" | "left" ) )
-  SideOrCorner_IntermediateRule1 = ( ( "bottom" | "top" ) )
-}

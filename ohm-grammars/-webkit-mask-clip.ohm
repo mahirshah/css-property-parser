@@ -1,3 +1,0 @@
-WebkitMaskClip {
-  Exp = listOf< ( ( "padding-box" | "content-box" | "border-box" | "padding" | "content" | "border" | "text" ) ) , "," >
-}

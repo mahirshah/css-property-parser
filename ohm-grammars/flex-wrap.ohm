@@ -1,3 +1,0 @@
-flexWrap {
-  Exp = ( "wrap-reverse" | "nowrap" | "wrap" )
-}

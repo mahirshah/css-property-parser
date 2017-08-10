@@ -1,4 +1,0 @@
-animationPlayState {
-  Exp = listOf< SingleAnimationPlayState , "," >
-  SingleAnimationPlayState = ( "running" | "paused" )
-}

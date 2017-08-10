@@ -1,3 +1,0 @@
-contextualAltValues {
-  Exp = ( ( "no-contextual" | "contextual" ) )
-}
