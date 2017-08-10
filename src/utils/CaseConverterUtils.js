@@ -53,23 +53,18 @@ module.exports = class CaseConverterUtils {
 
   /**
    * Formats the given formal syntax ident into a string that is compatible with Ohm. Normal kebab-case strings will
-   * be camelCased if isLexical is true, else PascalCased. Strings with a "()" will have "Func" suffix.
+   * be camelCased. Strings with a "()" will have "Func" suffix.
    *
-   * @example formalSyntaxIdentToOhmIdent("some-string" , true) -> "someString"
-   * @example formalSyntaxIdentToOhmIdent("some-string()", true) -> "someStringFunc"
-   * @example formalSyntaxIdentToOhmIdent("some-string" , false) -> "SomeString"
-   * @example formalSyntaxIdentToOhmIdent("some-string()", false) -> "SomeStringFunc"
+   * @example formalSyntaxIdentToOhmIdent("some-string") -> "someString"
+   * @example formalSyntaxIdentToOhmIdent("some-string()") -> "someStringFunc"
    *
    * @param {string} formalSyntaxIdent - the JSON grammar rule name
-   * @param {boolean} [isLexical=true] - should the outputted ident be in lexical format
    * @returns {string} - the formatted rule name in camelCase/pascalCase format, with an optional Func suffix
    */
-  static formalSyntaxIdentToOhmIdent(formalSyntaxIdent, isLexical = true) {
+  static formalSyntaxIdentToOhmIdent(formalSyntaxIdent) {
     return formalSyntaxIdent
       .replace(GRAMMAR_CONSTANTS.R_GRAMMAR_IDENT_NAME_GLOBAL, (fullMatch, innerIdent, identName, parens) => (
-        isLexical
-          ? `${CaseConverterUtils.kebabToCamel(identName)}${parens ? 'Func' : ''}`
-          : `${CaseConverterUtils.kebabToPascal(identName)}${parens ? 'Func' : ''}`
+        `${CaseConverterUtils.kebabToPascal(identName)}${parens ? 'Func' : ''}`
       ));
   }
 };

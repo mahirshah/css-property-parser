@@ -1,0 +1,6 @@
+[
+  ["Base", "\"rgb(\" _ ( ( ( <percentage> __ <percentage> __ <percentage> ) | ( <integer> __ <integer> __ <integer> ) ( _ \"/\" _ <alpha-value> ):? ) |  ( ( <percentage> _ \",\" _ <percentage> _ \",\" _ <percentage> ) | ( <integer> _ \",\" _ <integer> _ \",\" _ <integer> ) ( _ \",\" _ <alpha-value> ):? ) ) _ \")\""],
+  ["<integer>"],
+  ["<percentage>"],
+  ["<alpha-value>"]
+]

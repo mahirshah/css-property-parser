@@ -1,0 +1,12 @@
+[
+  [
+    "Base",
+    "<custom-ident> \":\" <integer>:+ \";\""
+  ],
+  [
+    "<custom-ident>"
+  ],
+  [
+    "<integer>"
+  ]
+]

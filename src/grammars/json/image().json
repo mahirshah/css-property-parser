@@ -1,0 +1,27 @@
+[
+  [
+    "Base",
+    "\"image(\" _ ( inner1 | inner2 | inner3 ) _ \")\""
+  ],
+  [
+    "inner1",
+    "( <image> | <string> )"
+  ],
+  [
+    "inner2",
+    "<color>"
+  ],
+  [
+    "inner3",
+    "( <image> | <string> ) _  \",\" _ <color>"
+  ],
+  [
+    "<image>"
+  ],
+  [
+    "<string>"
+  ],
+  [
+    "<color>"
+  ]
+]
