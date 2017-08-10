@@ -258,7 +258,7 @@ describe('expandPropertyShorthand', function () {
   });
 
 
-  describe('transition', function () {
+  describe.skip('transition', function () {
     it('should return expanded transition for name duration', function () {
       const result = expandPropertyShorthand('transition', 'margin-left 4s');
 
@@ -486,7 +486,7 @@ describe('expandPropertyShorthand', function () {
     });
   });
 
-  describe('background', function () {
+  describe.skip('background', function () {
     it('should expand using a <background-color>', function () {
       const result = expandPropertyShorthand('background', 'green');
 
