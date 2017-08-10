@@ -1,3 +1,0 @@
-breakAfter {
-  Exp = ( "avoid-region" | "avoid-column" | "avoid-page" | "region" | "column" | "right" | "avoid" | "verso" | "recto" | "left" | "page" | "auto" )
-}

@@ -1,3 +1,0 @@
-lineBreak {
-  Exp = ( "normal" | "strict" | "loose" | "auto" )
-}

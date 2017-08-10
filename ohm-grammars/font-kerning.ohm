@@ -1,3 +1,0 @@
-fontKerning {
-  Exp = ( "normal" | "auto" | "none" )
-}

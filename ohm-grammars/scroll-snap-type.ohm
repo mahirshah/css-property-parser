@@ -1,3 +1,0 @@
-scrollSnapType {
-  Exp = ( "mandatory" | "proximity" | "none" )
-}

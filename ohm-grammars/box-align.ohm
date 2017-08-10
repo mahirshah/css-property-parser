@@ -1,3 +1,0 @@
-boxAlign {
-  Exp = ( "baseline" | "stretch" | "center" | "start" | "end" )
-}

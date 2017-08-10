@@ -1,4 +1,0 @@
-textOverflow {
-  Exp = ( ( "ellipsis" | string | "clip" ) ) ( ( "ellipsis" | string | "clip" ) )?
-  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
-}

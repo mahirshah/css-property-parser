@@ -1,3 +1,0 @@
-WebkitMaskRepeatX {
-  Exp = ( "no-repeat" | "repeat" | "space" | "round" )
-}

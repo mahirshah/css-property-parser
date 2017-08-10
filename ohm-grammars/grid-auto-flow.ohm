@@ -1,4 +1,0 @@
-gridAutoFlow {
-  Exp = ( GridAutoFlow_IntermediateRule0 | "dense" )+
-  GridAutoFlow_IntermediateRule0 = ( ( "column" | "row" ) )
-}

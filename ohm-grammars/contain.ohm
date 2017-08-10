@@ -1,4 +1,0 @@
-contain {
-  Exp = ( Contain_IntermediateRule0 | "content" | "strict" | "none" )
-  Contain_IntermediateRule0 = ( ( "size" | "layout" | "style" | "paint" )+ )
-}

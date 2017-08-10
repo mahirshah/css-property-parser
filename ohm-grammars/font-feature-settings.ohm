@@ -1,7 +1,0 @@
-fontFeatureSettings {
-  Exp = ( FontFeatureSettings_IntermediateRule0 | "normal" )
-  FontFeatureSettings_IntermediateRule0 = listOf< FeatureTagValue , "," >
-  FeatureTagValue = string ( ( integer | "off" | "on" ) )?
-  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
-  integer = ( "+" | "-" )? digit+
-}

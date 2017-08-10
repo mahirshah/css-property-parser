@@ -1,3 +1,0 @@
-justifyContent {
-  Exp = ( "space-between" | "space-around" | "space-evenly" | "flex-start" | "flex-end" | "center" )
-}

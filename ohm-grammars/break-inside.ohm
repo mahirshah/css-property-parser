@@ -1,3 +1,0 @@
-breakInside {
-  Exp = ( "avoid-column" | "avoid-region" | "avoid-page" | "avoid" | "auto" )
-}

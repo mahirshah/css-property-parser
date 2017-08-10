@@ -1,3 +1,0 @@
-userSelect {
-  Exp = ( "contain" | "auto" | "text" | "none" | "all" )
-}

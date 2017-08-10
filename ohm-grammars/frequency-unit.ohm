@@ -1,3 +1,0 @@
-frequencyUnit {
-  exp = "hz" | "khz"
-}

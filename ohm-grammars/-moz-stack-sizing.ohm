@@ -1,3 +1,0 @@
-MozStackSizing {
-  Exp = ( "stretch-to-fit" | "ignore" )
-}

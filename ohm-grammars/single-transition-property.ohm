@@ -1,4 +1,0 @@
-singleTransitionProperty {
-  Exp = ( customIdent | "all" )
-  customIdent = ( alnum | "-" | "_" )+
-}

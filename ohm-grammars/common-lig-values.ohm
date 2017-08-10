@@ -1,3 +1,0 @@
-commonLigValues {
-  Exp = ( ( "no-common-ligatures" | "common-ligatures" ) )
-}

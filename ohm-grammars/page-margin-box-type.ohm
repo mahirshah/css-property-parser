@@ -1,3 +1,0 @@
-pageMarginBoxType {
-  Exp = ( "@bottom-right-corner" | "@bottom-left-corner" | "@top-right-corner" | "@top-left-corner" | "@bottom-center" | "@right-bottom" | "@right-middle" | "@bottom-right" | "@bottom-left" | "@left-middle" | "@left-bottom" | "@top-center" | "@top-right" | "@right-top" | "@top-left" | "@left-top" )
-}

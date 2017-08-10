@@ -1,4 +1,0 @@
-backgroundAttachment {
-  Exp = listOf< Attachment , "," >
-  Attachment = ( "scroll" | "fixed" | "local" )
-}

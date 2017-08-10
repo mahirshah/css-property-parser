@@ -1,6 +1,0 @@
-maskClip {
-  Exp = listOf< ( ( GeometryBox | "no-clip" ) ) , "," >
-  GeometryBox = ( "stroke-box" | ShapeBox | "fill-box" | "view-box" )
-  ShapeBox = ( "margin-box" | Box )
-  Box = ( "padding-box" | "content-box" | "border-box" )
-}

@@ -1,5 +1,0 @@
-stepTimingFunction {
-  Exp = ( StepTimingFunction_IntermediateRule0 | "step-start" | "step-end" )
-  StepTimingFunction_IntermediateRule0 = ( "steps(" integer ( "," ( ( "start" | "end" ) ) )? ")" )
-  integer = ( "+" | "-" )? digit+
-}

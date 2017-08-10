@@ -1,3 +1,0 @@
-borderImageRepeat {
-  Exp = ( ( "stretch" | "repeat" | "round" | "space" ) ) ( ( "stretch" | "repeat" | "round" | "space" ) )?
-}

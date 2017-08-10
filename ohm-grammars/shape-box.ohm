@@ -1,4 +1,0 @@
-shapeBox {
-  Exp = ( "margin-box" | Box )
-  Box = ( "padding-box" | "content-box" | "border-box" )
-}

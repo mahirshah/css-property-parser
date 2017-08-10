@@ -1,3 +1,0 @@
-objectFit {
-  Exp = ( "scale-down" | "contain" | "cover" | "fill" | "none" )
-}

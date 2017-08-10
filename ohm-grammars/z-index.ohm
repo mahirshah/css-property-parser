@@ -1,4 +1,0 @@
-zIndex {
-  Exp = ( integer | "auto" )
-  integer = ( "+" | "-" )? digit+
-}

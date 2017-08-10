@@ -1,3 +1,0 @@
-textRendering {
-  Exp = ( "optimizeLegibility" | "geometricPrecision" | "optimizeSpeed" | "auto" )
-}

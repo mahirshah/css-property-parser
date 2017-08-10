@@ -1,3 +1,0 @@
-textDecorationStyle {
-  Exp = ( "double" | "dotted" | "dashed" | "solid" | "wavy" )
-}

@@ -1,3 +1,0 @@
-imeMode {
-  Exp = ( "inactive" | "disabled" | "normal" | "active" | "auto" )
-}

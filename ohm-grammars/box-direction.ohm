@@ -1,3 +1,0 @@
-boxDirection {
-  Exp = ( "reverse" | "inherit" | "normal" )
-}

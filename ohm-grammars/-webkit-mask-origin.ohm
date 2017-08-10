@@ -1,3 +1,0 @@
-WebkitMaskOrigin {
-  Exp = ( ( "padding" | "content" | "border" ) ) ( "," ( ( "padding" | "content" | "border" ) ) )*
-}

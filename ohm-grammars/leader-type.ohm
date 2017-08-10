@@ -1,4 +1,0 @@
-leaderType {
-  Exp = ( "dotted" | string | "solid" | "space" )
-  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
-}

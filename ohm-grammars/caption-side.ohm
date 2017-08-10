@@ -1,3 +1,0 @@
-captionSide {
-  Exp = ( "inline-start" | "block-start" | "inline-end" | "block-end" | "bottom" | "top" )
-}

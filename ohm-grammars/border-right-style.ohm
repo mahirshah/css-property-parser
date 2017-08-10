@@ -1,4 +1,0 @@
-borderRightStyle {
-  Exp = BrStyle
-  BrStyle = ( "hidden" | "dotted" | "dashed" | "double" | "groove" | "outset" | "solid" | "ridge" | "inset" | "none" )
-}

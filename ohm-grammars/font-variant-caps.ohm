@@ -1,3 +1,0 @@
-fontVariantCaps {
-  Exp = ( "all-petite-caps" | "all-small-caps" | "titling-caps" | "petite-caps" | "small-caps" | "unicase" | "normal" )
-}

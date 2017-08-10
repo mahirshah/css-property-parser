@@ -1,3 +1,0 @@
-boxLines {
-  Exp = ( "multiple" | "single" )
-}

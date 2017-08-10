@@ -1,3 +1,0 @@
-boxOrient {
-  Exp = ( "inline-axis" | "horizontal" | "block-axis" | "vertical" | "inherit" )
-}

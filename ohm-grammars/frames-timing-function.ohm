@@ -1,4 +1,0 @@
-framesTimingFunction {
-  Exp = "frames(" integer ")"
-  integer = ( "+" | "-" )? digit+
-}

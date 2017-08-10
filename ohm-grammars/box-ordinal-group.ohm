@@ -1,4 +1,0 @@
-boxOrdinalGroup {
-  Exp = integer
-  integer = ( "+" | "-" )? digit+
-}

@@ -1,3 +1,0 @@
-ratio {
-  Exp = digit+ "/" digit+
-}

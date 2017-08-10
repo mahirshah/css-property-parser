@@ -1,3 +1,0 @@
-textAlign {
-  Exp = ( "match-parent" | "justify" | "center" | "start" | "right" | "left" | "end" )
-}

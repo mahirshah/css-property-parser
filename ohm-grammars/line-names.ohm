@@ -1,4 +1,0 @@
-lineNames {
-  Exp = "[" customIdent* "]"
-  customIdent = ( alnum | "-" | "_" )+
-}

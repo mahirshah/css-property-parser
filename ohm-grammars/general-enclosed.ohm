@@ -1,8 +1,0 @@
-generalEnclosed {
-  Exp = ( GeneralEnclosed_IntermediateRule0 | GeneralEnclosed_IntermediateRule1 )
-  GeneralEnclosed_IntermediateRule0 = ( functionToken anyValue ")" )
-  GeneralEnclosed_IntermediateRule1 = "(" ident anyValue ")"
-  functionToken = any+
-  anyValue = any+
-  ident = any+
-}

@@ -1,3 +1,0 @@
-timeUnit {
-  exp = "ms" | "s"
-}

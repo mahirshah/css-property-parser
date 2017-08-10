@@ -1,6 +1,0 @@
-featureValueDeclarationList {
-  Exp = FeatureValueDeclaration
-  FeatureValueDeclaration = customIdent ":" integer+ ";"
-  customIdent = ( alnum | "-" | "_" )+
-  integer = ( "+" | "-" )? digit+
-}

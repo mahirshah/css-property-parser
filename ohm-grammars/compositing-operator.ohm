@@ -1,3 +1,0 @@
-compositingOperator {
-  Exp = ( "intersect" | "subtract" | "exclude" | "add" )
-}

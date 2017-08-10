@@ -1,3 +1,0 @@
-pageBreakBefore {
-  Exp = ( "always" | "avoid" | "right" | "auto" | "left" )
-}

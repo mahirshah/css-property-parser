@@ -1,3 +1,0 @@
-MozTextBlink {
-  Exp = ( "blink" | "none" )
-}

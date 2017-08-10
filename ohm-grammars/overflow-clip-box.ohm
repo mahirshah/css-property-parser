@@ -1,3 +1,0 @@
-overflowClipBox {
-  Exp = ( "padding-box" | "content-box" )
-}

@@ -1,5 +1,0 @@
-mfBoolean {
-  Exp = MfName
-  MfName = ident
-  ident = any+
-}

@@ -1,7 +1,0 @@
-textEmphasisStyle {
-  Exp = ( TextEmphasisStyle_IntermediateRule0 | string | "none" )
-  TextEmphasisStyle_IntermediateRule1 = ( ( "filled" | "open" ) )
-  TextEmphasisStyle_IntermediateRule2 = ( ( "double-circle" | "triangle" | "circle" | "sesame" | "dot" ) )
-  TextEmphasisStyle_IntermediateRule0 = ( ( TextEmphasisStyle_IntermediateRule1 | TextEmphasisStyle_IntermediateRule2 )+ )
-  string = ( "\"" ( ~"\"" any )+ "\"" ) | ( "'" ( ~"'" any )+ "'" )
-}

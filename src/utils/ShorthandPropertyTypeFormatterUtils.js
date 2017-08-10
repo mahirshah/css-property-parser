@@ -20,7 +20,9 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
       } else if (longhandRuleNames.includes(node.name)) {
         return { [longhandRuleNameToPropertyNameMap[node.name]]: node.location };
       } else if (Array.isArray(node)) {
-        return Object.assign(...node.map(inner => recurseLonghandPropertyNode(inner, obj)));
+        return node.length
+          ? Object.assign(...node.map(inner => recurseLonghandPropertyNode(inner, obj)))
+          : obj;
       }
 
       return Object.assign(...node.values.map(child => recurseLonghandPropertyNode(child, obj)));

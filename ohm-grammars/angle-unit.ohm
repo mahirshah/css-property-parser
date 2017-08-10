@@ -1,3 +1,0 @@
-angleUnit {
-  exp = "deg" | "grad" | "rad" | "turn"
-}
