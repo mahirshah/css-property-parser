@@ -35,6 +35,12 @@ fs.readdirSync(PATHS.GENERATED_JSON_GRAMMAR_PATH)
     fs.writeFileSync(fileToWrite, nearleyGrammar);
   });
 
+// copy over overridden grammars
+fs.readdirSync(PATHS.NEARLEY_PROPERTY_GRAMMAR_PATH)
+  .forEach(fileName => (
+    fs.copySync(`${PATHS.NEARLEY_PROPERTY_GRAMMAR_PATH}${fileName}`, `${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}${fileName}`)
+  ));
+
 console.log('...Successfully created nearley grammars...');
 
 // read each nearley grammar and use the nearley compiler to convert it into its js representation

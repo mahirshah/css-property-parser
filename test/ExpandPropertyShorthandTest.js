@@ -4,6 +4,7 @@ const expandPropertyShorthand = require('../src/expandShorthandProperty');
 /**
  * Tests for {@link expandPropertyShorthand}
  * TODO: add tests for global values
+ * TODO: add tests for block comments in value
  */
 describe('expandPropertyShorthand', function () {
   describe('margin', function () {
@@ -325,9 +326,9 @@ describe('expandPropertyShorthand', function () {
       const result = expandPropertyShorthand('flex', 'initial');
 
       assert.deepEqual(result, {
-        'flex-grow': '0',
-        'flex-shrink': '1',
-        'flex-basis': 'auto',
+        'flex-grow': 'initial',
+        'flex-shrink': 'initial',
+        'flex-basis': 'initial',
       });
     });
 
@@ -486,7 +487,7 @@ describe('expandPropertyShorthand', function () {
     });
   });
 
-  describe.skip('background', function () {
+  describe('background', function () {
     it('should expand using a <background-color>', function () {
       const result = expandPropertyShorthand('background', 'green');
 
@@ -554,6 +555,7 @@ describe('expandPropertyShorthand', function () {
       assert.deepEqual(result, {
         'background-attachment': 'fixed',
         'background-clip': 'padding-box',
+        'background-origin': 'padding-box',
         'background-image': 'url(image.png)',
         'background-repeat': 'repeat-x',
         'background-color': 'rgb(255, 255, 0)',
@@ -587,7 +589,7 @@ describe('expandPropertyShorthand', function () {
       const result = expandPropertyShorthand('background', 'no-repeat center/80% url("../img/image.png"), green');
 
       assert.deepEqual(result, {
-        'background-repeat': 'np-repeat',
+        'background-repeat': 'no-repeat',
         'background-position': 'center',
         'background-size': '80%',
         'background-image': 'url("../img/image.png")',
@@ -599,11 +601,96 @@ describe('expandPropertyShorthand', function () {
       const result = expandPropertyShorthand('background', 'no-repeat center/80% url("../img/image.png"), green');
 
       assert.deepEqual(result, {
-        'background-repeat': 'np-repeat',
+        'background-repeat': 'no-repeat',
         'background-position': 'center',
         'background-size': '80%',
         'background-image': 'url("../img/image.png")',
         'background-color': 'green',
+      });
+    });
+  });
+
+  describe('font', function () {
+    ['caption', 'icon', 'menu', 'message-box', 'small-caption', 'status-bar']
+      .forEach(systemKeyword => it(`should expand system system keyword, ${systemKeyword}, to empty object`, function () {
+        const result = expandPropertyShorthand('font', systemKeyword);
+
+        assert.deepEqual(result, {});
+      }));
+
+    it('should expand 16px sans-serif', function () {
+      const result = expandPropertyShorthand('font', '16px sans-serif');
+
+      assert.deepEqual(result, { 'font-size': '16px', 'font-family': 'sans-serif' });
+    });
+
+    it('should expand 16px sans-serif, "Times New Roman"', function () {
+      const result = expandPropertyShorthand('font', '16px sans-serif, "Times New Roman"');
+
+      assert.deepEqual(result, { 'font-size': '16px', 'font-family': 'sans-serif, "Times New Roman"' });
+    });
+
+    it('should expand 16px / 1.2 sans-serif', function () {
+      const result = expandPropertyShorthand('font', '16px / 1.2 sans-serif');
+
+      assert.deepEqual(result, { 'font-size': '16px', 'line-height': '1.2', 'font-family': 'sans-serif' });
+    });
+
+    it('should expand bold 16px sans-serif', function () {
+      const result = expandPropertyShorthand('font', 'bold 16px sans-serif');
+
+      assert.deepEqual(result, { 'font-weight': 'bold', 'font-size': '16px', 'font-family': 'sans-serif' });
+    });
+
+    it('should expand normal 16px sans-serif', function () {
+      const result = expandPropertyShorthand('font', 'normal 16px sans-serif');
+
+      assert.deepEqual(result, { 'font-weight': 'normal', 'font-size': '16px', 'font-family': 'sans-serif' });
+    });
+
+    it('should expand italic 16px sans-serif', function () {
+      const result = expandPropertyShorthand('font', 'italic 16px sans-serif');
+
+      assert.deepEqual(result, { 'font-style': 'italic', 'font-size': '16px', 'font-family': 'sans-serif' });
+    });
+
+    it('should expand small-caps 16px sans-serif', function () {
+      const result = expandPropertyShorthand('font', 'small-caps 16px sans-serif');
+
+      assert.deepEqual(result, { 'font-variant': 'small-caps', 'font-size': '16px', 'font-family': 'sans-serif' });
+    });
+
+    it('should expand ultra-condensed 16px sans-serif', function () {
+      const result = expandPropertyShorthand('font', 'ultra-condensed 16px sans-serif');
+
+      assert.deepEqual(result, { 'font-stretch': 'ultra-condensed', 'font-size': '16px', 'font-family': 'sans-serif' });
+    });
+
+    it('should expand oblique 500 small-caps semi-expanded 20% / 2em monospace, "Times New Roman", Helvetica', function () {
+      const result = expandPropertyShorthand('font', 'oblique 500 small-caps semi-expanded 20% / 2em monospace, "Times New Roman", "Helvetica"');
+
+      assert.deepEqual(result, {
+        'font-size': '20%',
+        'line-height': '2em',
+        'font-style': 'oblique',
+        'font-weight': '500',
+        'font-variant': 'small-caps',
+        'font-stretch': 'semi-expanded',
+        'font-family': 'monospace, "Times New Roman", "Helvetica"',
+      });
+    });
+
+    it('should expand inherit', function () {
+      const result = expandPropertyShorthand('font', 'inherit');
+
+      assert.deepEqual(result, {
+        'font-size': 'inherit',
+        'line-height': 'inherit',
+        'font-style': 'inherit',
+        'font-weight': 'inherit',
+        'font-variant': 'inherit',
+        'font-stretch': 'inherit',
+        'font-family': 'inherit',
       });
     });
   });
