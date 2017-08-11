@@ -1,6 +1,29 @@
 const shorthandIdentToLonghandPropertyMap = require('../constants/shorthandIdentToLonghandPropertyMap.json');
+const ArrayUtils = require('../utils/ArrayUtils');
 
 module.exports = class ShorthandPropertyTypeFormatterUtils {
+  /**
+   * Given the root node of a nearley parse tree, returns an array of nodes whose name is in the given nodeNames array.
+   * @param {Object} baseNode - the root node of the parse tree
+   * @param {[String]} nodeNames - array of node names to keep
+   * @return {Array} - array of filtered nodes
+   */
+  static filterNodesByName(baseNode, nodeNames) {
+    return (function recurseParseTree(node, filteredNodes = []) {
+      if (typeof node !== 'object' || node === null) {
+        return filteredNodes;
+      } else if (nodeNames.includes(node.name)) {
+        return filteredNodes.concat(node);
+      } else if (Array.isArray(node)) {
+        return node.length
+          ? [].concat(...node.map(inner => recurseParseTree(inner, filteredNodes)))
+          : filteredNodes;
+      }
+
+      return [].concat(...node.values.map(child => recurseParseTree(child, filteredNodes)));
+    })(baseNode);
+  }
+
   /**
    * Given a shorthand property name and a shorthand property node, returns an object mapping the longhand properties
    * to the their values in the property node.
@@ -71,5 +94,19 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
 
       return Object.assign(...node.values.map(child => recurseLonghandPropertyNode(child, obj)));
     })(propertyNode);
+  }
+
+  /**
+   * Given an array of property maps, mapping property names to their values, returns an object mapping the property
+   * names to property values joined by the given delimiter.
+   * @param {[Object]} propertyMaps - an array of objects mapping property names to their values
+   * @param {String} [delimiter=", "] - the delimiter to join the property values by
+   * @returns {Object} - merged object mapping property names to joined values
+   */
+  static mergePropertyMaps(propertyMaps, delimiter = ', ') {
+    return Object.keys(Object.assign({}, ...propertyMaps))
+      .reduce((joinedPropertyMap, propertyName) => Object.assign({
+        [propertyName]: propertyMaps.map(propertyMap => propertyMap[propertyName]).filter(Boolean).join(delimiter),
+      }, joinedPropertyMap), {});
   }
 };

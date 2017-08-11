@@ -1,7 +1,7 @@
 module.exports = {
   JSON_GRAMMAR_PATH: `${__dirname}/../grammars/json/`,
+  NEARLEY_PROPERTY_GRAMMAR_PATH: `${__dirname}/../grammars/nearley/properties/`,
   GENERATED_JSON_GRAMMAR_PATH: `${__dirname}/../grammars/generated/json/`,
-  OHM_GRAMMAR_PATH: `${__dirname}/../../ohm-grammars/`,
   GENERATED_NEARLEY_GRAMMAR_PATH: `${__dirname}/../grammars/generated/nearley/`,
   GENERATED_JS_GRAMMAR_PATH: `${__dirname}/../grammars/generated/js/`,
   FORMATTED_DATA_PATH: `${__dirname}/../../formatted-data/`,

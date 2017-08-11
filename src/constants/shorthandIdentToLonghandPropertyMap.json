@@ -40,6 +40,15 @@
     "RepeatStyle": "background-repeat",
     "Attachment": "background-attachment"
   },
+  "font": {
+    "FontStyle": "font-style",
+    "FontVariantCss21": "font-variant",
+    "FontWeight": "font-weight",
+    "FontStretch": "font-stretch",
+    "FontSize": "font-size",
+    "LineHeight": "line-height",
+    "FontFamily": "font-family"
+  },
   "border-radius": [
     "border-top-left-radius",
     "border-top-right-radius",

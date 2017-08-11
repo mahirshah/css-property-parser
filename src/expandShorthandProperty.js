@@ -1,12 +1,11 @@
-const fs = require('fs-extra');
-const { PATHS, CSS } = require('./constants');
 const isShorthandProperty = require('./isShorthandProperty');
 const getShorthandComputedProperties = require('./getShorthandComputedProperties');
 const shorthandProperties = require('../formatted-data/shorthand-properties.json');
-// const grammar = fs.readFileSync(`${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}border.ne`, 'utf-8');
 const nearley = require('nearley');
-// const nearleyMake = require('nearley-make');
+const CSS_CONSTANTS = require('./constants/css');
 const { CLASSIFICATIONS } = require('./constants/shorthandProperties');
+const LocationIndexTracker = require('./utils/LocationIndexTracker');
+
 
 // TODO: make index.js for factories and use single require
 const UnorderedOptionalListPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/UnorderedOptionalListPropertyFormatter');
@@ -15,6 +14,7 @@ const FlexPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatt
 const BorderRadiusPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/BorderRadiusPropertyFormatter');
 const CommaSeparatedPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/CommaSeparatedListPropertyFormatter');
 const BackgroundPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/BackgroundPropertyFormatter');
+const FontPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/FontPropertyFormatter');
 
 const shorthandPropertyTypeToActionDictionaryFactoryMap = {
   [CLASSIFICATIONS.TRBL]: TrblPropertyFormatter,
@@ -23,6 +23,7 @@ const shorthandPropertyTypeToActionDictionaryFactoryMap = {
   [CLASSIFICATIONS.FLEX]: FlexPropertyFormatter,
   [CLASSIFICATIONS.BORDER_RADIUS]: BorderRadiusPropertyFormatter,
   [CLASSIFICATIONS.BACKGROUND]: BackgroundPropertyFormatter,
+  [CLASSIFICATIONS.FONT]: FontPropertyFormatter,
 };
 
 /**
@@ -43,18 +44,17 @@ const shorthandPropertyTypeToActionDictionaryFactoryMap = {
 module.exports = function expandShorthandProperty(propertyName, propertyValue, recursivelyResolve = true) {
   if (!isShorthandProperty(propertyName)) {
     return { [propertyName]: propertyValue };
+  } else if (CSS_CONSTANTS.globalValues.includes(propertyValue)) {
+    return getShorthandComputedProperties(propertyName).reduce((propertyMap, computedPropertyName) => (
+      Object.assign({ [computedPropertyName]: propertyValue }, propertyMap)
+    ), {});
   }
-
-  // else if (CSS.globalValues.includes(propertyValue)) {
-  //   return getShorthandComputedProperties(propertyName).reduce((propertyMap, computedPropertyName) => (
-  //     Object.assign({ [computedPropertyName]: propertyValue }, propertyMap)
-  //   ), {});
-  // }
 
   // eslint-disable-next-line import/no-dynamic-require
   const grammar = require(`./grammars/generated/js/${propertyName}`);
   const parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart).feed(propertyValue);
   const [rootNode] = parser.results;
+  LocationIndexTracker.reset();
   const shorthandType = shorthandProperties[propertyName].shorthandType;
 
   return shorthandPropertyTypeToActionDictionaryFactoryMap[shorthandType]
