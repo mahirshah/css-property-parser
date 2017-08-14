@@ -3,12 +3,25 @@
  */
 const fs = require('fs-extra');
 const { css: { properties, syntaxes } } = require('mdn-data');
-const { PATHS, SYNTAX_OVERRIDES } = require('./constants');
-const JsonGrammarFormatter = require('./formatters/grammarFormatters/JsonGrammarFormatter');
+const { PATHS, SYNTAX_OVERRIDES } = require('../constants/index');
+const JsonGrammarFormatter = require('../formatters/grammarFormatters/JsonGrammarFormatter');
 
 // array of syntax/property names that require manual generation.
-// TODO: export this property and check that manual syntax jsons exist in pre commit
-const manualSyntaxes = ['image()', 'offset', 'shape', 'frames-timing-function', 'feature-value-declaration', 'cubic-bezier-timing-function', 'rgb()', 'rgba()', 'hsl()', 'hsla()', 'flex', 'background', 'final-bg-layer'];
+const manualSyntaxes = [
+  'image()',
+  'offset',
+  'shape',
+  'frames-timing-function',
+  'feature-value-declaration',
+  'cubic-bezier-timing-function',
+  'rgb()',
+  'rgba()',
+  'hsl()',
+  'hsla()',
+  'flex',
+  'background',
+  'final-bg-layer',
+];
 
 // combine properties and syntaxes into one object mapping property names to syntaxes
 const syntaxesSyntaxMap = Object.entries(syntaxes)
