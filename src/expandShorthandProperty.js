@@ -6,7 +6,6 @@ const CSS_CONSTANTS = require('./constants/css');
 const { CLASSIFICATIONS } = require('./constants/shorthandProperties');
 const LocationIndexTracker = require('./utils/LocationIndexTracker');
 
-
 // TODO: make index.js for factories and use single require
 const UnorderedOptionalListPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/UnorderedOptionalListPropertyFormatter');
 const TrblPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/TrblPropertyFormatter');
@@ -50,6 +49,7 @@ module.exports = function expandShorthandProperty(propertyName, propertyValue, r
     ), {});
   }
 
+  // TODO: use PATHS constant here
   // eslint-disable-next-line import/no-dynamic-require
   const grammar = require(`./grammars/generated/js/${propertyName}`);
   const parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart).feed(propertyValue);

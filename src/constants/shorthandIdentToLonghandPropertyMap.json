@@ -5,7 +5,8 @@
     "Time": [
       "transition-duration",
       "transition-delay"
-    ]
+    ],
+    "SingleTransition": ""
   },
   "mask": {
     "MaskClip": "mask-clip",
@@ -21,7 +22,8 @@
     "Time": [
       "animation-duration",
       "animation-delay"
-    ]
+    ],
+    "SingleAnimation": ""
   },
   "flex": {
     "FlexGrow": "flex-grow",

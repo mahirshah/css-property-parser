@@ -174,7 +174,6 @@ describe('expandPropertyShorthand', function () {
     });
   });
 
-  // ["square", "url('../img/dino.png')", "inside", "georgian inside", "lower-roman url('../img/dino.png') outside", "none", "inherit", "initial", "unset"]
   describe('list-style', function () {
     it('should return expanded list-style with just type', function () {
       const result = expandPropertyShorthand('list-style', 'square');
@@ -259,7 +258,7 @@ describe('expandPropertyShorthand', function () {
   });
 
 
-  describe.skip('transition', function () {
+  describe('transition', function () {
     it('should return expanded transition for name duration', function () {
       const result = expandPropertyShorthand('transition', 'margin-left 4s');
 
