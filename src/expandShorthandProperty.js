@@ -6,19 +6,20 @@ const CSS_CONSTANTS = require('./constants/css');
 const { CLASSIFICATIONS } = require('./constants/shorthandProperties');
 const LocationIndexTracker = require('./utils/LocationIndexTracker');
 
-// TODO: make index.js for factories and use single require
-const UnorderedOptionalListPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/UnorderedOptionalListPropertyFormatter');
-const TrblPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/TrblPropertyFormatter');
-const FlexPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/FlexPropertyFormatter');
-const BorderRadiusPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/BorderRadiusPropertyFormatter');
-const CommaSeparatedPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/CommaSeparatedListPropertyFormatter');
-const BackgroundPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/BackgroundPropertyFormatter');
-const FontPropertyFormatter = require('./formatters/shorthandPropertyTypeFormatters/FontPropertyFormatter');
+const {
+  BackgroundPropertyFormatter,
+  BorderRadiusPropertyFormatter,
+  CommaSeparatedListPropertyFormatter,
+  FlexPropertyFormatter,
+  FontPropertyFormatter,
+  TrblPropertyFormatter,
+  UnorderedOptionalListPropertyFormatter,
+} = require('./formatters/shorthandPropertyTypeFormatters');
 
 const shorthandPropertyTypeToActionDictionaryFactoryMap = {
   [CLASSIFICATIONS.TRBL]: TrblPropertyFormatter,
   [CLASSIFICATIONS.UNORDERED_OPTIONAL_TUPLE]: UnorderedOptionalListPropertyFormatter,
-  [CLASSIFICATIONS.COMMA_SEPARATED_LIST]: CommaSeparatedPropertyFormatter,
+  [CLASSIFICATIONS.COMMA_SEPARATED_LIST]: CommaSeparatedListPropertyFormatter,
   [CLASSIFICATIONS.FLEX]: FlexPropertyFormatter,
   [CLASSIFICATIONS.BORDER_RADIUS]: BorderRadiusPropertyFormatter,
   [CLASSIFICATIONS.BACKGROUND]: BackgroundPropertyFormatter,
