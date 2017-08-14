@@ -13,23 +13,23 @@
   "license": "ISC",
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "chai": "^4.0.2",
+    "chai": "^4.1.1",
     "css-values": "^0.1.0",
     "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^15.0.1",
-    "eslint-plugin-import": "^2.3.0",
-    "eslint-plugin-jsx-a11y": "^5.0.3",
-    "eslint-plugin-react": "^7.0.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.2.1",
     "microtime": "^2.1.6",
-    "mocha": "^3.4.2",
+    "mocha": "^3.5.0",
     "nearley-make": "^1.0.1",
-    "sinon": "^2.3.5"
+    "sinon": "^2.4.1"
   },
   "dependencies": {
     "fs-extra": "^3.0.1",
     "mdn-data": "1.0.0",
-    "moo": "^0.4.0",
-    "nearley": "^2.10.2",
+    "moo": "^0.4.1",
+    "nearley": "^2.10.3",
     "postcss-value-parser": "^3.3.0"
   }
 }

@@ -33,7 +33,10 @@ module.exports = class NearleyGrammarFormatter {
     // jsonGrammars and pull in the rule definitions in those jsonGrammars.
     const recursivelyResolvedGrammars = NearleyGrammarFormatter
       ._getGrammarsToResolve(jsonGrammar)
-      .map(fileToResolve => [fileToResolve, fs.readJsonSync(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}${fileToResolve}.json`)])
+      .map(fileToResolve => [
+        fileToResolve,
+        fs.readJsonSync(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}${fileToResolve}.json`),
+      ])
       .filter(([, json]) => NearleyGrammarFormatter._isGrammarValid(json))
       .map(([grammarName, jsonGrammar]) => (
         [grammarName, NearleyGrammarFormatter._prefixIntermediateGrammarRules(grammarName, jsonGrammar)]
@@ -49,18 +52,23 @@ module.exports = class NearleyGrammarFormatter {
       ._prefixIntermediateGrammarRules(grammarName, jsonGrammar);
     // the base key for this grammar should be mapped to Base, then concat the rest of the rules and
     // format them into nearley syntax. i.e <ruleName> -> <ruleBody>.
-    const ohmGrammarBody = [[GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, baseValue]]
+    const nearleyGrammarBody = [[GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, baseValue]]
       .concat(otherRules.filter(rule => rule.length === 2)) // add any rules that don't need to be resolved
       .concat(...recursivelyResolvedGrammars) // add all the rules we resolved
-      .map(([ruleName, ruleBody]) => (
-        `${ruleName} -> ${NearleyGrammarFormatter._formatJsonRuleBody(ruleBody)} ${this._getPostProcessorString(grammarName, ruleName)}`
-      ))
+      .map(([ruleName, ruleBody]) => {
+        const ruleBodyString = NearleyGrammarFormatter._formatJsonRuleBody(ruleBody);
+        const postProcessorString = this._getPostProcessorString(grammarName, ruleName);
+
+        return postProcessorString
+          ? `${ruleName} -> ${ruleBodyString} ${postProcessorString}`
+          : `${ruleName} -> ${ruleBody}`;
+      })
       .join('\n');
     const builtinGrammarsHeader = BUILTIN_GRAMMARS
       .map(grammarName => `@builtin "${grammarName}.${GRAMMAR_CONSTANTS.GRAMMAR_FILE_EXTENSION}"`)
       .join('\n');
 
-    return `${builtinGrammarsHeader}\n\n${ohmGrammarBody}`;
+    return `${builtinGrammarsHeader}\n\n${nearleyGrammarBody}`;
   }
 
   /**
@@ -168,7 +176,7 @@ module.exports = class NearleyGrammarFormatter {
    * @private
    */
   static _prefixRuleName(grammarName, ruleName) {
-    return `${CaseConverterUtils.formalSyntaxIdentToOhmIdent(grammarName)}_${ruleName}`;
+    return `${CaseConverterUtils.formalSyntaxIdentToNearleyIdent(grammarName)}_${ruleName}`;
   }
 
   /**
@@ -180,9 +188,9 @@ module.exports = class NearleyGrammarFormatter {
    */
   static _formatJsonRuleBody(ruleBody) {
     return ruleBody.replace(GRAMMAR_CONSTANTS.R_GRAMMAR_IDENT_GLOBAL, (fullMatch, innerIdent, identName, parens) => {
-      const ohmIdent = CaseConverterUtils.formalSyntaxIdentToOhmIdent(identName);
+      const nearleyIdent = CaseConverterUtils.formalSyntaxIdentToNearleyIdent(identName);
 
-      return `${ohmIdent}${parens ? 'Func' : ''}`;
+      return `${nearleyIdent}${parens ? 'Func' : ''}`;
     });
   }
 
