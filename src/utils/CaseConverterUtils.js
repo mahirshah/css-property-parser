@@ -55,13 +55,13 @@ module.exports = class CaseConverterUtils {
    * Formats the given formal syntax ident into a string that is compatible with Ohm. Normal kebab-case strings will
    * be camelCased. Strings with a "()" will have "Func" suffix.
    *
-   * @example formalSyntaxIdentToOhmIdent("some-string") -> "someString"
-   * @example formalSyntaxIdentToOhmIdent("some-string()") -> "someStringFunc"
+   * @example formalSyntaxIdentToNearleyIdent("some-string") -> "someString"
+   * @example formalSyntaxIdentToNearleyIdent("some-string()") -> "someStringFunc"
    *
    * @param {string} formalSyntaxIdent - the JSON grammar rule name
    * @returns {string} - the formatted rule name in camelCase/pascalCase format, with an optional Func suffix
    */
-  static formalSyntaxIdentToOhmIdent(formalSyntaxIdent) {
+  static formalSyntaxIdentToNearleyIdent(formalSyntaxIdent) {
     return formalSyntaxIdent
       .replace(GRAMMAR_CONSTANTS.R_GRAMMAR_IDENT_NAME_GLOBAL, (fullMatch, innerIdent, identName, parens) => (
         `${CaseConverterUtils.kebabToPascal(identName)}${parens ? 'Func' : ''}`
