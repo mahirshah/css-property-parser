@@ -63,12 +63,13 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
    */
   static getPropertyLocationMappingCommaSeparatedList(propertyName, propertyNode) {
     const longhandRuleNameToPropertyNameMap = shorthandIdentToLonghandPropertyMap[propertyName];
-    const longhandRuleNames = Object.keys(longhandRuleNameToPropertyNameMap);
+    const longhandRuleNames = Object.keys(longhandRuleNameToPropertyNameMap)
+      .filter(ruleName => longhandRuleNameToPropertyNameMap[ruleName] !== '');
 
     // for rule names, such as "time" in animation and transition that are mapped to an array of properties, we need
     // to keep track of which instance of "time" we have seen. Thus we create a mapping between the rule name and
-    // how many times we have seen the rule name before. For example, for transition this would be: { "time": 0 }. Then,
-    // we map the first instance of "time" to ""animation-duration" and the second occurrence of "time" to
+    // how many times we encounter the rule name. For example, for animation this would be: { "time": 0 }. Then,
+    // we map the first instance of "time" to "animation-duration" and the second occurrence of "time" to
     // "animation-delay"
     const arrayPropertyIndexMap = Object.entries(longhandRuleNameToPropertyNameMap)
       .filter(([, value]) => Array.isArray(value))
