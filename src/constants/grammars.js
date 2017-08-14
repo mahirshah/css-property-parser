@@ -1,4 +1,3 @@
-// TODO: remove all ohm related constants
 module.exports = {
   R_GRAMMAR_IDENT_GLOBAL: /<(([^>( ]+)(\(\))?)>/g,
   R_GRAMMAR_IDENT: /<(([^>(]+)(\(\))?)>/,

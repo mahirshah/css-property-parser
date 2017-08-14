@@ -2,9 +2,9 @@
  * Format each JSON grammar into a Nearley grammar
  */
 const fs = require('fs-extra');
-const OhmGrammarFormatter = require('./formatters/grammarFormatters/NearleyGrammarFormatter');
-const PATHS = require('./constants/paths');
-const GRAMMAR_CONSTANTS = require('./constants/grammars');
+const OhmGrammarFormatter = require('../formatters/grammarFormatters/NearleyGrammarFormatter');
+const PATHS = require('../constants/paths');
+const GRAMMAR_CONSTANTS = require('../constants/grammars');
 const { exec } = require('child_process');
 
 const JAVASCRIPT_FILE_EXTENSION = 'js';

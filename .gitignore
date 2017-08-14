@@ -3,5 +3,7 @@ node_modules
 .DS_STORE
 
 # ignore generated grammars
+formatted-data
 src/grammars/generated
+
 

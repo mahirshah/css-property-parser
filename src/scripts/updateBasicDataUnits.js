@@ -5,8 +5,8 @@
  */
 const { css: { units } } = require('mdn-data');
 const fs = require('fs-extra');
-const PATHS = require('./constants/paths');
-const GRAMMAR_CONSTANTS = require('./constants/grammars');
+const PATHS = require('../constants/paths');
+const GRAMMAR_CONSTANTS = require('../constants/grammars');
 
 const TYPE_MAP = {
   'CSS Lengths': 'length-unit',
