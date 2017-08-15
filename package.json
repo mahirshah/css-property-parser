@@ -7,7 +7,8 @@
     "test": "./node_modules/.bin/mocha --reporter spec --recursive",
     "start": "mkdir -p src/grammars/generated/json && node ./node_modules/nearley/bin/nearleyc.js ./src/grammars/nearley/formalSyntax.ne > ./src/grammars/js/formalSyntax.js && node ./src/scripts/updateBasicDataUnits.js && node ./src/scripts/formatData.js && node ./src/scripts/formatFormalSyntaxes.js && node ./src/scripts/formatGrammars.js",
     "clean": "rm -rf src/grammars/generated",
-    "benchmark": "node test/benchmark.js"
+    "benchmark": "node test/benchmark.js",
+    "doctoc": "node ./node_modules/doctoc/doctoc.js README.md"
   },
   "author": "mahirshah",
   "license": "ISC",
