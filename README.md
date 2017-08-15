@@ -3,14 +3,20 @@
 
 ## Contents
 
-- [Why](#Why)
-- [Installation](#Installation)
-- [Usage](#Usage)
-- [API](#API)
-  - [isShorthandProperty](#isShorthandProperty)
-  - [isValidDeclaration](#isValidDeclaration)
-  - [getShorthandComputedProperties](#getShorthandComputedProperties)
-  - [expandShorthandProperty](#expandShorthandProperty)
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Why](#why)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API](#api)
+  - [isShorthandProperty(property: string): boolean](#isshorthandpropertyproperty-string-boolean)
+  - [isValidDeclaration(property: string, value: string): boolean](#isvaliddeclarationproperty-string-value-string-boolean)
+  - [getShorthandComputedProperties(property: string): Array](#getshorthandcomputedpropertiesproperty-string-array)
+  - [expandPropertyShorthand(property: string, value: string, [recursivelyResolve=true]): Object](#expandpropertyshorthandproperty-string-value-string-recursivelyresolvetrue-object)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 ## Why
