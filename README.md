@@ -1,12 +1,24 @@
 # CSS Property Validation and Shorthand Expansion
 > Validate and expand css shorthand properties
 
+## Contents
+
+- [Why](#Why)
+- [Installation](#Installation)
+- [Usage](#Usage)
+- [API](#API)
+  - [isShorthandProperty](#isShorthandProperty)
+  - [isValidDeclaration](#isValidDeclaration)
+  - [getShorthandComputedProperties](#getShorthandComputedProperties)
+  - [expandShorthandProperty](#expandShorthandProperty)
+
+
 ## Why
 
 - Uses [MDN data](https://github.com/mdn/data/tree/master/css) to generate validators and shorthand property expanders
 - Supports experimental properties and values
 
-## Install
+## Installation
 ```
 $ npm instal TODO_
 ```
