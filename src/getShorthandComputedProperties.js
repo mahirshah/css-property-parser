@@ -9,7 +9,7 @@ const { css: { properties } } = require('mdn-data');
  *
  * @param {string} shorthandProperty - the shorthand property name. For example, "background" or "border".
  * @returns {Array} - an array containing the computed properties for the given shorthand property. Returns an
- *                    empty array if the given property is not a valid property, or is not a shorthand property.
+ *                    empty array if the given property is not a valid property.
  *
  * @example
  * getShorthandComputedProperties('background') ->

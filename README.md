@@ -93,7 +93,7 @@ a known property that is not a shorthand, simply returns the given property. If 
 returns an empty array.
  
  * shorthandProperty - the shorthand property name. For example, "background" or "border".
- * returns an array containing the computed properties for the given shorthand property. Returns an empty array if the given property is not a valid property, or is not a shorthand property.
+ * returns an array containing the computed properties for the given shorthand property. Returns an empty array if the given property is not a valid property.
  
  ##### Examples
 ```js
