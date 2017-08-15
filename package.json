@@ -12,6 +12,7 @@
   "author": "mahirshah",
   "license": "ISC",
   "devDependencies": {
+    "async": "^2.5.0",
     "benchmark": "^2.1.4",
     "chai": "^4.1.1",
     "css-values": "^0.1.0",
