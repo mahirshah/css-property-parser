@@ -2,7 +2,10 @@
 const { css: { properties } } = require('mdn-data');
 
 /**
- * Given a shorthand property, returns an array of the computed properties for that shorthand property.
+ * // TODO: write tests for unknown and known non shorthand property
+ * Given a shorthand property, returns an array of the computed properties for that shorthand property. If given
+ * a known property that is not a shorthand, simply returns the given property. If given an unknown property,
+ * returns an empty array.
  *
  * @param {string} shorthandProperty - the shorthand property name. For example, "background" or "border".
  * @returns {Array} - an array containing the computed properties for the given shorthand property. Returns an
@@ -22,12 +25,20 @@ const { css: { properties } } = require('mdn-data');
  * ]
  *
  * @example
+ * getShorthandComputedProperties('color') ->
+ * ["color"]
+ *
+ * @example
  * getShorthandComputedProperties('unknownProperty') ->
  * []
  */
 module.exports = function getShorthandComputedProperties(shorthandProperty) {
-  if (properties[shorthandProperty] && Array.isArray(properties[shorthandProperty].computed)) {
-    return properties[shorthandProperty].computed;
+  if (properties[shorthandProperty]) {
+    if (Array.isArray(properties[shorthandProperty].computed)) {
+      return properties[shorthandProperty].computed;
+    }
+
+    return [shorthandProperty];
   }
 
   return [];
