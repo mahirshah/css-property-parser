@@ -6,13 +6,20 @@ const OhmGrammarFormatter = require('../formatters/grammarFormatters/NearleyGram
 const PATHS = require('../constants/paths');
 const GRAMMAR_CONSTANTS = require('../constants/grammars');
 const { exec } = require('child_process');
+const async = require('async');
 
+const MAX_PARALLEL_PROCESSES = 20;
 const JAVASCRIPT_FILE_EXTENSION = 'js';
 const NEARLEY_COMPILER_FILE_NAME = 'nearleyc.js';
 
 // make the nearley grammar directory if needed
 if (!fs.existsSync(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH)) {
   fs.mkdirSync(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH);
+}
+
+// make the js grammar directory if needed
+if (!fs.existsSync(PATHS.GENERATED_JS_GRAMMAR_PATH)) {
+  fs.mkdirSync(PATHS.GENERATED_JS_GRAMMAR_PATH);
 }
 
 // move manual json grammars into generated folder for grammar resolution
@@ -44,18 +51,20 @@ fs.readdirSync(PATHS.NEARLEY_PROPERTY_GRAMMAR_PATH)
 console.log('...Successfully created nearley grammars...');
 
 // read each nearley grammar and use the nearley compiler to convert it into its js representation
-fs.readdirSync(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH)
-  .forEach((fileName) => {
+const compilationQueue = async.queue((task, callback) => {
+  console.log(task);
+  exec(task, callback);
+}, MAX_PARALLEL_PROCESSES);
+const compilationCommands = fs.readdirSync(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH)
+  .map((fileName) => {
     const nearleyFilePath = JSON.stringify(`${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}${fileName}`);
     const jsFilePath = JSON.stringify(`${PATHS.GENERATED_JS_GRAMMAR_PATH}${fileName.replace(`.${GRAMMAR_CONSTANTS.GRAMMAR_FILE_EXTENSION}`, `.${JAVASCRIPT_FILE_EXTENSION}`)}`);
 
-    try {
-      exec(`node ${PATHS.NEARLEY_BIN_ROOT}${NEARLEY_COMPILER_FILE_NAME} ${nearleyFilePath} > ${jsFilePath}`);
-      console.log(`Successfully created js grammar: ${jsFilePath}`);
-    } catch (err) {
-      console.error(`Unable to create js grammar: ${jsFilePath}`, err);
-    }
+    return `node ${PATHS.NEARLEY_BIN_ROOT}${NEARLEY_COMPILER_FILE_NAME} ${nearleyFilePath} > ${jsFilePath}`;
   });
 
-console.log('...Successfully created js grammars...');
-
+compilationQueue.push(compilationCommands, (err) => {
+  if (err) {
+    console.error(err);
+  }
+});

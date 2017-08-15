@@ -45,7 +45,7 @@ module.exports = class NearleyGrammarFormatter {
         .filter(grammarPair => grammarPair.length === 2) // filter out any jsonGrammars that need resolution
         .map(([ruleName, ruleBody]) => (
           ruleName === GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME
-            ? [CaseConverterUtils.formalSyntaxIdentToOhmIdent(grammarName), ruleBody]
+            ? [CaseConverterUtils.formalSyntaxIdentToNearleyIdent(grammarName), ruleBody]
             : [ruleName, ruleBody]
         )));
     const [[, baseValue], ...otherRules] = NearleyGrammarFormatter
@@ -61,7 +61,7 @@ module.exports = class NearleyGrammarFormatter {
 
         return postProcessorString
           ? `${ruleName} -> ${ruleBodyString} ${postProcessorString}`
-          : `${ruleName} -> ${ruleBody}`;
+          : `${ruleName} -> ${ruleBodyString}`;
       })
       .join('\n');
     const builtinGrammarsHeader = BUILTIN_GRAMMARS
