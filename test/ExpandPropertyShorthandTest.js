@@ -279,7 +279,7 @@ describe('expandPropertyShorthand', function () {
     });
 
     it('should return expanded transition for name duration delay timing-function delay', function () {
-      const result = expandPropertyShorthand('transition', '4s ease-in-out 1s');
+      const result = expandPropertyShorthand('transition', 'margin-left 4s ease-in-out 1s');
 
       assert.deepEqual(result, {
         'transition-property': 'margin-left',
