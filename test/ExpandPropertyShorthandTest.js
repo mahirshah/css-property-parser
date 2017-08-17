@@ -257,7 +257,7 @@ describe('expandPropertyShorthand', function () {
     });
   });
 
-  // TODO: test for cubic-bezier functions
+
   describe('transition', function () {
     it('should return expanded transition for name duration', function () {
       const result = expandPropertyShorthand('transition', 'margin-left 4s');
@@ -286,6 +286,50 @@ describe('expandPropertyShorthand', function () {
         'transition-duration': '4s',
         'transition-delay': '1s',
         'transition-timing-function': 'ease-in-out',
+      });
+    });
+
+    it('should return expanded transition for cubic-bezier timing function', function () {
+      const result = expandPropertyShorthand('transition', 'margin-left 4s cubic-bezier(0.1, 0.7, 1.0, 0.1) 1s');
+
+      assert.deepEqual(result, {
+        'transition-property': 'margin-left',
+        'transition-duration': '4s',
+        'transition-delay': '1s',
+        'transition-timing-function': 'cubic-bezier(0.1,0.7,1.0,0.1)',
+      });
+    });
+
+    it('should return expanded transition for steps timing function with 2 params', function () {
+      const result = expandPropertyShorthand('transition', 'margin-left 4s steps(5, end) 1s');
+
+      assert.deepEqual(result, {
+        'transition-property': 'margin-left',
+        'transition-duration': '4s',
+        'transition-delay': '1s',
+        'transition-timing-function': 'steps(5,end)',
+      });
+    });
+
+    it('should return expanded transition for steps timing function with 1 param', function () {
+      const result = expandPropertyShorthand('transition', 'margin-left 4s steps(5) 1s');
+
+      assert.deepEqual(result, {
+        'transition-property': 'margin-left',
+        'transition-duration': '4s',
+        'transition-delay': '1s',
+        'transition-timing-function': 'steps(5)',
+      });
+    });
+
+    it('should return expanded transition for frames timing function', function () {
+      const result = expandPropertyShorthand('transition', 'margin-left 4s frames(10) 1s');
+
+      assert.deepEqual(result, {
+        'transition-property': 'margin-left',
+        'transition-duration': '4s',
+        'transition-delay': '1s',
+        'transition-timing-function': 'frames(10)',
       });
     });
 
@@ -326,6 +370,21 @@ describe('expandPropertyShorthand', function () {
       });
     });
 
+    it('should expand @keyframes duration | cubic-bezier | delay | infinite iteration-count | direction | fill-mode | play-state | name.', function () {
+      const result = expandPropertyShorthand('animation', '300ms cubic-bezier(0.1, -0.6, 0.2, 0) 1s infinite alternate-reverse both paused slidein');
+
+      assert.deepEqual(result, {
+        'animation-duration': '300ms',
+        'animation-timing-function': 'cubic-bezier(0.1,-0.6,0.2,0)',
+        'animation-delay': '1s',
+        'animation-iteration-count': 'infinite',
+        'animation-direction': 'alternate-reverse',
+        'animation-fill-mode': 'both',
+        'animation-play-state': 'paused',
+        'animation-name': 'slidein',
+      });
+    });
+
     it('should expand @keyframes duration | timing-function | delay | name', function () {
       const result = expandPropertyShorthand('animation', '3s linear 1s slidein');
 
@@ -343,6 +402,17 @@ describe('expandPropertyShorthand', function () {
       assert.deepEqual(result, {
         'animation-duration': '3s',
         'animation-name': 'slidein',
+      });
+    });
+
+    it('should handle comma separated list of animations', function () {
+      const result = expandPropertyShorthand('animation', '3s linear 1s slidein,1s cubic-bezier(0.1, -0.6, 0.2, 0) 2s slideout, 2s ease 2s slide');
+
+      assert.deepEqual(result, {
+        'animation-duration': '3s, 1s, 2s',
+        'animation-timing-function': 'linear, cubic-bezier(0.1,-0.6,0.2,0), ease',
+        'animation-delay': '1s, 2s, 2s',
+        'animation-name': 'slidein, slideout, slide',
       });
     });
   });

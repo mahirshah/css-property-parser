@@ -36,7 +36,8 @@ module.exports = class BackgroundPropertyFormatter {
     const backgroundPosition = shorthandIdentToLonghandPropertyMap[BACKGROUND_PROPERTY_NAME].Position;
     const backgroundSize = shorthandIdentToLonghandPropertyMap[BACKGROUND_PROPERTY_NAME].BgSize;
     const longhandValueMap = Object
-      .entries(ShorthandPropertyTypeFormatterUtils.getPropertyLocationMappingCommaSeparatedList(BACKGROUND_PROPERTY_NAME, layerNode))
+      .entries(ShorthandPropertyTypeFormatterUtils.getPropertyNodeMappingCommaSeparatedList(BACKGROUND_PROPERTY_NAME, layerNode))
+      .map(([property, node]) => [property, node.location])
       .sort(([, location1], [, location2]) => location1 - location2)
       .map(([property, location], idx, entries) => {
         if (idx === entries.length - 1) {
