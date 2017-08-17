@@ -3,7 +3,6 @@ const expandPropertyShorthand = require('../src/expandShorthandProperty');
 
 /**
  * Tests for {@link expandPropertyShorthand}
- * TODO: add tests for global values
  * TODO: add tests for block comments in value
  */
 describe('expandPropertyShorthand', function () {
@@ -51,6 +50,17 @@ describe('expandPropertyShorthand', function () {
         'margin-left': '2em',
       });
     });
+
+    ['initial', 'unset', 'inherit'].forEach(globalValue => it(`should exand ${globalValue}`, function () {
+      const result = expandPropertyShorthand('margin', globalValue);
+
+      assert.deepEqual(result, {
+        'margin-top': globalValue,
+        'margin-right': globalValue,
+        'margin-bottom': globalValue,
+        'margin-left': globalValue,
+      });
+    }));
   });
 
   describe('padding', function () {
@@ -592,6 +602,47 @@ describe('expandPropertyShorthand', function () {
         'border-bottom-right-radius': '10px / 30px',
       });
     });
+  });
+
+  describe('border-*', function() {
+    ['top', 'right', 'bottom', 'left'].forEach(borderPosition => describe(`border-${borderPosition}`, function () {
+      it('should return expanded border with width, style, color', function () {
+        const result = expandPropertyShorthand(`border-${borderPosition}`, '1px solid black');
+
+        assert.deepEqual(result, {
+          [`border-${borderPosition}-width`]: '1px',
+          [`border-${borderPosition}-style`]: 'solid',
+          [`border-${borderPosition}-color`]: 'black',
+        });
+      });
+
+      it('should return expanded border with color, width, style', function () {
+        const result = expandPropertyShorthand(`border-${borderPosition}`, 'black 1px solid');
+
+        assert.deepEqual(result, {
+          [`border-${borderPosition}-width`]: '1px',
+          [`border-${borderPosition}-style`]: 'solid',
+          [`border-${borderPosition}-color`]: 'black',
+        });
+      });
+
+      it('should return expanded border with style, color', function () {
+        const result = expandPropertyShorthand(`border-${borderPosition}`, 'solid black');
+
+        assert.deepEqual(result, {
+          [`border-${borderPosition}-style`]: 'solid',
+          [`border-${borderPosition}-color`]: 'black',
+        });
+      });
+
+      it('should return expanded border with just color', function () {
+        const result = expandPropertyShorthand(`border-${borderPosition}`, 'black');
+
+        assert.deepEqual(result, {
+          [`border-${borderPosition}-color`]: 'black',
+        });
+      });
+    }));
   });
 
   describe('background', function () {
