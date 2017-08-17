@@ -12,9 +12,13 @@
 - [Usage](#usage)
 - [API](#api)
   - [isShorthandProperty(property: string): boolean](#isshorthandpropertyproperty-string-boolean)
+    - [Examples](#examples)
   - [isValidDeclaration(property: string, value: string): boolean](#isvaliddeclarationproperty-string-value-string-boolean)
+    - [Examples](#examples-1)
   - [getShorthandComputedProperties(property: string): Array](#getshorthandcomputedpropertiesproperty-string-array)
+      - [Examples](#examples-2)
   - [expandPropertyShorthand(property: string, value: string, [recursivelyResolve=true]): Object](#expandpropertyshorthandproperty-string-value-string-recursivelyresolvetrue-object)
+      - [Examples](#examples-3)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -69,6 +73,7 @@ console.log(getShorthandComputedProperties('unknown'))
 // => []
 
 // expandShorthandProperty
+// returns an obejct mapping longhand property names to their values
 console.log(expandPropertyShorthand('margin', '0 3px 10rem'))
 // => {
 //      'margin-top': '0',
@@ -97,6 +102,16 @@ Checks if a given property is a shorthand property
 
  * property - the property name
  * returns true if property is a shorthand, false otherwise
+ 
+#### Examples
+
+```js
+isShorthandProperty('border')
+// => true
+
+isShorthandProperty('color')
+// => false
+```
 
 ### isValidDeclaration(property: string, value: string): boolean
 Checks if the given property, value pair is valid.
@@ -104,6 +119,28 @@ Checks if the given property, value pair is valid.
  * property - the property name. For example, 'border' or 'color'.
  * value - the property value. For example, '1px solid black'.
  * returns true if the given value is valid for the property. Else, false.
+ 
+#### Examples
+ 
+ ```js
+isValidDeclaration('color', 'currentColor')
+// => true
+
+isValidDeclaration('color', 'rgb(0)')
+// => false (rgba expects at least 3 parameters)
+
+isValidDeclaration('z-index', '-1')
+// => true
+
+isValidDeclaration('z-index', 'abc')
+// => false (z-index expects an integer)
+
+isValidDeclaration('width', '300px')
+// => true
+
+isValidDeclaration('width', '300ms')
+// => false ('ms' is not a valid length unit)
+```
 
 ### getShorthandComputedProperties(property: string): Array
 Given a shorthand property, returns an array of the computed properties for that shorthand property. If given
@@ -113,7 +150,8 @@ returns an empty array.
  * shorthandProperty - the shorthand property name. For example, "background" or "border".
  * returns an array containing the computed properties for the given shorthand property. Returns an empty array if the given property is not a valid property.
  
- ##### Examples
+##### Examples
+ 
 ```js
 getShorthandComputedProperties('background');
  // -> [
