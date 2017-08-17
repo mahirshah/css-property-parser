@@ -5,6 +5,8 @@ const nearley = require('nearley');
 const CSS_CONSTANTS = require('./constants/css');
 const { CLASSIFICATIONS } = require('./constants/shorthandProperties');
 const LocationIndexTracker = require('./utils/LocationIndexTracker');
+const PATHS = require('./constants/paths');
+const ArrayUtils = require('./utils/ArrayUtils');
 
 const {
   BackgroundPropertyFormatter,
@@ -37,8 +39,24 @@ const shorthandPropertyTypeToActionDictionaryFactoryMap = {
  *                                              expand to additional shorthands. For example, the border property
  *                                              expands to border-width, which expands further to border-left-width,
  *                                              border-right-width, etc.
+ *
+ * @example
+ * expandPropertyShorthand('margin', '0 3px 10rem')
+ *  {
+ *    'margin-top': '0',
+ *    'margin-right': '3px',
+ *    'margin-bottom': '10rem',
+ *    'margin-left': '3px',
+ *   }
+ *
+ * @example
+ * expandPropertyShorthand('flex', 'initial')
+ * {
+ *  'flex-grow': 'initial',
+ *  'flex-shrink': 'initial',
+ *  'flex-basis': 'initial',
+ * }
  * TODO: add another param to include initial values for values not set
- * TODO: add examples here
  * TODO: properly handle parsing errors
  */
 module.exports = function expandShorthandProperty(propertyName, propertyValue, recursivelyResolve = true) {
@@ -50,9 +68,8 @@ module.exports = function expandShorthandProperty(propertyName, propertyValue, r
     ), {});
   }
 
-  // TODO: use PATHS constant here
   // eslint-disable-next-line import/no-dynamic-require
-  const grammar = require(`./grammars/generated/js/${propertyName}`);
+  const grammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}${propertyName}`);
   const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar)).feed(propertyValue);
   const [rootNode] = parser.results;
   LocationIndexTracker.reset();

@@ -7,9 +7,7 @@ const { css: { properties } } = require('mdn-data');
 const ShorthandPropertyClassifierUtils = require('../utils/ShorthandPropertyClassifierUtils');
 const PATHS = require('../constants/paths');
 
-// TODO: use paths constant
 const SHORTHAND_FORMATTED_DATA_FILE_NAME = 'shorthand-properties.json';
-
 const formattedData = Object.entries(properties)
 // properties that have an array as their computed value, are shorthand properties
   .filter(([, data]) => Array.isArray(data.computed))
