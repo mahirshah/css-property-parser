@@ -148,5 +148,63 @@ is not a shorthand property) simply returns an object mapping the original prope
  * propertyValue - the value of the property
  * [recursivelyResolve=true] - recursively resolve additional longhand properties if the shorthands expand to additional shorthands. For example, the border property expands to border-width, which expands further to border-left-width, border-right-width, etc.
 
+Currently supports the following properties:
 
+  - animation
+  - background
+  - border
+  - border-block-end
+  - border-block-start
+  - border-bottom
+  - border-color
+  - border-inline-end
+  - border-inline-start
+  - border-left
+  - border-radius
+  - border-right
+  - border-style
+  - border-top
+  - border-width
+  - column-rule
+  - columns
+  - flex
+  - flex-flow
+  - font
+  - list-style
+  - margin
+  - outline
+  - padding
+  - text-decoration
+  - text-emphasis
+  - transition
 
+##### Examples
+
+```js
+expandPropertyShorthand('margin', '0 3px 10rem')
+// => {
+//      'margin-top': '0',
+//      'margin-right': '3px',
+//      'margin-bottom': '10rem',
+//      'margin-left': '3px',
+//     }
+```
+
+```js
+expandPropertyShorthand('flex', 'initial')
+// => {
+//  'flex-grow': 'initial',
+//  'flex-shrink': 'initial',
+//  'flex-basis': 'initial',
+// }
+```
+
+```js
+expandPropertyShorthand('border-radius', '10px 5px 2em / 20px 25px 30%')
+// => {
+//   'border-top-left-radius': '10px / 20px',
+//   'border-top-right-radius': '5px / 25px',
+//   'border-bottom-left-radius': '5px / 25px',
+//   'border-bottom-right-radius': '2em / 30%',
+// }
+```

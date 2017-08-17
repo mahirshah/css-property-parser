@@ -163,10 +163,5 @@
     "Color": "border-color",
     "BrStyle": "border-style",
     "BrWidth": "border-width"
-  },
-  "-webkit-border-before": {
-    "Color": "color",
-    "BorderStyle": "border-style",
-    "BorderWidth": "border-width"
   }
 }
