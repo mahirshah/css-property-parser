@@ -10,7 +10,7 @@ describe('getShorthandComputedProperties', function () {
   });
 
   it('should return an empty array for a non shorthand property', function () {
-    assert.deepEqual(getShorthandComputedProperties('color'), []);
+    assert.deepEqual(getShorthandComputedProperties('color'), ['color']);
   });
 
   it('should return an array of computed properties for background', function () {
