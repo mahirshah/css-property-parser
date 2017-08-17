@@ -17,8 +17,8 @@
     "SingleAnimationFillMode": "animation-fill-mode",
     "SingleAnimationIterationCount": "animation-iteration-count",
     "SingleAnimationDirection": "animation-direction",
-    "SingleAnimationTimingFunction": "animation-timing-function",
-    "SingleAnimationName": "animation-name",
+    "SingleTimingFunction": "animation-timing-function",
+    "KeyframesName": "animation-name",
     "Time": [
       "animation-duration",
       "animation-delay"

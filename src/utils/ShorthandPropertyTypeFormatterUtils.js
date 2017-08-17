@@ -35,7 +35,7 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
   static getTokensFromNode(node) {
     return (function recurseParseTree(node, tokens = []) {
       if (typeof node !== 'object' || node === null) {
-        return filteredNodes;
+        return tokens;
       } else if (node.type && node.value) {
         return tokens.concat(node);
       } else if (Array.isArray(node)) {
@@ -101,6 +101,8 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
 
     return (function recurseLonghandPropertyNode(node, obj = {}) {
       if (typeof node !== 'object' || node === null) {
+        return obj;
+      } else if (node.type && node.value) {
         return obj;
       } else if (arrayPropertyRuleNames.includes(node.name)) {
         const propertyObject = {

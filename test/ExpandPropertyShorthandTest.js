@@ -310,6 +310,44 @@ describe('expandPropertyShorthand', function () {
   });
 
 
+  describe('animation', function () {
+    it('should expand @keyframes duration | timing-function | delay | iteration-count | direction | fill-mode | play-state | name', function () {
+      const result = expandPropertyShorthand('animation', '3s ease-in 1s 2 reverse both paused slidein');
+
+      assert.deepEqual(result, {
+        'animation-duration': '3s',
+        'animation-timing-function': 'ease-in',
+        'animation-delay': '1s',
+        'animation-iteration-count': '2',
+        'animation-direction': 'reverse',
+        'animation-fill-mode': 'both',
+        'animation-play-state': 'paused',
+        'animation-name': 'slidein',
+      });
+    });
+
+    it('should expand @keyframes duration | timing-function | delay | name', function () {
+      const result = expandPropertyShorthand('animation', '3s linear 1s slidein');
+
+      assert.deepEqual(result, {
+        'animation-duration': '3s',
+        'animation-timing-function': 'linear',
+        'animation-delay': '1s',
+        'animation-name': 'slidein',
+      });
+    });
+
+    it('should expand @keyframes duration | name', function () {
+      const result = expandPropertyShorthand('animation', '3s slidein');
+
+      assert.deepEqual(result, {
+        'animation-duration': '3s',
+        'animation-name': 'slidein',
+      });
+    });
+  });
+
+
   describe('flex', function () {
     it('should expand auto', function () {
       const result = expandPropertyShorthand('flex', 'auto');
