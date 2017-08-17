@@ -1,5 +1,6 @@
 const ShorthandPropertyTypeFormatterUtils = require('../../utils/ShorthandPropertyTypeFormatterUtils');
 const shorthandIdentToLonghandPropertyMap = require('../../constants/shorthandIdentToLonghandPropertyMap.json');
+const ArrayUtils = require('../../utils/ArrayUtils');
 
 module.exports = class CommaSeparatedListPropertyFormatter {
   /**
@@ -21,18 +22,29 @@ module.exports = class CommaSeparatedListPropertyFormatter {
     // "SingleTransition" node into a longhand property map, and then merge them together.
     const singlePropertyMaps = ShorthandPropertyTypeFormatterUtils.filterNodesByName(node, [singlePropertyRuleName])
       .sort(({ location: location1 }, { location: location2 }) => location1 - location2)
-      .map((layerNode, idx, originalNodeArray) => {
-        const layerValueString = idx === originalNodeArray.length - 1
-          ? value.slice(layerNode.location)
-          : value.slice(layerNode.location, originalNodeArray[idx + 1].location - 1).replace(/,\s*$/, '').trim();
-
-        return CommaSeparatedListPropertyFormatter._formatSingleProperty(propertyName, layerNode, layerValueString);
-      });
+      .map(layerNode => CommaSeparatedListPropertyFormatter._formatSingleProperty(propertyName, layerNode));
 
     return ShorthandPropertyTypeFormatterUtils.mergePropertyMaps(singlePropertyMaps);
   }
 
-  static _formatSingleProperty(propertyName, singlePropertyNode, singlePropertyValue) {
-    return ShorthandPropertyTypeFormatterUtils.filterNodesByName
+  /**
+   * Formats a single property node into an object mapping the longhand property name, to its value.
+   *
+   * @param {string} propertyName - the property name this single property node belongs to. For example, "transition".
+   * @param {Object} singlePropertyNode - the single property parse tree node
+   * @return {Object} - object mapping the longhand property name to its value
+   * @private
+   */
+  static _formatSingleProperty(propertyName, singlePropertyNode) {
+    return Object.entries(
+      ShorthandPropertyTypeFormatterUtils.getPropertyNodeMappingCommaSeparatedList(propertyName, singlePropertyNode)
+    )
+      .reduce(
+        ArrayUtils.entriesToObject(
+          ArrayUtils.identityFunction,
+          node => ShorthandPropertyTypeFormatterUtils.getTokensFromNode(node).map(token => token.text).join('')
+        ),
+        {}
+      );
   }
 };

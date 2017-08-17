@@ -1,5 +1,4 @@
 const shorthandIdentToLonghandPropertyMap = require('../constants/shorthandIdentToLonghandPropertyMap.json');
-const ArrayUtils = require('../utils/ArrayUtils');
 
 module.exports = class ShorthandPropertyTypeFormatterUtils {
   /**
@@ -12,6 +11,8 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
     return (function recurseParseTree(node, filteredNodes = []) {
       if (typeof node !== 'object' || node === null) {
         return filteredNodes;
+      } else if (node.type && node.value) {
+        return filteredNodes;
       } else if (nodeNames.includes(node.name)) {
         return filteredNodes.concat(node);
       } else if (Array.isArray(node)) {
@@ -22,6 +23,29 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
 
       return [].concat(...node.values.map(child => recurseParseTree(child, filteredNodes)));
     })(baseNode);
+  }
+
+  /**
+   * Given a parse tree node, returns an array of all of the tokens in the node. The tokens are the tokens returned
+   * by the Moo Lexer, used in the nearley grammar.
+   *
+   * @param {Object} node - the parse tree node
+   * @return {Array} - array of tokens
+   */
+  static getTokensFromNode(node) {
+    return (function recurseParseTree(node, tokens = []) {
+      if (typeof node !== 'object' || node === null) {
+        return filteredNodes;
+      } else if (node.type && node.value) {
+        return tokens.concat(node);
+      } else if (Array.isArray(node)) {
+        return node.length
+          ? [].concat(...node.map(inner => recurseParseTree(inner, tokens)))
+          : tokens;
+      }
+
+      return [].concat(...node.values.map(child => recurseParseTree(child, tokens)));
+    })(node);
   }
 
   /**
@@ -54,14 +78,13 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
 
   /**
    * Given a shorthand property name and a shorthand property node, returns an object mapping the longhand properties
-   * to the their values in the property node. This should only be used for comma separated list shorthand properties.
+   * to the their nodes in the parse tree. This should only be used for comma separated list shorthand properties.
    *
    * @param {string} propertyName - the shorthand property name. For example, 'animation'.
    * @param {Object} propertyNode - the shorthand property node
-   * @returns {Object} - mapping between longhand property names and their corresponding index in the original property
-   *                     value string.
+   * @returns {Object} - mapping between longhand property names and their corresponding nodes in the parse tree
    */
-  static getPropertyLocationMappingCommaSeparatedList(propertyName, propertyNode) {
+  static getPropertyNodeMappingCommaSeparatedList(propertyName, propertyNode) {
     const longhandRuleNameToPropertyNameMap = shorthandIdentToLonghandPropertyMap[propertyName];
     const longhandRuleNames = Object.keys(longhandRuleNameToPropertyNameMap)
       .filter(ruleName => longhandRuleNameToPropertyNameMap[ruleName] !== '');
@@ -81,12 +104,12 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
         return obj;
       } else if (arrayPropertyRuleNames.includes(node.name)) {
         const propertyObject = {
-          [longhandRuleNameToPropertyNameMap[node.name][arrayPropertyIndexMap[node.name]]]: node.location,
+          [longhandRuleNameToPropertyNameMap[node.name][arrayPropertyIndexMap[node.name]]]: node,
         };
         arrayPropertyIndexMap[node.name] += 1;
         return propertyObject;
       } else if (longhandRuleNames.includes(node.name)) {
-        return { [longhandRuleNameToPropertyNameMap[node.name]]: node.location };
+        return { [longhandRuleNameToPropertyNameMap[node.name]]: node };
       } else if (Array.isArray(node)) {
         return node.length
           ? Object.assign(...node.map(inner => recurseLonghandPropertyNode(inner, obj)))
