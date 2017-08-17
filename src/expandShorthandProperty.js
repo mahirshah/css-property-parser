@@ -53,7 +53,7 @@ module.exports = function expandShorthandProperty(propertyName, propertyValue, r
   // TODO: use PATHS constant here
   // eslint-disable-next-line import/no-dynamic-require
   const grammar = require(`./grammars/generated/js/${propertyName}`);
-  const parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart).feed(propertyValue);
+  const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar)).feed(propertyValue);
   const [rootNode] = parser.results;
   LocationIndexTracker.reset();
   const shorthandType = shorthandProperties[propertyName].shorthandType;

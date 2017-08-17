@@ -33,23 +33,6 @@ module.exports = class CommaSeparatedListPropertyFormatter {
   }
 
   static _formatSingleProperty(propertyName, singlePropertyNode, singlePropertyValue) {
-    return Object.entries(ShorthandPropertyTypeFormatterUtils
-      .getPropertyLocationMappingCommaSeparatedList(propertyName, singlePropertyNode))
-      .sort(([, location1], [, location2]) => location1 - location2)
-      .map(([property, location], idx, entries) => {
-        const locationOffset = singlePropertyNode.location;
-        if (idx === entries.length - 1) {
-          return [property, singlePropertyValue.slice(location - locationOffset - 1).trim()];
-        }
-
-        return [property,
-          singlePropertyValue
-            .slice(location - singlePropertyNode.location, entries[idx + 1][1] - locationOffset - 1)
-            .trim(),
-        ];
-      })
-      .reduce((longhandMap, [longhandPropertyName, longhandPropertyValue]) => (
-        Object.assign({ [longhandPropertyName]: longhandPropertyValue }, longhandMap)
-      ), {});
+    return ShorthandPropertyTypeFormatterUtils.filterNodesByName
   }
 };
