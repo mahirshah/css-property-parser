@@ -1,7 +1,7 @@
 {
-  "name": "css-shorthand-expander",
+  "name": "css-property-parser",
   "version": "1.0.0",
-  "description": "Expand css shorthand properties into their longhand equivalents",
+  "description": "Validate css properties and expand shorthand css properties",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec --recursive",
@@ -25,7 +25,6 @@
     "eslint-plugin-react": "^7.2.1",
     "microtime": "^2.1.6",
     "mocha": "^3.5.0",
-    "nearley-make": "^1.0.1",
     "sinon": "^2.4.1"
   },
   "dependencies": {
