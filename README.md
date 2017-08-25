@@ -1,5 +1,5 @@
 # CSS Property Validation and Shorthand Expansion
-> Validate and expand css shorthand properties
+> Validate css properties and expand css shorthand properties
 
 ## Contents
 
@@ -30,7 +30,7 @@
 
 ## Installation
 ```
-$ npm instal TODO_
+$ npm instal css-property-parser
 ```
 
 ## Usage
@@ -40,7 +40,7 @@ const {
   isValidDeclaration,
   getShorthandComputedProperties,
   expandShorthandProperty,
-} = require('TODO');
+} = require('css-property-parser');
 
 // isShorthandProperty
 // returns boolean indicating if the given property is a shorthand property
