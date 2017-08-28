@@ -35,7 +35,7 @@ const shorthandPropertyTypeToActionDictionaryFactoryMap = {
  *
  * @param {string} propertyName - the property name for the given value
  * @param {string} propertyValue - the value of the property
- * @param {boolean} [recursivelyResolve=true] - recursively resolve additional longhand properties if the shorthands
+ * @param {boolean} [recursivelyResolve=false] - recursively resolve additional longhand properties if the shorthands
  *                                              expand to additional shorthands. For example, the border property
  *                                              expands to border-width, which expands further to border-left-width,
  *                                              border-right-width, etc.
@@ -57,9 +57,9 @@ const shorthandPropertyTypeToActionDictionaryFactoryMap = {
  *  'flex-basis': 'initial',
  * }
  * TODO: add another param to include initial values for values not set
- * TODO: properly handle parsing errors
+ * TODO: add error message for unsupported properties
  */
-module.exports = function expandShorthandProperty(propertyName, propertyValue, recursivelyResolve = true) {
+module.exports = function expandShorthandProperty(propertyName, propertyValue, recursivelyResolve = false) {
   if (!isShorthandProperty(propertyName)) {
     return { [propertyName]: propertyValue };
   } else if (CSS_CONSTANTS.globalValues.includes(propertyValue)) {
@@ -70,11 +70,24 @@ module.exports = function expandShorthandProperty(propertyName, propertyValue, r
 
   // eslint-disable-next-line import/no-dynamic-require
   const grammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}${propertyName}`);
-  const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar)).feed(propertyValue);
-  const [rootNode] = parser.results;
+  let parser;
+  let rootNode;
+
+  try {
+    parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar)).feed(propertyValue);
+    [rootNode] = parser.results;
+  } catch (parseError) {
+    throw new Error(`'Error parsing shorthand property ${propertyName}: ${propertyValue}.`, parseError.message);
+  }
+
   LocationIndexTracker.reset();
   const shorthandType = shorthandProperties[propertyName].shorthandType;
-
-  return shorthandPropertyTypeToActionDictionaryFactoryMap[shorthandType]
+  const propertyExpansion = shorthandPropertyTypeToActionDictionaryFactoryMap[shorthandType]
     .format(propertyName, rootNode, propertyValue);
+
+  return recursivelyResolve ? Object.entries(propertyExpansion)
+      .reduce((propertyExpansion, [name, value]) => (
+        Object.assign(expandShorthandProperty(name, value, true), propertyExpansion), propertyExpansion
+      ))
+    : propertyExpansion;
 };
