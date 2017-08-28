@@ -113,7 +113,7 @@ isShorthandProperty('color')
 // => false
 ```
 
-### isValidDeclaration(property: string, value: string): boolean
+### [Experimental] isValidDeclaration(property: string, value: string): boolean
 Checks if the given property, value pair is valid.
 
  * property - the property name. For example, 'border' or 'color'.
