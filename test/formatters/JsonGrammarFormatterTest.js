@@ -15,7 +15,7 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
     it('should not create intermediate rules for terminal nodes', function () {
       const result = JsonGrammarFormatter.format('foo | bar | baz');
 
-      assert.deepEqual(result, [['Base', '( ( "foo" | "bar" ) | "baz" )']]);
+      assert.deepEqual(result, [['Base', '( "foo" | "bar" | "baz" )']]);
     });
   });
 
@@ -63,7 +63,7 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
     const tests = [
       {
         args: ['flow | flow-root | table | flex | grid | subgrid | ruby'],
-        expected: [['Base', '( ( ( ( ( ( "flow" | "flow-root" ) | "table" ) | "flex" ) | "grid" ) | "subgrid" ) | "ruby" )']],
+        expected: [['Base', '( "flow" | "flow-root" | "table" | "flex" | "grid" | "subgrid" | "ruby" )']],
       },
       {
         args: ['<angle> | <percentage>'],
@@ -76,7 +76,7 @@ describe('JsonGrammarFormatter#formatFormalSyntax', function () {
       {
         args: ['[ <length-percentage> | auto ]{1,2} | cover | contain'],
         expected: [
-          ['Base', '( ( ( ( ( <length-percentage> | "auto" ) ) ( __ ( ( <length-percentage> | "auto" ) ) ):? ) | "cover" ) | "contain" )'],
+          ['Base', '( ( ( ( <length-percentage> | "auto" ) ) ( __ ( ( <length-percentage> | "auto" ) ) ):? ) | "cover" | "contain" )'],
           ['<length-percentage>'],
         ],
       },

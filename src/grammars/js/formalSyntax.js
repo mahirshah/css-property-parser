@@ -123,7 +123,7 @@ var grammar = {
             return d.join("");
         }
         },
-    {"name": "Exp", "symbols": ["SingleBar"], "postprocess": id},
+    {"name": "Exp", "symbols": ["SingleBarList"], "postprocess": id},
     {"name": "Combinator", "symbols": ["Brackets", {"literal":"*"}], "postprocess": function (d) { return { nodeName: 'Asterisk', values: [d[0]] }; }},
     {"name": "Combinator", "symbols": ["Brackets", {"literal":"+"}], "postprocess": function (d) { return { nodeName: 'Plus', values: [d[0]] }; }},
     {"name": "Combinator", "symbols": ["Brackets", {"literal":"?"}], "postprocess": function (d) { return { nodeName: 'QuestionMark', values: [d[0]] }; }},
@@ -142,14 +142,17 @@ var grammar = {
     {"name": "Combinator", "symbols": ["Brackets", "Combinator$string$1", "unsigned_int", "_", "Combinator$ebnf$3", {"literal":"}"}], "postprocess": function (d) { return { nodeName: 'CurlyHash', values: [d[0], d[2], d[4]] }; }},
     {"name": "Combinator", "symbols": ["Brackets", {"literal":"#"}], "postprocess": function (d) { return { nodeName: 'HashMark', values: [d[0]] }; }},
     {"name": "Combinator", "symbols": ["terminal"], "postprocess": id},
-    {"name": "SingleBar$subexpression$1", "symbols": ["SingleBar", "__", {"literal":"|"}, "__", "DoubleBarList"]},
-    {"name": "SingleBar", "symbols": ["SingleBar$subexpression$1"], "postprocess":  function (d) {
+    {"name": "SingleBarList$ebnf$1$subexpression$1", "symbols": ["DoubleBarList", "__", {"literal":"|"}, "__"]},
+    {"name": "SingleBarList$ebnf$1", "symbols": ["SingleBarList$ebnf$1$subexpression$1"]},
+    {"name": "SingleBarList$ebnf$1$subexpression$2", "symbols": ["DoubleBarList", "__", {"literal":"|"}, "__"]},
+    {"name": "SingleBarList$ebnf$1", "symbols": ["SingleBarList$ebnf$1", "SingleBarList$ebnf$1$subexpression$2"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "SingleBarList", "symbols": ["SingleBarList$ebnf$1", "DoubleBarList"], "postprocess":  function (d) {
           return {
-            nodeName: 'SingleBar',
-            values: [d[0][0], d[0][4]],
+            nodeName: 'SingleBarList',
+            values: [d[0], d[1]],
           };
         } },
-    {"name": "SingleBar", "symbols": ["DoubleBarList"], "postprocess": id},
+    {"name": "SingleBarList", "symbols": ["DoubleBarList"], "postprocess": id},
     {"name": "DoubleBarList$ebnf$1$subexpression$1$string$1", "symbols": [{"literal":"|"}, {"literal":"|"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "DoubleBarList$ebnf$1$subexpression$1", "symbols": ["DoubleAmpersand", "__", "DoubleBarList$ebnf$1$subexpression$1$string$1", "__"]},
     {"name": "DoubleBarList$ebnf$1", "symbols": ["DoubleBarList$ebnf$1$subexpression$1"]},
@@ -183,7 +186,7 @@ var grammar = {
           };
         } },
     {"name": "Comma", "symbols": ["Brackets"], "postprocess": id},
-    {"name": "Brackets", "symbols": [{"literal":"["}, "_", "SingleBar", "_", {"literal":"]"}], "postprocess":  function (d) {
+    {"name": "Brackets", "symbols": [{"literal":"["}, "_", "SingleBarList", "_", {"literal":"]"}], "postprocess":  function (d) {
           return {
             nodeName: 'Brackets',
             values: [d[2]],
