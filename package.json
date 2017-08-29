@@ -8,8 +8,11 @@
     "start": "mkdir -p src/grammars/generated/json && node ./node_modules/nearley/bin/nearleyc.js ./src/grammars/nearley/formalSyntax.ne > ./src/grammars/js/formalSyntax.js && node ./src/scripts/updateBasicDataUnits.js && node ./src/scripts/formatData.js && node ./src/scripts/formatFormalSyntaxes.js && node ./src/scripts/formatGrammars.js",
     "clean": "rm -rf src/grammars/generated",
     "benchmark": "node test/benchmark.js",
-    "doctoc": "node ./node_modules/doctoc/doctoc.js README.md"
+    "doctoc": "node ./node_modules/doctoc/doctoc.js README.md",
+    "lint": "node node_modules/eslint/bin/eslint.js src/",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
+  "pre-commit": [ "precommit-msg", "lint", "test"],
   "author": "mahirshah",
   "license": "ISC",
   "devDependencies": {
@@ -25,6 +28,7 @@
     "eslint-plugin-react": "^7.2.1",
     "microtime": "^2.1.6",
     "mocha": "^3.5.0",
+    "pre-commit": "^1.2.2",
     "sinon": "^2.4.1"
   },
   "dependencies": {
