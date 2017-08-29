@@ -25,7 +25,33 @@ describe('NearleyGrammarFormatter#format', function () {
         [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '( "test" )'],
       ], 'test');
 
-      assert.equal(result, '@builtin "whitespace.ne"\n\nBase -> ( "test" )');
+      assert.equal(result, '@builtin "whitespace.ne"\n@{%\n  const lexer = require("../../../constants/genericLexer");\n%}\n\n@lexer lexer\n\n\nBase -> ( "test" )');
+    });
+  });
+
+  describe('rule body conversion', function () {
+    it('should convert kebab to pascal case', function () {
+      const result = NearleyGrammarFormatter.format([
+        [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '( <test-test> )'],
+      ], 'test');
+
+      assert.equal(result, '@builtin "whitespace.ne"\n@{%\n  const lexer = require("../../../constants/genericLexer");\n%}\n\n@lexer lexer\n\n\nBase -> ( TestTest )');
+    });
+
+    it('should convert kebab with parens to pascal case with Func prefix', function () {
+      const result = NearleyGrammarFormatter.format([
+        [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '( <test-test()> )'],
+      ], 'test');
+
+      assert.equal(result, '@builtin "whitespace.ne"\n@{%\n  const lexer = require("../../../constants/genericLexer");\n%}\n\n@lexer lexer\n\n\nBase -> ( TestTestFunc )');
+    });
+
+    it('should not do any conversion with tokens', function() {
+      const result = NearleyGrammarFormatter.format([
+        [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '( <test-test()> %customIdent )'],
+      ], 'test');
+
+      assert.equal(result, '@builtin "whitespace.ne"\n@{%\n  const lexer = require("../../../constants/genericLexer");\n%}\n\n@lexer lexer\n\n\nBase -> ( TestTestFunc %customIdent )');
     });
   });
 
@@ -52,8 +78,7 @@ describe('NearleyGrammarFormatter#format', function () {
         ['<ra>'],
       ], 'r');
 
-      assert.equal(result, '@builtin "whitespace.ne"\n' +
-        '\n' +
+      assert.equal(result, '@builtin "whitespace.ne"\n@{%\n  const lexer = require("../../../constants/genericLexer");\n%}\n\n@lexer lexer\n\n\n' +
         'Base -> Ra\n' +
         'Ra -> Rb\n' +
         'Rb -> Rc\n' +

@@ -36,14 +36,6 @@ describe('isValidDeclaration', function () {
       });
   });
 
-  describe('width', function () {
-    ['1px', '2em', '20%', '1vh', '1vw', '20rem', '0']
-      .forEach((value) => {
-        it(`should return true for ${value}`, function () {
-          assert(isValidDeclaration('width', value));
-        });
-      });
-  });
 
   describe('z-index', function () {
     ['auto', '1', '-1', '-100', '999']
@@ -55,7 +47,7 @@ describe('isValidDeclaration', function () {
   });
 
   describe('width', function () {
-    ['300px', '25em', '75%', '25em border-box', '75% content-box', 'max-content', 'min-content', 'available',
+    ['1px', '2em', '20%', '1vh', '1vw', '20rem', '0', '300px', '25em', '75%', '25em border-box', '75% content-box', 'max-content', 'min-content', 'available',
       'fit-content', 'auto']
       .forEach((value) => {
         it(`should return true for ${value}`, function () {

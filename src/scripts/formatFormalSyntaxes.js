@@ -18,6 +18,7 @@ const manualSyntaxes = [
   'rgba()',
   'hsl()',
   'hsla()',
+  'color',
   'flex',
   'background',
   'final-bg-layer',

@@ -7,6 +7,7 @@ const { PATHS } = require('../src/constants');
  * Tests for {@link isValidDeclaration}
  */
 describe('baseGrammars', function () {
+  // TODO: add support for scientific notation
   describe('number', function () {
     const propertyGrammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}number.js`);
 
@@ -25,7 +26,7 @@ describe('baseGrammars', function () {
       '12.04',
     ].forEach((val) => {
       it(`should match ${val}`, function () {
-        const parser = new nearley.Parser(propertyGrammar.ParserRules, propertyGrammar.ParserStart).feed(val);
+        const parser = new nearley.Parser(nearley.Grammar.fromCompiled(propertyGrammar)).feed(val);
 
         assert.equal(parser.results.length, 1);
       });
@@ -42,7 +43,7 @@ describe('baseGrammars', function () {
       '2rem',
     ].forEach((val) => {
       it(`should match ${val}`, function () {
-        const parser = new nearley.Parser(propertyGrammar.ParserRules, propertyGrammar.ParserStart).feed(val);
+        const parser = new nearley.Parser(nearley.Grammar.fromCompiled(propertyGrammar)).feed(val);
 
         assert.equal(parser.results.length, 1);
       });

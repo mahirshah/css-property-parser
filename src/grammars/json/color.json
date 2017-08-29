@@ -1,0 +1,12 @@
+[
+  [
+    "Base",
+    "( %color | <named-color> | <deprecated-system-color> | \"currentcolor\" )"
+  ],
+  [
+    "<named-color>"
+  ],
+  [
+    "<deprecated-system-color>"
+  ]
+]

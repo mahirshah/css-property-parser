@@ -21,7 +21,7 @@ module.exports = function isValidDeclaration(property, value) {
   const propertyGrammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}${property}.js`);
 
   try {
-    const parser = new nearley.Parser(propertyGrammar.ParserRules, propertyGrammar.ParserStart).feed(value);
+    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(propertyGrammar)).feed(value);
     return !!parser.results.length;
   } catch (parseError) {
     return false;
