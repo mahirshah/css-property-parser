@@ -11,7 +11,8 @@
       "error",
       {
         "code": 120,
-        "ignoreStrings": true
+        "ignoreStrings": true,
+        "ignoreRegExpLiterals": true
       }
     ],
     "no-bitwise": [
@@ -31,6 +32,7 @@
       "exports": "always-multiline",
       "functions": "ignore"
     }],
-    "global-require": "off"
+    "global-require": "off",
+    "valid-jsdoc": "error"
   }
 }

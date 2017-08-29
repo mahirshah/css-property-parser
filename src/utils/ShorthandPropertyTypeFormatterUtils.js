@@ -22,7 +22,7 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
       }
 
       return [].concat(...node.values.map(child => recurseParseTree(child, filteredNodes)));
-    })(baseNode);
+    }(baseNode));
   }
 
   /**
@@ -45,7 +45,7 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
       }
 
       return [].concat(...node.values.map(child => recurseParseTree(child, tokens)));
-    })(node);
+    }(node));
   }
 
   /**
@@ -72,7 +72,7 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
       }
 
       return Object.assign(...node.values.map(child => recurseLonghandPropertyNode(child, obj)));
-    })(propertyNode);
+    }(propertyNode));
   }
 
   /**
@@ -118,7 +118,7 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
       }
 
       return Object.assign(...node.values.map(child => recurseLonghandPropertyNode(child, obj)));
-    })(propertyNode);
+    }(propertyNode));
   }
 
   /**
