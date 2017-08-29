@@ -2,7 +2,7 @@
 @builtin "number.ne"
 @builtin "string.ne"
 
-Exp ->  SingleBar {% id %}
+Exp ->  SingleBarList {% id %}
 
 
 Combinator ->   Brackets "*" {% function (d) { return { nodeName: 'Asterisk', values: [d[0]] }; } %}
@@ -17,10 +17,10 @@ Combinator ->   Brackets "*" {% function (d) { return { nodeName: 'Asterisk', va
              |  Brackets "#" {% function (d) { return { nodeName: 'HashMark', values: [d[0]] }; } %}
              |  terminal {% id %}
 
-SingleBar -> ( SingleBar __ "|" __ DoubleBarList ) {% function (d) {
+SingleBarList -> ( DoubleBarList __ "|" __ ):+ DoubleBarList {% function (d) {
                                                   return {
-                                                    nodeName: 'SingleBar',
-                                                    values: [d[0][0], d[0][4]],
+                                                    nodeName: 'SingleBarList',
+                                                    values: [d[0], d[1]],
                                                   };
                                                 } %}
             | DoubleBarList {% id %}
@@ -51,9 +51,9 @@ Comma -> ( Comma _ "," _ terminal ) {% function (d) {
                                        values: [d[0][0], d[0][4]],
                                      };
                                    } %}
-            | Brackets {% id %}
+        | Brackets {% id %}
 
-Brackets -> "[" _ SingleBar _ "]" {% function (d) {
+Brackets -> "[" _ SingleBarList _ "]" {% function (d) {
                                 return {
                                   nodeName: 'Brackets',
                                   values: [d[2]],

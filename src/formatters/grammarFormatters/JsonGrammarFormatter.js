@@ -51,8 +51,10 @@ module.exports = class JsonGrammarFormatter {
         return `( ( ${evaluate(expression)} _ "," _):* ${evaluate(expression)} )`;
       },
 
-      SingleBar([left, right]) {
-        return `( ${evaluate(left)} | ${evaluate(right)} )`;
+      SingleBarList([list, end]) {
+        const alternationNodes = list.map(([expression]) => evaluate(expression)).concat(evaluate(end)).join(' | ');
+
+        return `( ${alternationNodes} )`;
       },
 
       Brackets([expression]) {
