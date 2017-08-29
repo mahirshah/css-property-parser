@@ -10,7 +10,7 @@ describe('isValidDeclaration', function () {
       '#00ff0080', 'rgb(34, 12, 64, 0.3)', 'rgb(34,12,64,0.3)', 'rgba(34, 12, 64, 0.3)',
       'rgb(34 12 64 / 0.3)', 'rgba(34 12 64 / 0.3)',
       'hsl(30, 100%, 50%, 0.3)', 'hsla(30, 100%, 50%, 0.3)', 'hsl(30 100% 50% / 0.3)',
-      'hsla(30 100% 50% / 0.3)', 'inherit', 'initial', 'unset']
+      'hsla(30 100% 50% / 0.3)', 'inherit', 'initial', 'unset', 'var(--hello)']
       .forEach((value) => {
         it(`should return true for ${value}`, function () {
           assert(isValidDeclaration('color', value));
@@ -28,7 +28,7 @@ describe('isValidDeclaration', function () {
   });
 
   describe('margin', function () {
-    ['0', 'auto', '1px', '1em', '0 auto', '1px 1px', '1px 1em', '20% auto 1px', '20% 1px 20em -2%']
+    ['0', 'auto', '1px', '1em', '0 auto', '1px 1px', '1px 1em', '20% auto 1px', '20% 1px 20em -2%', 'var(--hello09-a)']
       .forEach((value) => {
         it(`should return true for ${value}`, function () {
           assert(isValidDeclaration('margin', value));
