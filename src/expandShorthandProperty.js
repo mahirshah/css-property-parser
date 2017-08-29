@@ -1,13 +1,14 @@
+const nearley = require('nearley');
+const { css: { properties } } = require('mdn-data');
 const isShorthandProperty = require('./isShorthandProperty');
 const getShorthandComputedProperties = require('./getShorthandComputedProperties');
 const shorthandProperties = require('../formatted-data/shorthand-properties.json');
-const nearley = require('nearley');
 const CSS_CONSTANTS = require('./constants/css');
 const { CLASSIFICATIONS } = require('./constants/shorthandProperties');
 const LocationIndexTracker = require('./utils/LocationIndexTracker');
 const PATHS = require('./constants/paths');
-const ArrayUtils = require('./utils/ArrayUtils');
-
+const { ParseError, UnsupportedPropertyError, UnknownPropertyError } = require('./errors');
+const SHORTHAND_IDENT_TO_LONGHAND_PROPERTY_MAP = require('./constants/shorthandIdentToLonghandPropertyMap.json');
 const {
   BackgroundPropertyFormatter,
   BorderRadiusPropertyFormatter,
@@ -18,6 +19,7 @@ const {
   UnorderedOptionalListPropertyFormatter,
 } = require('./formatters/shorthandPropertyTypeFormatters');
 
+
 const shorthandPropertyTypeToActionDictionaryFactoryMap = {
   [CLASSIFICATIONS.TRBL]: TrblPropertyFormatter,
   [CLASSIFICATIONS.UNORDERED_OPTIONAL_TUPLE]: UnorderedOptionalListPropertyFormatter,
@@ -27,6 +29,7 @@ const shorthandPropertyTypeToActionDictionaryFactoryMap = {
   [CLASSIFICATIONS.BACKGROUND]: BackgroundPropertyFormatter,
   [CLASSIFICATIONS.FONT]: FontPropertyFormatter,
 };
+const R_BLOCK_COMMENT = /\/\*.*?\*\//g;
 
 /**
  * Given a property and value attempts to expand the value into its longhand equivalents. Returns an object
@@ -39,6 +42,11 @@ const shorthandPropertyTypeToActionDictionaryFactoryMap = {
  *                                              expand to additional shorthands. For example, the border property
  *                                              expands to border-width, which expands further to border-left-width,
  *                                              border-right-width, etc.
+ *
+ * @throws {ParseError} - if the propertyValue cannot be parsed.
+ * @throws {UnknownPropertyError} - if the propertyName is not defined in mdn.
+ * @throws {UnsupportedPropertyError} - if the propertyName is a shorthand property, but we don't support expanding it
+ *                                      yet.
  *
  * @example
  * expandPropertyShorthand('margin', '0 3px 10rem')
@@ -57,37 +65,45 @@ const shorthandPropertyTypeToActionDictionaryFactoryMap = {
  *  'flex-basis': 'initial',
  * }
  * TODO: add another param to include initial values for values not set
- * TODO: add error message for unsupported properties
  */
 module.exports = function expandShorthandProperty(propertyName, propertyValue, recursivelyResolve = false) {
-  if (!isShorthandProperty(propertyName)) {
+  if (!properties[propertyName]) {
+    throw new UnknownPropertyError(propertyName);
+  } else if (!isShorthandProperty(propertyName)) {
     return { [propertyName]: propertyValue };
+  } else if (!SHORTHAND_IDENT_TO_LONGHAND_PROPERTY_MAP[propertyName]) {
+    throw new UnsupportedPropertyError(propertyName);
   } else if (CSS_CONSTANTS.globalValues.includes(propertyValue)) {
     return getShorthandComputedProperties(propertyName).reduce((propertyMap, computedPropertyName) => (
       Object.assign({ [computedPropertyName]: propertyValue }, propertyMap)
     ), {});
   }
 
+  // get the compiled grammar file for this property
   // eslint-disable-next-line import/no-dynamic-require
   const grammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}${propertyName}`);
+  // remove any block style comments and extra whitespace
+  const formattedPropertyValue = propertyValue.replace(R_BLOCK_COMMENT, ' ').replace(/\s+/g, ' ').trim();
   let parser;
-  let rootNode;
 
+  // attempt to parse the css value, using the property specific parser
   try {
-    parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar)).feed(propertyValue);
-    [rootNode] = parser.results;
+    parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar)).feed(formattedPropertyValue);
   } catch (parseError) {
-    throw new Error(`'Error parsing shorthand property ${propertyName}: ${propertyValue}. ${parseError.message}`);
+    throw new ParseError(`'Error parsing shorthand property ${propertyName}: ${propertyValue}. ${parseError.message}`);
   }
 
+  // get the first parsing and use the formatter for the specific shorthand type for this property
+  const [rootNode] = parser.results;
   LocationIndexTracker.reset();
   const shorthandType = shorthandProperties[propertyName].shorthandType;
   const propertyExpansion = shorthandPropertyTypeToActionDictionaryFactoryMap[shorthandType]
-    .format(propertyName, rootNode, propertyValue);
+    .format(propertyName, rootNode, formattedPropertyValue);
 
+  // if we need to recursively resolve, go through each value and expand it.
   return recursivelyResolve ? Object.entries(propertyExpansion)
       .reduce((propertyExpansion, [name, value]) => (
-        Object.assign(expandShorthandProperty(name, value, true), propertyExpansion), propertyExpansion
-      ))
+        Object.assign(expandShorthandProperty(name, value, true), propertyExpansion)
+      ), propertyExpansion)
     : propertyExpansion;
 };
