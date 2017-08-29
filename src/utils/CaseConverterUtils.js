@@ -52,7 +52,7 @@ module.exports = class CaseConverterUtils {
   }
 
   /**
-   * Formats the given formal syntax ident into a string that is compatible with Ohm. Normal kebab-case strings will
+   * Formats the given formal syntax ident into a string that is compatible with Nearley. Normal kebab-case strings will
    * be camelCased. Strings with a "()" will have "Func" suffix.
    *
    * @example formalSyntaxIdentToNearleyIdent("some-string") -> "someString"

@@ -1,5 +1,4 @@
 [
-  ["Base", "( \"+\" | \"-\" ):?  ( simple | float )"],
-  ["simple", "[0-9]:+"],
-  ["float", "[0-9]:* \".\" [0-9]:+"]
+  ["Base", "( %number | <integer> )"],
+  ["<integer>"]
 ]

@@ -77,7 +77,7 @@ module.exports = function expandShorthandProperty(propertyName, propertyValue, r
     parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar)).feed(propertyValue);
     [rootNode] = parser.results;
   } catch (parseError) {
-    throw new Error(`'Error parsing shorthand property ${propertyName}: ${propertyValue}.`, parseError.message);
+    throw new Error(`'Error parsing shorthand property ${propertyName}: ${propertyValue}. ${parseError.message}`);
   }
 
   LocationIndexTracker.reset();
