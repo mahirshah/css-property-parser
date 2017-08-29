@@ -12,7 +12,7 @@ module.exports = class CommaSeparatedListPropertyFormatter {
    * @param {string} value - the property value string. For example, "padding-left 1s 1s".
    * @returns {Object} - a mapping between longhand property names to their longhand values.
    */
-  static format(propertyName, node, value) {
+  static format(propertyName, node) {
     // in the shorthand ident map, a mapping to an empty string signifies the single property rule name. For
     // example, for transition, "SingleAnimation" maps to the empty string.
     const [[singlePropertyRuleName]] = Object.entries(shorthandIdentToLonghandPropertyMap[propertyName])

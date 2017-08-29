@@ -42,6 +42,7 @@ const R_BLOCK_COMMENT = /\/\*.*?\*\//g;
  *                                              expand to additional shorthands. For example, the border property
  *                                              expands to border-width, which expands further to border-left-width,
  *                                              border-right-width, etc.
+ * @return {Object} - object mapping longhand property names to values
  *
  * @throws {ParseError} - if the propertyValue cannot be parsed.
  * @throws {UnknownPropertyError} - if the propertyName is not defined in mdn.

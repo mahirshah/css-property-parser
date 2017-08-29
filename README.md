@@ -149,6 +149,9 @@ returns an empty array.
  
  * shorthandProperty - the shorthand property name. For example, "background" or "border".
  * returns an array containing the computed properties for the given shorthand property. Returns an empty array if the given property is not a valid property.
+ * throws {ParseError} - if the propertyValue cannot be parsed.
+ * throws {UnknownPropertyError} - if the propertyName is not defined in mdn.
+ * throws {UnsupportedPropertyError} - if the propertyName is a shorthand property, but we don't support expanding it yet.
  
 ##### Examples
  

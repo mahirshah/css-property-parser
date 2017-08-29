@@ -6,7 +6,7 @@ const shorthandIdentToLongHandPropertyMap = require('../../constants/shorthandId
 
 // any nearley builtin grammars that we want to include
 const BUILTIN_GRAMMARS = ['whitespace'];
-const LEXER_HEADING = `@{%\n  const lexer = require("../../../constants/genericLexer");\n%}\n\n@lexer lexer\n`;
+const LEXER_HEADING = '@{%\n  const lexer = require("../../../constants/genericLexer");\n%}\n\n@lexer lexer\n';
 
 /**
  * Class to format a JSON Grammar into an Nearley Grammar

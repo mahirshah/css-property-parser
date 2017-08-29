@@ -45,7 +45,10 @@ fs.readdirSync(PATHS.GENERATED_JSON_GRAMMAR_PATH)
 // copy over overridden grammars
 fs.readdirSync(PATHS.NEARLEY_PROPERTY_GRAMMAR_PATH)
   .forEach(fileName => (
-    fs.copySync(`${PATHS.NEARLEY_PROPERTY_GRAMMAR_PATH}${fileName}`, `${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}${fileName}`)
+    fs.copySync(
+      `${PATHS.NEARLEY_PROPERTY_GRAMMAR_PATH}${fileName}`,
+      `${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}${fileName}`
+    )
   ));
 
 console.log('...Successfully created nearley grammars...');
@@ -58,7 +61,10 @@ const compilationQueue = async.queue((task, callback) => {
 const compilationCommands = fs.readdirSync(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH)
   .map((fileName) => {
     const nearleyFilePath = JSON.stringify(`${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}${fileName}`);
-    const jsFilePath = JSON.stringify(`${PATHS.GENERATED_JS_GRAMMAR_PATH}${fileName.replace(`.${GRAMMAR_CONSTANTS.GRAMMAR_FILE_EXTENSION}`, `.${JAVASCRIPT_FILE_EXTENSION}`)}`);
+    const jsFilePath = JSON.stringify(
+      `${PATHS.GENERATED_JS_GRAMMAR_PATH}${fileName.replace(`.${GRAMMAR_CONSTANTS.GRAMMAR_FILE_EXTENSION}`,
+        `.${JAVASCRIPT_FILE_EXTENSION}`)}`
+    );
 
     return `node ${PATHS.NEARLEY_BIN_ROOT}${NEARLEY_COMPILER_FILE_NAME} ${nearleyFilePath} > ${jsFilePath}`;
   });

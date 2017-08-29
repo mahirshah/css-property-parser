@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 const nearley = require('nearley');
 const GRAMMAR_CONSTANTS = require('../../constants/grammars');
 const grammar = require('../../grammars/js/formalSyntax');
