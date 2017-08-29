@@ -9,12 +9,11 @@ const { PATHS, CSS } = require('./constants');
  * @param {String} property - the property name. For example, 'border' or 'color'.
  * @param {String} value - the property value. For example, '1px solid black'.
  * @return {boolean} - true if the given value is valid for the property. Else, false.
- * TODO: support variables as values
  */
 module.exports = function isValidDeclaration(property, value) {
   if (!properties[property]) {
     return false;
-  } else if (CSS.globalValues.includes(value)) {
+  } else if (CSS.globalValues.includes(value) || CSS.variableRegex.test(value)) {
     return true;
   }
 
