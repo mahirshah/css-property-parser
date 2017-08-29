@@ -13,11 +13,11 @@
 - [API](#api)
   - [isShorthandProperty(property: string): boolean](#isshorthandpropertyproperty-string-boolean)
     - [Examples](#examples)
-  - [isValidDeclaration(property: string, value: string): boolean](#isvaliddeclarationproperty-string-value-string-boolean)
+  - [[Experimental] isValidDeclaration(property: string, value: string): boolean](#experimental-isvaliddeclarationproperty-string-value-string-boolean)
     - [Examples](#examples-1)
   - [getShorthandComputedProperties(property: string): Array](#getshorthandcomputedpropertiesproperty-string-array)
       - [Examples](#examples-2)
-  - [expandPropertyShorthand(property: string, value: string, [recursivelyResolve=true]): Object](#expandpropertyshorthandproperty-string-value-string-recursivelyresolvetrue-object)
+  - [expandPropertyShorthand(property: string, value: string, [recursivelyResolve=false]): Object](#expandpropertyshorthandproperty-string-value-string-recursivelyresolvefalse-object)
       - [Examples](#examples-3)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
