@@ -176,7 +176,7 @@ getShorthandComputedProperties('color');
 // -> []
 ``` 
 
-### expandPropertyShorthand(property: string, value: string, [recursivelyResolve=true]): Object
+### expandPropertyShorthand(property: string, value: string, [recursivelyResolve=false]): Object
 
 Given a property and value attempts to expand the value into its longhand equivalents. Returns an object
 mapping the property longhand names to the longhand values. If the property cannot be expanded (i.e. the property
@@ -184,7 +184,7 @@ is not a shorthand property) simply returns an object mapping the original prope
 
  * propertyName - the property name for the given value
  * propertyValue - the value of the property
- * [recursivelyResolve=true] - recursively resolve additional longhand properties if the shorthands expand to additional shorthands. For example, the border property expands to border-width, which expands further to border-left-width, border-right-width, etc.
+ * [recursivelyResolve=false] - recursively resolve additional longhand properties if the shorthands expand to additional shorthands. For example, the border property expands to border-width, which expands further to border-left-width, border-right-width, etc.
 
 Currently supports the following properties:
 
