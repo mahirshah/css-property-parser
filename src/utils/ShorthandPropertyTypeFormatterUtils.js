@@ -55,7 +55,6 @@ module.exports = class ShorthandPropertyTypeFormatterUtils {
    * @param {Object} propertyNode - the shorthand property node
    * @returns {Object} - mapping between longhand property names and their corresponding index in the original property
    *                     value string.
-   * TODO: make sure there are no duplicate props
    */
   static getPropertyLocationMapping(propertyName, propertyNode) {
     const longhandRuleNameToPropertyNameMap = shorthandIdentToLonghandPropertyMap[propertyName];

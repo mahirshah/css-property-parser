@@ -1,11 +1,49 @@
 const { assert } = require('chai');
 const expandPropertyShorthand = require('../src/expandShorthandProperty');
+const { ParseError, UnsupportedPropertyError, UnknownPropertyError } = require('../src/errors');
 
 /**
  * Tests for {@link expandPropertyShorthand}
- * TODO: add tests for block comments in value
  */
 describe('expandPropertyShorthand', function () {
+  describe('errors', function () {
+    it('should throw unknown property error for property not defined in mdn', function () {
+      assert.throws(expandPropertyShorthand.bind(null, 'margin-l', ''), UnknownPropertyError);
+    });
+
+    it('should throw unsupported property error for property that is not in shorthand to longhand ident map', function () {
+      assert.throws(expandPropertyShorthand.bind(null, 'grid-template', ''), UnsupportedPropertyError);
+    });
+
+    it('should throw parse error for value that cannot be parsed', function () {
+      assert.throws(expandPropertyShorthand.bind(null, 'margin', '1px aaa2123a'), ParseError);
+    });
+  });
+
+  describe('expand properties with block style comments', function () {
+    it('should return expanded 1 block style comment', function () {
+      const result = expandPropertyShorthand('margin', '0 /* abc */ 3px 10rem');
+
+      assert.deepEqual(result, {
+        'margin-top': '0',
+        'margin-right': '3px',
+        'margin-bottom': '10rem',
+        'margin-left': '3px',
+      });
+    });
+
+    it('should return expanded many block style comment', function () {
+      const result = expandPropertyShorthand('margin', '/***abc**/ 0 /* abc */ 3px /*a*/ 10rem /* end comment */');
+
+      assert.deepEqual(result, {
+        'margin-top': '0',
+        'margin-right': '3px',
+        'margin-bottom': '10rem',
+        'margin-left': '3px',
+      });
+    });
+  });
+
   describe('margin', function () {
     it('should return expanded for 1 property', function () {
       const result = expandPropertyShorthand('margin', '4px');
@@ -604,7 +642,7 @@ describe('expandPropertyShorthand', function () {
     });
   });
 
-  describe('border-*', function() {
+  describe('border-*', function () {
     ['top', 'right', 'bottom', 'left'].forEach(borderPosition => describe(`border-${borderPosition}`, function () {
       it('should return expanded border with width, style, color', function () {
         const result = expandPropertyShorthand(`border-${borderPosition}`, '1px solid black');
@@ -821,7 +859,11 @@ describe('expandPropertyShorthand', function () {
     it('should expand ultra-condensed 16px sans-serif', function () {
       const result = expandPropertyShorthand('font', 'ultra-condensed 16px sans-serif');
 
-      assert.deepEqual(result, { 'font-stretch': 'ultra-condensed', 'font-size': '16px', 'font-family': 'sans-serif' });
+      assert.deepEqual(result, {
+        'font-stretch': 'ultra-condensed',
+        'font-size': '16px',
+        'font-family': 'sans-serif'
+      });
     });
 
     it('should expand oblique 500 small-caps semi-expanded 20% / 2em monospace, "Times New Roman", Helvetica', function () {
