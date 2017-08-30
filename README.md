@@ -149,9 +149,6 @@ returns an empty array.
  
  * shorthandProperty - the shorthand property name. For example, "background" or "border".
  * returns an array containing the computed properties for the given shorthand property. Returns an empty array if the given property is not a valid property.
- * throws {ParseError} - if the propertyValue cannot be parsed.
- * throws {UnknownPropertyError} - if the propertyName is not defined in mdn.
- * throws {UnsupportedPropertyError} - if the propertyName is a shorthand property, but we don't support expanding it yet.
  
 ##### Examples
  
@@ -188,6 +185,9 @@ is not a shorthand property) simply returns an object mapping the original prope
  * propertyName - the property name for the given value
  * propertyValue - the value of the property
  * [recursivelyResolve=false] - recursively resolve additional longhand properties if the shorthands expand to additional shorthands. For example, the border property expands to border-width, which expands further to border-left-width, border-right-width, etc.
+ * throws {ParseError} - if the propertyValue cannot be parsed.
+ * throws {UnknownPropertyError} - if the propertyName is not defined in mdn.
+ * throws {UnsupportedPropertyError} - if the propertyName is a shorthand property, but we don't support expanding it yet.
 
 Currently supports the following properties:
 
