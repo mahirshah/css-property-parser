@@ -97,7 +97,7 @@ console.log(expandPropertyShorthand('background', 'fixed padding-box url(image.p
 
 ## API
 
-### isShorthandProperty(property: string): boolean
+### [isShorthandProperty(property: string): boolean](./src/isShorthandProperty.js)
 Checks if a given property is a shorthand property
 
  * property - the property name
@@ -113,7 +113,7 @@ isShorthandProperty('color')
 // => false
 ```
 
-### [Experimental] isValidDeclaration(property: string, value: string): boolean
+### [Experimental] [isValidDeclaration(property: string, value: string): boolean](./src/isValidDeclaration.js)
 Checks if the given property, value pair is valid.
 
  * property - the property name. For example, 'border' or 'color'.
@@ -142,7 +142,7 @@ isValidDeclaration('width', '300ms')
 // => false ('ms' is not a valid length unit)
 ```
 
-### getShorthandComputedProperties(property: string): Array
+### [getShorthandComputedProperties(property: string): Array](./src/getShorthandComputedProperties.js)
 Given a shorthand property, returns an array of the computed properties for that shorthand property. If given
 a known property that is not a shorthand, simply returns the given property. If given an unknown property,
 returns an empty array.
@@ -176,7 +176,7 @@ getShorthandComputedProperties('color');
 // -> []
 ``` 
 
-### expandPropertyShorthand(property: string, value: string, [recursivelyResolve=false]): Object
+### [expandShorthandProperty(property: string, value: string, [recursivelyResolve=false]): Object](./src/expandShorthandProperty.js)
 
 Given a property and value attempts to expand the value into its longhand equivalents. Returns an object
 mapping the property longhand names to the longhand values. If the property cannot be expanded (i.e. the property
