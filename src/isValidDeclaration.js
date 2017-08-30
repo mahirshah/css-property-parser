@@ -1,5 +1,4 @@
 const nearley = require('nearley');
-// TODO: don't require mdn-data at runtime
 const { css: { properties } } = require('mdn-data');
 const { PATHS, CSS } = require('./constants');
 

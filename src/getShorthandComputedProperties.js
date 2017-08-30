@@ -1,8 +1,6 @@
-// TODO: don't require mdn-data at runtime
 const { css: { properties } } = require('mdn-data');
 
 /**
- * // TODO: write tests for unknown and known non shorthand property
  * Given a shorthand property, returns an array of the computed properties for that shorthand property. If given
  * a known property that is not a shorthand, simply returns the given property. If given an unknown property,
  * returns an empty array.
