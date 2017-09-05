@@ -249,3 +249,16 @@ expandPropertyShorthand('border-radius', '10px 5px 2em / 20px 25px 30%')
 //   'border-bottom-right-radius': '2em / 30%',
 // }
 ```
+
+### Developer/Contribution HOWTO
+
+To use a locally-built version of `css-values-parser`:
+
+```
+$ npm install
+$ npm run start
+$ npm test
+```
+
+This will generate grammars and javascript code required to parse the
+css properties.
