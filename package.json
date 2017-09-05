@@ -2,10 +2,10 @@
   "name": "css-property-parser",
   "version": "1.0.0",
   "description": "Validate css properties and expand shorthand css properties",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec --recursive",
-    "start": "mkdir -p src/grammars/generated/json && node ./node_modules/nearley/bin/nearleyc.js ./src/grammars/nearley/formalSyntax.ne > ./src/grammars/js/formalSyntax.js && node ./src/scripts/updateBasicDataUnits.js && node ./src/scripts/formatData.js && node ./src/scripts/formatFormalSyntaxes.js && node ./src/scripts/formatGrammars.js",
+    "start": "mkdir -p formatted-data src/grammars/generated/json && node ./node_modules/nearley/bin/nearleyc.js ./src/grammars/nearley/formalSyntax.ne > ./src/grammars/js/formalSyntax.js && node ./src/scripts/updateBasicDataUnits.js && node ./src/scripts/formatData.js && node ./src/scripts/formatFormalSyntaxes.js && node ./src/scripts/formatGrammars.js",
     "clean": "rm -rf src/grammars/generated",
     "benchmark": "node test/benchmark.js",
     "doctoc": "node ./node_modules/doctoc/doctoc.js README.md",
@@ -15,6 +15,7 @@
   "pre-commit": [ "precommit-msg", "lint", "test"],
   "author": "mahirshah",
   "license": "ISC",
+  "types": "css-property-parser.d.ts",
   "devDependencies": {
     "async": "^2.5.0",
     "benchmark": "^2.1.4",
@@ -29,13 +30,13 @@
     "microtime": "^2.1.6",
     "mocha": "^3.5.0",
     "pre-commit": "^1.2.2",
+    "postcss-value-parser": "^3.3.0",
     "sinon": "^2.4.1"
   },
   "dependencies": {
     "fs-extra": "^3.0.1",
     "mdn-data": "1.0.0",
     "moo": "^0.4.1",
-    "nearley": "^2.10.3",
-    "postcss-value-parser": "^3.3.0"
+    "nearley": "^2.10.3"
   }
 }

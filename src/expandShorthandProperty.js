@@ -50,7 +50,7 @@ const R_BLOCK_COMMENT = /\/\*.*?\*\//g;
  *                                      yet.
  *
  * @example
- * expandPropertyShorthand('margin', '0 3px 10rem')
+ * expandShorthandProperty('margin', '0 3px 10rem')
  *  {
  *    'margin-top': '0',
  *    'margin-right': '3px',
@@ -59,7 +59,7 @@ const R_BLOCK_COMMENT = /\/\*.*?\*\//g;
  *   }
  *
  * @example
- * expandPropertyShorthand('flex', 'initial')
+ * expandShorthandProperty('flex', 'initial')
  * {
  *  'flex-grow': 'initial',
  *  'flex-shrink': 'initial',

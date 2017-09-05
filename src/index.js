@@ -1,10 +1,10 @@
-const expandPropertyShorthand = require('./expandShorthandProperty');
+const expandShorthandProperty = require('./expandShorthandProperty');
 const getShorthandComputedProperties = require('./getShorthandComputedProperties');
 const isShorthandProperty = require('./isShorthandProperty');
 const isValidDeclaration = require('./isValidDeclaration');
 
 module.exports = {
-  expandPropertyShorthand,
+  expandShorthandProperty,
   getShorthandComputedProperties,
   isShorthandProperty,
   isValidDeclaration,
