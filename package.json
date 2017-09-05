@@ -2,7 +2,7 @@
   "name": "css-property-parser",
   "version": "1.0.0",
   "description": "Validate css properties and expand shorthand css properties",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec --recursive",
     "start": "mkdir -p src/grammars/generated/json && node ./node_modules/nearley/bin/nearleyc.js ./src/grammars/nearley/formalSyntax.ne > ./src/grammars/js/formalSyntax.js && node ./src/scripts/updateBasicDataUnits.js && node ./src/scripts/formatData.js && node ./src/scripts/formatFormalSyntaxes.js && node ./src/scripts/formatGrammars.js",
