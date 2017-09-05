@@ -1,6 +1,6 @@
 const Benchmark = require('benchmark');
 
-const expandPropertyShorthand = require('../src/expandShorthandProperty');
+const expandShorthandProperty = require('../src/expandShorthandProperty');
 const cssValues = require("css-values").default;
 
 let suite = new Benchmark.Suite;
@@ -46,13 +46,13 @@ function cssValuesBorderImpl(prop, val) {
 
 // add tests
 suite.add('border: 1px solid black;', function() {
-    expandPropertyShorthand('border', '1px solid black')
+    expandShorthandProperty('border', '1px solid black')
 }).add('border: 1px;', function() {
-    expandPropertyShorthand('border', '1px')
+    expandShorthandProperty('border', '1px')
 }).add('border: solid;', function() {
-    expandPropertyShorthand('border', 'solid')
+    expandShorthandProperty('border', 'solid')
 }).add('border: black;', function() {
-    expandPropertyShorthand('border', 'black')
+    expandShorthandProperty('border', 'black')
 }).add('dumb impl of border: 1px solid black;', function() {
     dumbBorderImpl('border', '1px solid black')
 }).add('css-values impl of border: 1px solid black;', function() {

@@ -17,7 +17,7 @@
     - [Examples](#examples-1)
   - [getShorthandComputedProperties(property: string): Array](#getshorthandcomputedpropertiesproperty-string-array)
       - [Examples](#examples-2)
-  - [expandPropertyShorthand(property: string, value: string, [recursivelyResolve=false]): Object](#expandpropertyshorthandproperty-string-value-string-recursivelyresolvefalse-object)
+  - [expandShorthandProperty(property: string, value: string, [recursivelyResolve=false]): Object](#expandshorthandpropertyproperty-string-value-string-recursivelyresolvetrue-object)
       - [Examples](#examples-3)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -74,7 +74,7 @@ console.log(getShorthandComputedProperties('unknown'))
 
 // expandShorthandProperty
 // returns an obejct mapping longhand property names to their values
-console.log(expandPropertyShorthand('margin', '0 3px 10rem'))
+console.log(expandShorthandProperty('margin', '0 3px 10rem'))
 // => {
 //      'margin-top': '0',
 //      'margin-right': '3px',
@@ -82,7 +82,7 @@ console.log(expandPropertyShorthand('margin', '0 3px 10rem'))
 //      'margin-left': '3px',
 //     }
 
-console.log(expandPropertyShorthand('background', 'fixed padding-box url(image.png) rgb(255, 255, 0) 10px top / cover repeat-x'))
+console.log(expandShorthandProperty('background', 'fixed padding-box url(image.png) rgb(255, 255, 0) 10px top / cover repeat-x'))
 // => {
 //      'background-attachment': 'fixed',
 //      'background-clip': 'padding-box',
@@ -222,7 +222,7 @@ Currently supports the following properties:
 ##### Examples
 
 ```js
-expandPropertyShorthand('margin', '0 3px 10rem')
+expandShorthandProperty('margin', '0 3px 10rem')
 // => {
 //      'margin-top': '0',
 //      'margin-right': '3px',
@@ -232,7 +232,7 @@ expandPropertyShorthand('margin', '0 3px 10rem')
 ```
 
 ```js
-expandPropertyShorthand('flex', 'initial')
+expandShorthandProperty('flex', 'initial')
 // => {
 //  'flex-grow': 'initial',
 //  'flex-shrink': 'initial',
@@ -241,7 +241,7 @@ expandPropertyShorthand('flex', 'initial')
 ```
 
 ```js
-expandPropertyShorthand('border-radius', '10px 5px 2em / 20px 25px 30%')
+expandShorthandProperty('border-radius', '10px 5px 2em / 20px 25px 30%')
 // => {
 //   'border-top-left-radius': '10px / 20px',
 //   'border-top-right-radius': '5px / 25px',
@@ -249,3 +249,16 @@ expandPropertyShorthand('border-radius', '10px 5px 2em / 20px 25px 30%')
 //   'border-bottom-right-radius': '2em / 30%',
 // }
 ```
+
+### Developer/Contribution HOWTO
+
+To use a locally-built version of `css-values-parser`:
+
+```
+$ npm install
+$ npm run start
+$ npm test
+```
+
+This will generate grammars and javascript code required to parse the
+css properties.
