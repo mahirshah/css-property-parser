@@ -6,6 +6,10 @@ const { css: { properties } } = require('mdn-data');
  * returns an empty array.
  *
  * @param {string} shorthandProperty - the shorthand property name. For example, "background" or "border".
+ * @param {boolean} [recursivelyResolve=false] - recursively resolve additional longhand properties if the shorthands
+ *                                              expand to additional shorthands. For example, the border property
+ *                                              expands to border-width, which expands further to border-left-width,
+ *                                              border-right-width, etc.
  * @returns {Array} - an array containing the computed properties for the given shorthand property. Returns an
  *                    empty array if the given property is not a valid property.
  *
@@ -23,6 +27,26 @@ const { css: { properties } } = require('mdn-data');
  * ]
  *
  * @example
+ * getShorthandComputedProperties('border', true) ->
+ * [
+ *     "border-width",
+ *     "border-style",
+ *     "border-color",
+ *     "border-bottom-width",
+ *     "border-left-width",
+ *     "border-right-width",
+ *     "border-top-width",
+ *     "border-bottom-style",
+ *     "border-left-style",
+ *     "border-right-style",
+ *     "border-top-style",
+ *     "border-bottom-color",
+ *     "border-left-color",
+ *     "border-right-color",
+ *     "border-top-color",
+ * ]
+ *
+ * @example
  * getShorthandComputedProperties('color') ->
  * ["color"]
  *
@@ -30,10 +54,17 @@ const { css: { properties } } = require('mdn-data');
  * getShorthandComputedProperties('unknownProperty') ->
  * []
  */
-module.exports = function getShorthandComputedProperties(shorthandProperty) {
+module.exports = function getShorthandComputedProperties(shorthandProperty, recursivelyResolve = false) {
   if (properties[shorthandProperty]) {
     if (Array.isArray(properties[shorthandProperty].computed)) {
-      return properties[shorthandProperty].computed;
+      const computedProperties = properties[shorthandProperty].computed;
+
+      return recursivelyResolve
+        ? computedProperties.concat(...computedProperties
+          .filter(property => Array.isArray(properties[property].computed))
+          .map(property => getShorthandComputedProperties(property, true))
+        )
+        : computedProperties;
     }
 
     return [shorthandProperty];
