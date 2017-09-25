@@ -5,7 +5,7 @@
   "env": {
     "node": true
   },
-  "extends": "airbnb",
+  "extends": "airbnb/base",
   "rules": {
     "max-len": [
       "error",
