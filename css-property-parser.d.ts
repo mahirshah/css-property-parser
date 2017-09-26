@@ -24,16 +24,24 @@ declare namespace CssPropertyParser {
   ): Declarations;
 
  /**
-  * Given a shorthand property, returns an array of the computed properties for that shorthand property. If given
-  * a known property that is not a shorthand, simply returns the given property. If given an unknown property,
-  * returns an empty array.
+  * Given a shorthand property, returns an array of the computed properties for
+  * that shorthand property. If given a known property that is not a shorthand,
+  * simply returns the given property. If given an unknown property, returns an
+  * empty array.
   *
-  * @param {string} shorthandProperty - the shorthand property name. For example, "background" or "border".
-  * @returns {Array} - an array containing the computed properties for the given shorthand property. Returns an
-  *                    empty array if the given property is not a valid property.
+  * @param {string} shorthandProperty - the shorthand property name. For
+  *   example, "background" or "border".
+  * @param {boolean} recursivelyResolve - recursively resolve additional
+  *   longhand properties if the shorthands expand to additional shorthands. For
+  *   example, the border property expands to border-width, which expands further
+  *   to border-left-width, border-right-width, etc.
+  * @returns {Array} - an array containing the computed properties for the given
+  *   shorthand property. Returns an empty array if the given property is not a
+  *   valid property.
   */
   function getShorthandComputedProperties(
-    shorthandProperty: string
+    shorthandProperty: string,
+    recursivelyResolve: boolean
   ): Array<string>;
 
   /**
