@@ -17,7 +17,7 @@
     - [Examples](#examples-1)
   - [getShorthandComputedProperties(property: string, [recursivelyResolve=false]): Array](#getshorthandcomputedpropertiesproperty-string-recursivelyresolvefalse-array)
       - [Examples](#examples-2)
-  - [expandShorthandProperty(property: string, value: string, [recursivelyResolve=false]): Object](#expandshorthandpropertyproperty-string-value-string-recursivelyresolvefalse-object)
+  - [expandShorthandProperty(property: string, value: string, [recursivelyResolve=false], [includeInitialValues=false]): Object](#expandshorthandpropertyproperty-string-value-string-recursivelyresolvefalse-includeinitialvaluesfalse-object)
       - [Examples](#examples-3)
   - [Developer/Contribution HOWTO](#developercontribution-howto)
 
@@ -199,7 +199,7 @@ getShorthandComputedProperties('border', true);
 // -> []
 ``` 
 
-### [expandShorthandProperty(property: string, value: string, [recursivelyResolve=false]): Object](./src/expandShorthandProperty.js)
+### [expandShorthandProperty(property: string, value: string, [recursivelyResolve=false], [includeInitialValues=false]): Object](./src/expandShorthandProperty.js)
 
 Given a property and value attempts to expand the value into its longhand equivalents. Returns an object
 mapping the property longhand names to the longhand values. If the property cannot be expanded (i.e. the property
@@ -208,6 +208,7 @@ is not a shorthand property) simply returns an object mapping the original prope
  * propertyName - the property name for the given value
  * propertyValue - the value of the property
  * [recursivelyResolve=false] - recursively resolve additional longhand properties if the shorthands expand to additional shorthands. For example, the border property expands to border-width, which expands further to border-left-width, border-right-width, etc.
+ * [includeInitialValues=false] - when expanding the shorthand property, fill in any missing longhand values with their initial value. For example, the property declaration "border: 1px" only explicitly sets the "border-width" longhand property. If this param is true, the returned object will fill in the initial values for "border-style" and "border-color". By default, the returned object will only contain the "border-width".
  * throws {[ParseError](./src/errors/ParseError.js)} - if the propertyValue cannot be parsed.
  * throws {[UnknownPropertyError](./src/errors/UnknownPropertyError.js)} - if the propertyName is not defined in mdn.
  * throws {[UnsupportedPropertyError](./src/errors/UnsupportedPropertyError.js)} - if the propertyName is a shorthand property, but we don't support expanding it yet.
@@ -217,12 +218,8 @@ Currently supports the following properties:
   - animation
   - background
   - border
-  - border-block-end
-  - border-block-start
   - border-bottom
   - border-color
-  - border-inline-end
-  - border-inline-start
   - border-left
   - border-radius
   - border-right
