@@ -1,6 +1,6 @@
 {
   "name": "css-property-parser",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Validate css properties and expand shorthand css properties",
   "main": "src/index.js",
   "scripts": {
@@ -25,8 +25,6 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.2.1",
     "microtime": "^2.1.6",
     "mocha": "^3.5.0",
     "pre-commit": "^1.2.2",
