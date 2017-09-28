@@ -177,6 +177,23 @@ describe('expandShorthandProperty', function () {
       });
     });
 
+    it('should return expanded border with style, color with recursively resolved properties', function () {
+      const result = expandShorthandProperty('border', 'solid black', true);
+
+      assert.deepEqual(result, {
+        'border-style': 'solid',
+        'border-color': 'black',
+        'border-bottom-style': 'solid',
+        'border-left-style': 'solid',
+        'border-right-style': 'solid',
+        'border-top-style': 'solid',
+        'border-bottom-color': 'black',
+        'border-right-color': 'black',
+        'border-left-color': 'black',
+        'border-top-color': 'black',
+      });
+    });
+
     it('should return expanded border with just color', function () {
       const result = expandShorthandProperty('border', 'black');
 
@@ -862,7 +879,7 @@ describe('expandShorthandProperty', function () {
       assert.deepEqual(result, {
         'font-stretch': 'ultra-condensed',
         'font-size': '16px',
-        'font-family': 'sans-serif'
+        'font-family': 'sans-serif',
       });
     });
 
@@ -891,6 +908,42 @@ describe('expandShorthandProperty', function () {
         'font-variant': 'inherit',
         'font-stretch': 'inherit',
         'font-family': 'inherit',
+      });
+    });
+  });
+
+  describe('include initial values', function () {
+    it('should include initial values for font', function () {
+      const result = expandShorthandProperty('font', 'ultra-condensed 16px sans-serif', true, true);
+
+      assert.deepEqual(result, {
+        'font-family': 'sans-serif',
+        'font-size': '16px',
+        'font-stretch': 'ultra-condensed',
+        'font-style': 'normal',
+        'font-variant': 'normal',
+        'font-weight': 'normal',
+        'line-height': 'normal',
+      });
+    });
+
+    it('should include initial values for border', function () {
+      const result = expandShorthandProperty('border', '1px', true, true);
+
+      assert.deepEqual(result, {
+        'border-bottom-color': 'currentcolor',
+        'border-bottom-style': 'none',
+        'border-bottom-width': '1px',
+        'border-left-color': 'currentcolor',
+        'border-left-style': 'none',
+        'border-left-width': '1px',
+        'border-right-color': 'currentcolor',
+        'border-right-style': 'none',
+        'border-right-width': '1px',
+        'border-top-color': 'currentcolor',
+        'border-top-style': 'none',
+        'border-top-width': '1px',
+        'border-width': '1px',
       });
     });
   });

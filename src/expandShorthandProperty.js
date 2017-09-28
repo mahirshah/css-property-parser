@@ -42,6 +42,12 @@ const R_BLOCK_COMMENT = /\/\*.*?\*\//g;
  *                                              expand to additional shorthands. For example, the border property
  *                                              expands to border-width, which expands further to border-left-width,
  *                                              border-right-width, etc.
+ * @param {boolean} [includeInitialValues=false] - when expanding the shorthand property, fill in any missing longhand
+ *                                                 values with their initial value. For example, the property
+ *                                                 declaration "border: 1px" only explicitly sets the "border-width"
+ *                                                 longhand property. If this param is true, the returned object will
+ *                                                 fill in the initial values for "border-style" and "border-color". By
+ *                                                 default, the returned object will only contain the "border-width".
  * @return {Object} - object mapping longhand property names to values
  *
  * @throws {ParseError} - if the propertyValue cannot be parsed.
@@ -65,9 +71,11 @@ const R_BLOCK_COMMENT = /\/\*.*?\*\//g;
  *  'flex-shrink': 'initial',
  *  'flex-basis': 'initial',
  * }
- * TODO: add another param to include initial values for values not set
  */
-module.exports = function expandShorthandProperty(propertyName, propertyValue, recursivelyResolve = false) {
+module.exports = function expandShorthandProperty(propertyName,
+  propertyValue,
+  recursivelyResolve = false,
+  includeInitialValues = false) {
   if (!properties[propertyName]) {
     throw new UnknownPropertyError(propertyName);
   } else if (!isShorthandProperty(propertyName)) {
@@ -95,16 +103,23 @@ module.exports = function expandShorthandProperty(propertyName, propertyValue, r
   }
 
   // get the first parsing and use the formatter for the specific shorthand type for this property
+  const { shorthandType } = shorthandProperties[propertyName];
   const [rootNode] = parser.results;
   LocationIndexTracker.reset();
-  const shorthandType = shorthandProperties[propertyName].shorthandType;
   const propertyExpansion = shorthandPropertyTypeToActionDictionaryFactoryMap[shorthandType]
     .format(propertyName, rootNode, formattedPropertyValue);
+  const initialValuePropertyMap = getShorthandComputedProperties(propertyName, true)
+    .reduce((initialValueMap, propertyName) => (Array.isArray(properties[propertyName].initial)
+      ? initialValueMap
+      : Object.assign({ [propertyName]: properties[propertyName].initial }, initialValueMap)), {});
+  const expandedProperties = includeInitialValues
+    ? Object.assign(initialValuePropertyMap, propertyExpansion)
+    : propertyExpansion;
 
   // if we need to recursively resolve, go through each value and expand it.
   return recursivelyResolve ? Object.entries(propertyExpansion)
       .reduce((propertyExpansion, [name, value]) => (
-        Object.assign(expandShorthandProperty(name, value, true), propertyExpansion)
-      ), propertyExpansion)
-    : propertyExpansion;
+        Object.assign(propertyExpansion, expandShorthandProperty(name, value, true))
+      ), expandedProperties)
+    : expandedProperties;
 };
