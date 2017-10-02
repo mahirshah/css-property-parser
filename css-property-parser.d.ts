@@ -43,14 +43,14 @@ declare namespace CssPropertyParser {
   * @param {boolean} recursivelyResolve - recursively resolve additional
   *   longhand properties if the shorthands expand to additional shorthands. For
   *   example, the border property expands to border-width, which expands further
-  *   to border-left-width, border-right-width, etc.
+  *   to border-left-width, border-right-width, etc. Defaults to false.
   * @returns {Array} - an array containing the computed properties for the given
   *   shorthand property. Returns an empty array if the given property is not a
   *   valid property.
   */
   function getShorthandComputedProperties(
     shorthandProperty: string,
-    recursivelyResolve: boolean
+    recursivelyResolve?: boolean
   ): Array<string>;
 
   /**
