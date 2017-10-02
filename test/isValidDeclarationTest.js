@@ -6,7 +6,7 @@ const isValidDeclaration = require('../src/isValidDeclaration');
  */
 describe('isValidDeclaration', function () {
   describe('color', function () {
-    ['currentcolor', 'red', 'orange', 'tan', 'rebeccapurple', '#0f0', '#00ff00', '#0f0a',
+    ['currentcolor', 'red', 'orange', 'tan', 'rebeccapurple', '#0f0', '#00ff00', '#0f0a', '#ABC117',
       '#00ff0080', 'rgb(34, 12, 64, 0.3)', 'rgb(34,12,64,0.3)', 'rgba(34, 12, 64, 0.3)',
       'rgb(34 12 64 / 0.3)', 'rgba(34 12 64 / 0.3)',
       'hsl(30, 100%, 50%, 0.3)', 'hsla(30, 100%, 50%, 0.3)', 'hsl(30 100% 50% / 0.3)',
