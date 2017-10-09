@@ -12,7 +12,11 @@
     "lint": "node node_modules/eslint/bin/eslint.js src/",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
-  "pre-commit": [ "precommit-msg", "lint", "test"],
+  "pre-commit": [
+    "precommit-msg",
+    "lint",
+    "test"
+  ],
   "author": "mahirshah",
   "license": "ISC",
   "types": "css-property-parser.d.ts",
@@ -35,6 +39,6 @@
     "fs-extra": "^3.0.1",
     "mdn-data": "1.0.0",
     "moo": "^0.4.1",
-    "nearley": "^2.10.3"
+    "nearley": "^2.11.0"
   }
 }

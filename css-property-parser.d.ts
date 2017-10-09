@@ -50,7 +50,7 @@ declare namespace CssPropertyParser {
   */
   function getShorthandComputedProperties(
     shorthandProperty: string,
-    recursivelyResolve: boolean
+    recursivelyResolve?: boolean
   ): Array<string>;
 
   /**
