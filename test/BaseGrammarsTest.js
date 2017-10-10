@@ -1,7 +1,5 @@
 const { assert } = require('chai');
 const nearley = require('nearley');
-const { PATHS } = require('../src/constants');
-
 
 /**
  * Tests for {@link isValidDeclaration}
@@ -9,7 +7,7 @@ const { PATHS } = require('../src/constants');
 describe('baseGrammars', function () {
   // TODO: add support for scientific notation
   describe('number', function () {
-    const propertyGrammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}number.js`);
+    const propertyGrammar = require('../src/grammars/generated').number;
 
     [
       '1',
@@ -34,7 +32,7 @@ describe('baseGrammars', function () {
   });
 
   describe('length', function () {
-    const propertyGrammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}length.js`);
+    const propertyGrammar = require('../src/grammars/generated').length;
 
     [
       '1px',

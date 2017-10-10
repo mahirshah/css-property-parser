@@ -1,6 +1,6 @@
 const nearley = require('nearley');
 const { css: { properties } } = require('mdn-data');
-const { PATHS, CSS } = require('./constants');
+const { CSS } = require('./constants');
 
 /**
  * Checks if the given property, value pair is valid.
@@ -16,8 +16,7 @@ module.exports = function isValidDeclaration(property, value) {
     return true;
   }
 
-  // eslint-disable-next-line import/no-dynamic-require
-  const propertyGrammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}${property}.js`);
+  const propertyGrammar = require('./grammars/generated')[property];
 
   try {
     const parser = new nearley.Parser(nearley.Grammar.fromCompiled(propertyGrammar)).feed(value);
