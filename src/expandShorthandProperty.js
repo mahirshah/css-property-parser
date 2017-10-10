@@ -6,7 +6,6 @@ const shorthandProperties = require('../formatted-data/shorthand-properties.json
 const CSS_CONSTANTS = require('./constants/css');
 const { CLASSIFICATIONS } = require('./constants/shorthandProperties');
 const LocationIndexTracker = require('./utils/LocationIndexTracker');
-const PATHS = require('./constants/paths');
 const { ParseError, UnsupportedPropertyError, UnknownPropertyError } = require('./errors');
 const SHORTHAND_IDENT_TO_LONGHAND_PROPERTY_MAP = require('./constants/shorthandIdentToLonghandPropertyMap.json');
 const {
@@ -89,8 +88,7 @@ module.exports = function expandShorthandProperty(propertyName,
   }
 
   // get the compiled grammar file for this property
-  // eslint-disable-next-line import/no-dynamic-require
-  const grammar = require(`${PATHS.GENERATED_JS_GRAMMAR_PATH}${propertyName}`);
+  const grammar = require('./grammars/generated')[propertyName];
   // remove any block style comments and extra whitespace
   const formattedPropertyValue = propertyValue.replace(R_BLOCK_COMMENT, ' ').replace(/\s+/g, ' ').trim();
   let parser;

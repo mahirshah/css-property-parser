@@ -2,6 +2,7 @@
  * Format each JSON grammar into a Nearley grammar
  */
 const fs = require('fs-extra');
+const path = require('path');
 const NearleyGrammarFormatter = require('../formatters/grammarFormatters/NearleyGrammarFormatter');
 const PATHS = require('../constants/paths');
 const GRAMMAR_CONSTANTS = require('../constants/grammars');
@@ -58,16 +59,25 @@ const compilationQueue = async.queue((task, callback) => {
   console.log(task);
   exec(task, callback);
 }, MAX_PARALLEL_PROCESSES);
+
+const jsModules = [];
 const compilationCommands = fs.readdirSync(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH)
   .map((fileName) => {
+    const propName = fileName.replace(`.${GRAMMAR_CONSTANTS.GRAMMAR_FILE_EXTENSION}`, '');
+    const jsFileName = `${propName}.${JAVASCRIPT_FILE_EXTENSION}`;
     const nearleyFilePath = JSON.stringify(`${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}${fileName}`);
     const jsFilePath = JSON.stringify(
-      `${PATHS.GENERATED_JS_GRAMMAR_PATH}${fileName.replace(`.${GRAMMAR_CONSTANTS.GRAMMAR_FILE_EXTENSION}`,
-        `.${JAVASCRIPT_FILE_EXTENSION}`)}`
+      path.join(PATHS.GENERATED_JS_GRAMMAR_PATH, jsFileName)
     );
+
+    jsModules.push(`  '${propName}': require('./js/${jsFileName}')`);
 
     return `node ${PATHS.NEARLEY_BIN_ROOT}${NEARLEY_COMPILER_FILE_NAME} ${nearleyFilePath} > ${jsFilePath}`;
   });
+
+const jsExportsFile = `module.exports = {\n${jsModules.join(',\n')}\n}`;
+
+fs.writeFileSync(path.join(PATHS.GENERATED_JS_GRAMMAR_PATH, '../index.js'), jsExportsFile);
 
 compilationQueue.push(compilationCommands, (err) => {
   if (err) {
