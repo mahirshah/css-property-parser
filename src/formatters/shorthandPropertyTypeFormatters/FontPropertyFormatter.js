@@ -34,7 +34,7 @@ module.exports = class FontPropertyFormatter {
     // line-height must immediately follow font-size, preceded by "/", like this: "16px/3". So font-size
     // may have an extra "/" character at the end that we need to remove.
     if (longhandValueMap[lineHeight] && longhandValueMap[fontSize]) {
-      longhandValueMap[fontSize] = longhandValueMap[fontSize].replace('/', '').trim();
+      longhandValueMap[fontSize] = longhandValueMap[fontSize].replace(/\/$/, '').trim();
     }
 
     return longhandValueMap;

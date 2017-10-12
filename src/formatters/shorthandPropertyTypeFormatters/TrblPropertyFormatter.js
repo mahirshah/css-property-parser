@@ -1,4 +1,5 @@
 const shorthandIdentToLonghandPropertyMap = require('../../constants/shorthandIdentToLonghandPropertyMap.json');
+const ShorthandPropertyTypeFormatterUtils = require('../../utils/ShorthandPropertyTypeFormatterUtils');
 
 // maps the length of the property value to an array mapping the property value index that should be used for each
 // computed property.
@@ -16,12 +17,13 @@ module.exports = class TrblPropertyFormatter {
    *
    * @param {string} propertyName - the css property name. For example, 'border' or 'flex-flow'.
    * @param {Object} node - the root node of the nearley parser tree
-   * @param {string} value - the property value string. For example, "1px solid black".
    * @returns {Object} - a mapping between longhand property names to their longhand values.
    */
-  static format(propertyName, node, value) {
+  static format(propertyName, node) {
     const trblProperties = shorthandIdentToLonghandPropertyMap[propertyName];
-    const propertyValues = value.split(/\s+/);
+    const propertyValues = node[0]
+      .filter(Boolean)
+      .map(node => ShorthandPropertyTypeFormatterUtils.getTokensFromNode(node).map(token => token.text).join(''));
 
     return valueLengthToTrblPropertyIndexMap[propertyValues.length]
       .reduce((expandedPropertyMap, propertyValueIndex, idx) => (
