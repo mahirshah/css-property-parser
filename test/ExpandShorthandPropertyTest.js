@@ -203,6 +203,19 @@ describe('expandShorthandProperty', function () {
     });
   });
 
+  describe('border-color', function () {
+    it('should return expanded border-color', function () {
+      const result = expandShorthandProperty('border-color', 'rgba(0, 0, 0, .2)');
+
+      assert.deepEqual(result, {
+        'border-bottom-color': 'rgba(0, 0, 0, .2)',
+        'border-right-color': 'rgba(0, 0, 0, .2)',
+        'border-left-color': 'rgba(0, 0, 0, .2)',
+        'border-top-color': 'rgba(0, 0, 0, .2)',
+      });
+    });
+  });
+
   describe('flex-flow', function () {
     it('should return expanded flex with just flex-direction', function () {
       const result = expandShorthandProperty('flex-flow', 'row-reverse');

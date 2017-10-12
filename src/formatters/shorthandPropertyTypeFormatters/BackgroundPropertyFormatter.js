@@ -63,7 +63,7 @@ module.exports = class BackgroundPropertyFormatter {
     // like this: "center/80%". This logic removes the trailing slash we parse out from the background-position
     // property
     if (longhandValueMap[backgroundPosition] && longhandValueMap[backgroundSize]) {
-      longhandValueMap[backgroundPosition] = longhandValueMap[backgroundPosition].replace('/', '').trim();
+      longhandValueMap[backgroundPosition] = longhandValueMap[backgroundPosition].replace(/\/$/, '').trim();
     }
 
     return longhandValueMap;
