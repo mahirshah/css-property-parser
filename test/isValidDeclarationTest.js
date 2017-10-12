@@ -19,7 +19,7 @@ describe('isValidDeclaration', function () {
   });
 
   describe('border', function () {
-    ['1px', 'solid', 'black', '1px solid', 'solid 1px', '1px solid black', 'medium dashed green', 'green medium dashed']
+    ['1px', 'solid', 'black', 'Black', 'bLaCk', '1px solid', 'solid 1px', '1px solid black', 'medium dashed green', 'gReeN mEdiuM DasHed', 'green medium dashed']
       .forEach((value) => {
         it(`should return true for ${value}`, function () {
           assert(isValidDeclaration('border', value));
@@ -28,7 +28,7 @@ describe('isValidDeclaration', function () {
   });
 
   describe('margin', function () {
-    ['0', 'auto', '1px', '1em', '0 auto', '1px 1px', '1px 1em', '20% auto 1px', '20% 1px 20em -2%', 'var(--hello09-a)']
+    ['0', 'auto', '1px', '1em', '0 auto', '1px 1px', '1px 1em', '20% auto 1px', '20% 1px 20em -2%', 'var(--hello09-a)', '1Px', '2PX', '0 aUto']
       .forEach((value) => {
         it(`should return true for ${value}`, function () {
           assert(isValidDeclaration('margin', value));
