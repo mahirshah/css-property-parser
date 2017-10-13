@@ -19,6 +19,8 @@
       - [Examples](#examples-2)
   - [expandShorthandProperty(property: string, value: string, [recursivelyResolve=false], [includeInitialValues=false]): Object](#expandshorthandpropertyproperty-string-value-string-recursivelyresolvefalse-includeinitialvaluesfalse-object)
       - [Examples](#examples-3)
+  - [getShorthandsForProperty(property: string): Array&lt;string&gt;](#getshorthandsforpropertyproperty-string-arrayltstringgt)
+      - [Examples](#examples-4)
   - [Developer/Contribution HOWTO](#developercontribution-howto)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
