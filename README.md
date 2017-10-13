@@ -19,6 +19,8 @@
       - [Examples](#examples-2)
   - [expandShorthandProperty(property: string, value: string, [recursivelyResolve=false], [includeInitialValues=false]): Object](#expandshorthandpropertyproperty-string-value-string-recursivelyresolvefalse-includeinitialvaluesfalse-object)
       - [Examples](#examples-3)
+  - [getShorthandsForProperty(property: string): Array&lt;string&gt;](#getshorthandsforpropertyproperty-string-arrayltstringgt)
+      - [Examples](#examples-4)
   - [Developer/Contribution HOWTO](#developercontribution-howto)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -41,6 +43,7 @@ const {
   isValidDeclaration,
   getShorthandComputedProperties,
   expandShorthandProperty,
+  getShorthandsForProperty,
 } = require('css-property-parser');
 
 // isShorthandProperty
@@ -94,6 +97,9 @@ console.log(expandShorthandProperty('background', 'fixed padding-box url(image.p
 //      'background-position': '10px top',
 //      'background-size': 'cover',
 //     }
+
+console.log(getShorthandsForProperty('border-left-width'));
+// => [ 'border-left-width', 'border-left', 'border-width', 'border' ]
 ```
 
 ## API
@@ -269,6 +275,31 @@ expandShorthandProperty('border-radius', '10px 5px 2em / 20px 25px 30%')
 //   'border-bottom-right-radius': '2em / 30%',
 // }
 ```
+
+### [getShorthandsForProperty(property: string): Array&lt;string&gt;](./src/getShorthandsForProperty.js)
+
+This function is the inverse of `getShorthandComputedProperties`.
+
+It returns all properties that set the given property, including the property itself.
+If the property is unknown, an empty array is returned.
+
+##### Examples
+
+```js
+console.log(getShorthandsForProperty('border-left-width'));
+// => [ 'border-left-width', 'border-left', 'border-width', 'border' ]
+```
+
+```js
+console.log(getShorthandsForProperty('float'));
+// => [ 'float' ]
+```
+
+```js
+console.log(getShorthandsForProperty('unknown'));
+// => [ ]
+```
+
 
 ### Developer/Contribution HOWTO
 
