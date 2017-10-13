@@ -63,6 +63,14 @@ declare namespace CssPropertyParser {
   ): boolean;
 
   /**
+   * Return a list of all properties that set the given property.
+   * Includes at least the value provided, plus any other shorthands that can
+   * set it.
+   */
+  function getShorthandsForProperty(
+    longhandProperty: string
+  ): Array<string>;
+  /**
    * Checks if the given property, value pair is valid.
    *
    * @param {String} property - the property name. For example, 'border' or 'color'.
