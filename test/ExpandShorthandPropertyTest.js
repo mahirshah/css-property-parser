@@ -956,6 +956,17 @@ describe('expandShorthandProperty', function () {
         'border-top-color': 'currentcolor',
         'border-top-style': 'none',
         'border-top-width': '1px',
+        'border-color': 'currentcolor',
+        'border-style': 'none',
+        'border-width': '1px',
+      });
+    });
+    it('should include initial values for border when not recursive', function () {
+      const result = expandShorthandProperty('border', '1px', false, true);
+
+      assert.deepEqual(result, {
+        'border-color': 'currentcolor',
+        'border-style': 'none',
         'border-width': '1px',
       });
     });

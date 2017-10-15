@@ -92,4 +92,56 @@ declare namespace CssPropertyParser {
     value: string
   ): boolean;
 
+  /**
+   * Because of the `initial` keyword and shorthand expansion,
+   * there are many possible values that are equivalently identical
+   * with the initial value of a css property. This function
+   * returns true for all possible values that have the effect of
+   * setting a property to its initial value.
+   *
+   * @param property the property to which  the value is assigned
+   * @param value the value to check
+   * @return whether the value is equivalent to the initial value.
+   */
+  function isInitialValue(
+    property: string,
+    value: string
+  ): boolean;
+
+  /**
+   * Warms up the initial value cache for all known css properties.
+   * It is not usually necessary to call this function but
+   * may be useful in some performance testing scenarios.
+   */
+  function computeInitialValues(): void;
+
+  /**
+   * Get the initial values for a property.
+   * @param property - the property name
+   * @param recursivelyResolve - Defaults to false. when given a shorthand property,
+   *   causes the result to include long hand values.
+   * @param includeShorthands - Defaults to false. when resolving recursively, causes the
+   *   the result to include the specified shorthand property as well as any
+   *   intermediate shorthands of this property to to the initial value.
+   * @return the initial value or values a property has by
+   *   default according the CSS specification. If the property's initial
+   *   value(s) is/are unknown, the global keyword `initial` is returned.
+   */
+  function initialValues(
+    property: string,
+    recursivelyResolve?: boolean,
+    includeShorthands?: boolean
+  ): Declarations;
+
+  /**
+   * Get the initial value for a property. the property can be a shorthand or a
+   * longhand.
+   * @param property - the property name
+   * @return {string} the initial value has by default according the CSS
+   * specification. If the property's initial value is unknown, the global
+   * keyword `initial` is returned. There's no spec value for shorthands
+   * so in those cases, the value returned is not the only legal value that can be returned,
+   * instead, it is a value that developers is commonly in practice.
+   */
+  function initialValue(property: string): string;
 }

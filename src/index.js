@@ -8,13 +8,23 @@ const {
   UnsupportedPropertyError,
   UnknownPropertyError,
 } = require('./errors');
+const isInitialValue = require('./isInitialValue');
+const {
+  computeInitialValues,
+  initialValues,
+  initialValue,
+} = require('./initialValueMap');
 
 module.exports = {
+  computeInitialValues,
   expandShorthandProperty,
   getShorthandComputedProperties,
+  getShorthandsForProperty,
+  initialValue,
+  initialValues,
+  isInitialValue,
   isShorthandProperty,
   isValidDeclaration,
-  getShorthandsForProperty,
   ParseError,
   UnsupportedPropertyError,
   UnknownPropertyError,
