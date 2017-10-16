@@ -6,6 +6,10 @@
 module.exports = class UnsupportedPropertyError extends Error {
   constructor(property) {
     super(`Unsupported property error: ${property} is not a supported property`);
+    this._property = property;
     Error.captureStackTrace(this, UnsupportedPropertyError);
+  }
+  get property() {
+    return this._property;
   }
 };

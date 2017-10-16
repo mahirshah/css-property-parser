@@ -1,6 +1,16 @@
 export = CssPropertyParser;
 
 declare namespace CssPropertyParser {
+  class ParseError extends Error {
+  }
+  class UnsupportedPropertyError extends Error {
+    readonly property: string;
+    constructor(property: string);
+  }
+  class UnknownPropertyError extends Error {
+    readonly property: string;
+    constructor(property: string);
+  }
   interface Declarations {
     [property: string]: string;
   }
