@@ -316,6 +316,23 @@ setting a property to its initial value.
  * `property` - string. the property to which the value is assigned.
  * `value` string. the value to check.
 
+##### Examples
+
+```js
+console.log(isInitialValue('padding-left', '0'));
+// => true
+console.log(isInitialValue('padding-left', '0px'));
+// => true
+console.log(isInitialValue('padding-left', '1px'));
+// => false
+console.log(isInitialValue('padding', '0'));
+// => true
+console.log(isInitialValue('padding', '0 0px 0in'));
+// => true
+console.log(isInitialValue('padding', '1px'));
+// => false
+```
+
 ### [initialValues(property, recursivelyResolve, includeShorthands)](./src/initialValueMap.js)
 
 Get the initial values for a property.

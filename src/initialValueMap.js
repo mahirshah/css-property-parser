@@ -4,10 +4,10 @@ const isShorthandProperty = require('./isShorthandProperty');
 
 /**
  * Initial values are highly cacheable since they are just a function of the
- * css specification so this module. By default we cache initial values lazily
- * when each property's initial value is first requested. A function
- * `computeInitialValues` is provided to warm the entire cache on demand if
- * needed.
+ * css specification so this module stores all values in a singleton. By
+ * default we cache initial values lazily when each property's initial value is
+ * first requested. A function `computeInitialValues` is provided to warm the
+ * entire cache on demand if needed.
  *
  * In addition, the data for initial values is incomplete or ambiguous
  * per the spec so we synthesize initial values for shorthand properties.
