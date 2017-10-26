@@ -17,7 +17,7 @@ const {
   TrblPropertyFormatter,
   UnorderedOptionalListPropertyFormatter,
 } = require('./formatters/shorthandPropertyTypeFormatters');
-
+const { initialValue, initialValues } = require('./initialValueMap');
 
 const shorthandPropertyTypeToActionDictionaryFactoryMap = {
   [CLASSIFICATIONS.TRBL]: TrblPropertyFormatter,
@@ -104,20 +104,31 @@ module.exports = function expandShorthandProperty(propertyName,
   const { shorthandType } = shorthandProperties[propertyName];
   const [rootNode] = parser.results;
   LocationIndexTracker.reset();
-  const propertyExpansion = shorthandPropertyTypeToActionDictionaryFactoryMap[shorthandType]
+  let propertyExpansion = shorthandPropertyTypeToActionDictionaryFactoryMap[shorthandType]
     .format(propertyName, rootNode, formattedPropertyValue);
-  const initialValuePropertyMap = getShorthandComputedProperties(propertyName, true)
-    .reduce((initialValueMap, propertyName) => (Array.isArray(properties[propertyName].initial)
-      ? initialValueMap
-      : Object.assign({ [propertyName]: properties[propertyName].initial }, initialValueMap)), {});
-  const expandedProperties = includeInitialValues
-    ? Object.assign(initialValuePropertyMap, propertyExpansion)
-    : propertyExpansion;
 
-  // if we need to recursively resolve, go through each value and expand it.
-  return recursivelyResolve ? Object.entries(propertyExpansion)
-      .reduce((propertyExpansion, [name, value]) => (
-        Object.assign(propertyExpansion, expandShorthandProperty(name, value, true))
-      ), expandedProperties)
-    : expandedProperties;
+  if (recursivelyResolve) {
+    Object.keys(propertyExpansion).forEach((prop) => {
+      if (shorthandProperties[prop]) {
+        Object.assign(
+          propertyExpansion,
+          expandShorthandProperty(prop, propertyExpansion[prop], true));
+      }
+    });
+  }
+
+  if (includeInitialValues) {
+    let initials = {};
+    if (recursivelyResolve) {
+      initials = initialValues(propertyName, true, true);
+      delete initials[propertyName];
+    } else {
+      getShorthandComputedProperties(propertyName).forEach((prop) => {
+        initials[prop] = initialValue(prop);
+      });
+    }
+    propertyExpansion = Object.assign(initials, propertyExpansion);
+  }
+
+  return propertyExpansion;
 };

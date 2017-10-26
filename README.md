@@ -21,6 +21,11 @@
       - [Examples](#examples-3)
   - [getShorthandsForProperty(property: string): Array&lt;string&gt;](#getshorthandsforpropertyproperty-string-arrayltstringgt)
       - [Examples](#examples-4)
+  - [isInitialValue(property, value)](#isinitialvalueproperty-value)
+  - [initialValues(property, recursivelyResolve, includeShorthands)](#initialvaluesproperty-recursivelyresolve-includeshorthands)
+      - [Examples](#examples-5)
+  - [initialValue(property)](#initialvalueproperty)
+      - [Examples](#examples-6)
   - [Developer/Contribution HOWTO](#developercontribution-howto)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -300,6 +305,78 @@ console.log(getShorthandsForProperty('unknown'));
 // => [ ]
 ```
 
+### [isInitialValue(property, value)](./src/getShorthandsForProperty.js)
+
+Because of the `initial` keyword and shorthand expansion,
+there are many possible values that are equivalently identical
+with the initial value of a css property. This function
+returns true for all possible values that have the effect of
+setting a property to its initial value.
+
+ * `property` - string. the property to which the value is assigned.
+ * `value` string. the value to check.
+
+##### Examples
+
+```js
+console.log(isInitialValue('padding-left', '0'));
+// => true
+console.log(isInitialValue('padding-left', '0px'));
+// => true
+console.log(isInitialValue('padding-left', '1px'));
+// => false
+console.log(isInitialValue('padding', '0'));
+// => true
+console.log(isInitialValue('padding', '0 0px 0in'));
+// => true
+console.log(isInitialValue('padding', '1px'));
+// => false
+```
+
+### [initialValues(property, recursivelyResolve, includeShorthands)](./src/initialValueMap.js)
+
+Get the initial values for a property.
+
+Returns the initial value or values a property has by
+default according the CSS specification. If the property's initial
+value(s) is/are unknown, the global keyword `initial` is returned.
+
+ * `property` - (string) the property name
+ * `recursivelyResolve` - (boolean) when given a shorthand property,
+   causes the result to include long hand values.
+ * `includeShorthands` - (boolean) when resolving recursively, causes the
+   the result to include the specified shorthand property as well as any
+   intermediate shorthands of this property set to the initial value.
+
+##### Examples
+
+```js
+console.log(initialValues('border-width'));
+// => { 'border-width': 'medium' }
+console.log(initialValues('border-width', true));
+// => {
+//   'border-bottom-width': 'medium',
+//   'border-left-width': 'medium',
+//   'border-right-width': 'medium',
+//   'border-top-width': 'medium',
+//   'border-width': 'medium'
+// }
+```
+
+### [initialValue(property)](./src/initialValueMap.js)
+
+Get the initial value for a property. Returns a string that is the initial
+value has by default according the CSS specification. If the property's
+initial value is unknown, the global keyword `initial` is returned.
+
+* `property` - the css property name
+
+##### Examples
+
+```js
+console.log(initialValue('border-width'));
+=> 'medium'
+```
 
 ### Developer/Contribution HOWTO
 
