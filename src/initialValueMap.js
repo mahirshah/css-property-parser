@@ -9,7 +9,7 @@ const isShorthandProperty = require('./isShorthandProperty');
  * `computeInitialValues` is provided to warm the entire cache on demand if
  * needed.
  *
- * In addition, the data for initial values in incomplete or ambiguous
+ * In addition, the data for initial values is incomplete or ambiguous
  * per the spec so we synthesize initial values for shorthand properties.
  * The values chosen are typical values that developers use when disabling
  * a set of properties via shorthand.
@@ -53,9 +53,8 @@ const initialValueRecursiveMap = {};
  */
 const initialValueConcreteMap = {};
 
-/* eslint-disable quote-props */
 const canonicalShorthandInitialValues = {
-  'border': 'none',
+  border: 'none',
   'border-color': 'currentcolor',
   'border-style': 'none',
   'border-width': 'medium',
@@ -63,25 +62,25 @@ const canonicalShorthandInitialValues = {
   'border-right': 'none',
   'border-top': 'none',
   'border-bottom': 'none',
-  'transition': 'all',
+  transition: 'all',
   'text-emphasis': 'none',
   'text-decoration': 'none',
-  'padding': '0',
-  'outline': 'none',
-  'offset': 'none',
-  'mask': 'border-box',
-  'margin': '0',
+  padding: '0',
+  outline: 'none',
+  offset: 'none',
+  mask: 'border-box',
+  margin: '0',
   'list-style': 'disc',
   'grid-template': 'none',
   'grid-row': 'auto',
   'grid-gap': '0',
   'grid-column': 'auto',
   'grid-area': 'auto',
-  'grid': 'none',
-  'font': 'medium initial',
+  grid: 'none',
+  font: 'medium initial',
   'flex-flow': 'row',
-  'flex': '0 1 auto',
-  'columns': 'auto',
+  flex: '0 1 auto',
+  columns: 'auto',
   'column-rule': 'none',
   'border-radius': '0',
   'border-inline-start': 'medium',
@@ -89,14 +88,13 @@ const canonicalShorthandInitialValues = {
   'border-image': 'none',
   'border-block-start': 'none',
   'border-block-end': 'none',
-  'background': 'none',
-  'animation': 'none',
+  background: 'none',
+  animation: 'none',
   '-webkit-text-stroke': '0',
   '-webkit-mask': 'none',
   '-webkit-border-before': 'none',
   '-moz-outline-radius': '0',
 };
-/* eslint-enable quote-props */
 
 /**
  * The mdn data has some quirky values for initial in some cases
