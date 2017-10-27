@@ -1,6 +1,7 @@
 This software uses a derivative form of the data contained in
 https://github.com/mdn/data/blob/master/ (MDN Data). The software that is
-a derivative form of MDN Data, contained in src/grammar/, is licensed under
-MPL 2.0  (https://www.mozilla.org/en-US/MPL/2.0/).
+a derivative form of MDN Data, either checked in under src/grammar/ or
+distributed under src/grammar/generated, is licensed under MPL 2.0
+(https://www.mozilla.org/en-US/MPL/2.0/).
 
 All other software contained in this project is provided under the MIT license.
