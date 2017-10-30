@@ -1,6 +1,6 @@
 {
   "name": "css-property-parser",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Validate css properties and expand shorthand css properties",
   "main": "src/index.js",
   "scripts": {
