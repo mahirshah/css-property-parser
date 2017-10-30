@@ -1,6 +1,6 @@
 {
   "name": "css-property-parser",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Validate css properties and expand shorthand css properties",
   "keywords": [
     "css"
