@@ -2,6 +2,8 @@
   "name": "css-property-parser",
   "version": "1.0.0",
   "description": "Validate css properties and expand shorthand css properties",
+  "keywords": ["css"],
+  "bugs": "https://github.com/mahirshah/css-property-parser/issues",
   "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec --recursive",
@@ -19,6 +21,10 @@
   ],
   "author": "mahirshah",
   "license": "(MIT AND MPL-2.0)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mahirshah/css-property-parser"
+  },
   "types": "css-property-parser.d.ts",
   "devDependencies": {
     "async": "^2.5.0",
