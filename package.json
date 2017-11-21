@@ -42,11 +42,11 @@
     "mocha": "^3.5.0",
     "pre-commit": "^1.2.2",
     "postcss-value-parser": "^3.3.0",
-    "sinon": "^2.4.1"
+    "sinon": "^2.4.1",
+    "mdn-data": "1.0.0"
   },
   "dependencies": {
     "fs-extra": "^3.0.1",
-    "mdn-data": "1.0.0",
     "moo": "^0.4.1",
     "nearley": "^2.11.0"
   }

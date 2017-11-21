@@ -20,3 +20,4 @@ node ./src/scripts/updateBasicDataUnits.js || exit 1
 node ./src/scripts/formatData.js || exit 1
 node ./src/scripts/formatFormalSyntaxes.js || exit 1
 node ./src/scripts/formatGrammars.js || exit 1
+node ./src/scripts/extractProperties.js || exit 1
