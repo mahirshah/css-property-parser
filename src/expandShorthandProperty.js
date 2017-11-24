@@ -1,5 +1,5 @@
 const nearley = require('nearley');
-const { css: { properties } } = require('mdn-data');
+const properties = require('../formatted-data/properties.json');
 const isShorthandProperty = require('./isShorthandProperty');
 const getShorthandComputedProperties = require('./getShorthandComputedProperties');
 const shorthandProperties = require('../formatted-data/shorthand-properties.json');

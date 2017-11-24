@@ -1,5 +1,5 @@
 const shortHandProperties = require('../formatted-data/shorthand-properties.json');
-const { css: { properties } } = require('mdn-data');
+const properties = require('../formatted-data/properties.json');
 
 /**
  * @type {Object}

@@ -1,5 +1,5 @@
 const { assert } = require('chai');
-const { css: { properties: cssProperties } } = require('mdn-data');
+const properties = require('../formatted-data/properties.json');
 const {
    initialValue,
    initialValues,
@@ -31,7 +31,7 @@ describe('Initial values', function () {
       'position',
       'transform-box',
     ]);
-    Object.keys(cssProperties).forEach((prop) => {
+    Object.keys(properties).forEach((prop) => {
       if (prop.startsWith('-') || buggyValues.has(prop)) return; // bug in grammar data
       let initial = initialValue(prop);
       assert(isValidDeclaration(prop, initial), `${prop}: ${initial} is not a legal initial value`);

@@ -10,7 +10,7 @@
   "scripts": {
     "prepublish": "npm start",
     "test": "./node_modules/.bin/mocha --reporter spec --recursive",
-    "start": "mkdir -p formatted-data src/grammars/generated/json && node ./node_modules/nearley/bin/nearleyc.js ./src/grammars/nearley/formalSyntax.ne > ./src/grammars/js/formalSyntax.js && node ./src/scripts/updateBasicDataUnits.js && node ./src/scripts/formatData.js && node ./src/scripts/formatFormalSyntaxes.js && node ./src/scripts/formatGrammars.js",
+    "start": "./updateCSSData.sh",
     "clean": "rm -rf src/grammars/generated",
     "benchmark": "node test/benchmark.js",
     "doctoc": "node ./node_modules/doctoc/doctoc.js README.md",
@@ -42,11 +42,11 @@
     "mocha": "^3.5.0",
     "pre-commit": "^1.2.2",
     "postcss-value-parser": "^3.3.0",
-    "sinon": "^2.4.1"
+    "sinon": "^2.4.1",
+    "mdn-data": "1.0.0"
   },
   "dependencies": {
     "fs-extra": "^3.0.1",
-    "mdn-data": "1.0.0",
     "moo": "^0.4.1",
     "nearley": "^2.11.0"
   }

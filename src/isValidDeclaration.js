@@ -1,5 +1,5 @@
 const nearley = require('nearley');
-const { css: { properties } } = require('mdn-data');
+const properties = require('../formatted-data/properties.json');
 const { CSS } = require('./constants');
 
 /**
