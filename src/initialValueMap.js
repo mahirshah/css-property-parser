@@ -1,4 +1,4 @@
-const properties = require('../formatted-data/properties.json');
+const properties = require('./formatted-data/properties.json');
 const getShorthandComputedProperties = require('./getShorthandComputedProperties');
 const isShorthandProperty = require('./isShorthandProperty');
 

@@ -1,6 +1,7 @@
 const nearley = require('nearley');
-const properties = require('../formatted-data/properties.json');
+const properties = require('./formatted-data/properties.json');
 const { CSS } = require('./constants');
+const grammars = require('./grammars/generated');
 
 /**
  * Checks if the given property, value pair is valid.
@@ -16,7 +17,7 @@ module.exports = function isValidDeclaration(property, value) {
     return true;
   }
 
-  const propertyGrammar = require('./grammars/generated')[property];
+  const propertyGrammar = grammars[property];
 
   try {
     const parser = new nearley.Parser(nearley.Grammar.fromCompiled(propertyGrammar)).feed(value);

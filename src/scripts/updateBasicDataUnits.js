@@ -5,6 +5,7 @@
  */
 const { css: { units } } = require('mdn-data');
 const fs = require('fs-extra');
+const path = require('path');
 const PATHS = require('../constants/paths');
 const GRAMMAR_CONSTANTS = require('../constants/grammars');
 
@@ -28,7 +29,7 @@ const unitToTypesMap = Object.entries(units).reduce((unitMap, [unit, { groups }]
 
 Promise.all(
   Object.entries(unitToTypesMap).map(([fileName, unitList]) => (
-    fs.writeJson(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}${fileName}.json`, [
+    fs.writeJson(path.join(PATHS.GENERATED_JSON_GRAMMAR_PATH, `${fileName}.json`), [
       [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, `( ${unitList.map(unit => `"${unit}"`).join(' | ')} )`],
     ], { spaces: 2 })
   )))

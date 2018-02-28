@@ -11,7 +11,7 @@
     "prepublish": "npm start",
     "test": "./node_modules/.bin/mocha --reporter spec --recursive",
     "start": "./updateCSSData.sh",
-    "clean": "rm -rf src/grammars/generated",
+    "clean": "rm -rf src/formatted-data src/grammars/generated",
     "benchmark": "node test/benchmark.js",
     "doctoc": "node ./node_modules/doctoc/doctoc.js README.md",
     "lint": "node node_modules/eslint/bin/eslint.js src/",

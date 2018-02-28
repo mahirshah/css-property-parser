@@ -1,4 +1,4 @@
-const properties = require('../formatted-data/properties.json');
+const properties = require('./formatted-data/properties.json');
 
 /**
  * Given a shorthand property, returns an array of the computed properties for that shorthand property. If given

@@ -4,7 +4,7 @@ node_modules
 .vscode
 
 # ignore generated grammars
-formatted-data
+src/formatted-data
 src/grammars/generated
 
 

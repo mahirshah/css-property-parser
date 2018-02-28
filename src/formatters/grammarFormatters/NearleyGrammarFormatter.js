@@ -1,5 +1,6 @@
 const CaseConverterUtils = require('../../utils/CaseConverterUtils');
 const fs = require('fs-extra');
+const path = require('path');
 const PATHS = require('../../constants/paths');
 const GRAMMAR_CONSTANTS = require('../../constants/grammars');
 const shorthandIdentToLongHandPropertyMap = require('../../constants/shorthandIdentToLonghandPropertyMap.json');
@@ -36,7 +37,7 @@ module.exports = class NearleyGrammarFormatter {
       ._getGrammarsToResolve(jsonGrammar)
       .map(fileToResolve => [
         fileToResolve,
-        fs.readJsonSync(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}${fileToResolve}.json`),
+        fs.readJsonSync(path.join(PATHS.GENERATED_JSON_GRAMMAR_PATH, `${fileToResolve}.json`)),
       ])
       .filter(([, json]) => NearleyGrammarFormatter._isGrammarValid(json))
       .map(([grammarName, jsonGrammar]) => (
@@ -122,7 +123,7 @@ module.exports = class NearleyGrammarFormatter {
 
     return [...new Set(resolutions.concat(
       ...resolutions
-        .map(file => fs.readJsonSync(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}${file}.json`))
+        .map(file => fs.readJsonSync(path.join(PATHS.GENERATED_JSON_GRAMMAR_PATH, `${file}.json`)))
         .map(grammar => NearleyGrammarFormatter._getGrammarsToResolve(grammar, resolved.concat(resolutions)))))];
   }
 

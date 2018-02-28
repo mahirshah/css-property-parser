@@ -1,8 +1,8 @@
 const nearley = require('nearley');
-const properties = require('../formatted-data/properties.json');
+const properties = require('./formatted-data/properties.json');
 const isShorthandProperty = require('./isShorthandProperty');
 const getShorthandComputedProperties = require('./getShorthandComputedProperties');
-const shorthandProperties = require('../formatted-data/shorthand-properties.json');
+const shorthandProperties = require('./formatted-data/shorthand-properties.json');
 const CSS_CONSTANTS = require('./constants/css');
 const { CLASSIFICATIONS } = require('./constants/shorthandProperties');
 const LocationIndexTracker = require('./utils/LocationIndexTracker');
@@ -18,6 +18,7 @@ const {
   UnorderedOptionalListPropertyFormatter,
 } = require('./formatters/shorthandPropertyTypeFormatters');
 const { initialValue, initialValues } = require('./initialValueMap');
+const grammars = require('./grammars/generated');
 
 const shorthandPropertyTypeToActionDictionaryFactoryMap = {
   [CLASSIFICATIONS.TRBL]: TrblPropertyFormatter,
@@ -88,7 +89,7 @@ module.exports = function expandShorthandProperty(propertyName,
   }
 
   // get the compiled grammar file for this property
-  const grammar = require('./grammars/generated')[propertyName];
+  const grammar = grammars[propertyName];
   // remove any block style comments and extra whitespace
   const formattedPropertyValue = propertyValue.replace(R_BLOCK_COMMENT, ' ').replace(/\s+/g, ' ').trim();
   let parser;

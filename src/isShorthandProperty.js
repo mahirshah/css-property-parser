@@ -1,4 +1,4 @@
-const shortHandProperties = require('../formatted-data/shorthand-properties.json');
+const shortHandProperties = require('./formatted-data/shorthand-properties.json');
 
 /**
  * Checks if a given property is a shorthand property

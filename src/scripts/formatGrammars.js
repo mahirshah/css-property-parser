@@ -24,20 +24,22 @@ if (!fs.existsSync(PATHS.GENERATED_JS_GRAMMAR_PATH)) {
 }
 
 // move manual json grammars into generated folder for grammar resolution
-fs.readdirSync(`${PATHS.JSON_GRAMMAR_PATH}`)
-  .forEach(fileName => (
-    fs.copySync(`${PATHS.JSON_GRAMMAR_PATH}${fileName}`, `${PATHS.GENERATED_JSON_GRAMMAR_PATH}${fileName}`))
-  );
+fs.readdirSync(PATHS.JSON_GRAMMAR_PATH)
+  .forEach((fileName) => {
+    const fullSrc = path.join(PATHS.JSON_GRAMMAR_PATH, fileName);
+    const fullDest = path.join(PATHS.GENERATED_JSON_GRAMMAR_PATH, fileName);
+    fs.copySync(fullSrc, fullDest);
+  });
 
 // read each json grammar and format it into an nearley grammar
 fs.readdirSync(PATHS.GENERATED_JSON_GRAMMAR_PATH)
-  .map(fileName => [fileName, fs.readJsonSync(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}${fileName}`)])
+  .map(fileName => [fileName, fs.readJsonSync(path.join(PATHS.GENERATED_JSON_GRAMMAR_PATH, fileName))])
   .forEach(([fileName, jsonGrammar]) => {
     console.log(`creating ${fileName}`);
 
     const grammarName = fileName.replace('.json', '');
     const nearleyGrammar = NearleyGrammarFormatter.format(jsonGrammar, grammarName);
-    const fileToWrite = `${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}${fileName.replace('.json', `.${GRAMMAR_CONSTANTS.GRAMMAR_FILE_EXTENSION}`)}`;
+    const fileToWrite = path.join(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH, fileName.replace('.json', `.${GRAMMAR_CONSTANTS.GRAMMAR_FILE_EXTENSION}`));
 
     fs.createFileSync(fileToWrite);
     fs.writeFileSync(fileToWrite, nearleyGrammar);
@@ -45,12 +47,11 @@ fs.readdirSync(PATHS.GENERATED_JSON_GRAMMAR_PATH)
 
 // copy over overridden grammars
 fs.readdirSync(PATHS.NEARLEY_PROPERTY_GRAMMAR_PATH)
-  .forEach(fileName => (
-    fs.copySync(
-      `${PATHS.NEARLEY_PROPERTY_GRAMMAR_PATH}${fileName}`,
-      `${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}${fileName}`
-    )
-  ));
+  .forEach((fileName) => {
+    const fullSrc = path.join(PATHS.NEARLEY_PROPERTY_GRAMMAR_PATH, fileName);
+    const fullDest = path.join(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH, fileName);
+    fs.copySync(fullSrc, fullDest);
+  });
 
 console.log('...Successfully created nearley grammars...');
 
@@ -65,19 +66,19 @@ const compilationCommands = fs.readdirSync(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH)
   .map((fileName) => {
     const propName = fileName.replace(`.${GRAMMAR_CONSTANTS.GRAMMAR_FILE_EXTENSION}`, '');
     const jsFileName = `${propName}.${JAVASCRIPT_FILE_EXTENSION}`;
-    const nearleyFilePath = JSON.stringify(`${PATHS.GENERATED_NEARLEY_GRAMMAR_PATH}${fileName}`);
+    const nearleyFilePath = JSON.stringify(path.join(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH, fileName));
     const jsFilePath = JSON.stringify(
       path.join(PATHS.GENERATED_JS_GRAMMAR_PATH, jsFileName)
     );
 
     jsModules.push(`  '${propName}': require('./js/${jsFileName}')`);
 
-    return `node ${PATHS.NEARLEY_BIN_ROOT}${NEARLEY_COMPILER_FILE_NAME} ${nearleyFilePath} > ${jsFilePath}`;
+    return `node ${path.join(PATHS.NEARLEY_BIN_ROOT, NEARLEY_COMPILER_FILE_NAME)} ${nearleyFilePath} > ${jsFilePath}`;
   });
 
 const jsExportsFile = `module.exports = {\n${jsModules.join(',\n')}\n}`;
 
-fs.writeFileSync(path.join(PATHS.GENERATED_JS_GRAMMAR_PATH, '../index.js'), jsExportsFile);
+fs.writeFileSync(path.resolve(PATHS.GENERATED_JS_GRAMMAR_PATH, '..', 'index.js'), jsExportsFile);
 
 compilationQueue.push(compilationCommands, (err) => {
   if (err) {

@@ -1,5 +1,6 @@
 const sinon = require('sinon');
 const fs = require('fs-extra');
+const path = require('path');
 const { assert } = require('chai');
 const PATHS = require('../../src/constants/paths');
 const GRAMMAR_CONSTANTS = require('../../src/constants/grammars');
@@ -58,17 +59,17 @@ describe('NearleyGrammarFormatter#format', function () {
   describe('recursive cases', function () {
     it('should handle deeply recursive cases', function () {
       sandbox.stub(fs, 'readJsonSync')
-        .withArgs(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}ra.json`)
+        .withArgs(path.join(PATHS.GENERATED_JSON_GRAMMAR_PATH, 'ra.json'))
         .returns([
           [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '<rb>'],
           ['<rb>'],
         ])
-        .withArgs(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}rb.json`)
+        .withArgs(path.join(PATHS.GENERATED_JSON_GRAMMAR_PATH, 'rb.json'))
         .returns([
           [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '<rc>'],
           ['<rc>'],
         ])
-        .withArgs(`${PATHS.GENERATED_JSON_GRAMMAR_PATH}rc.json`)
+        .withArgs(path.join(PATHS.GENERATED_JSON_GRAMMAR_PATH, 'rc.json'))
         .returns([
           [GRAMMAR_CONSTANTS.BASE_GRAMMAR_RULE_NAME, '"d"'],
         ]);

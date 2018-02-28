@@ -3,6 +3,7 @@
  * Writes the formatted data to FORMATTED_DATA_PATH.
  */
 const fs = require('fs-extra');
+const path = require('path');
 const { css: { properties } } = require('mdn-data');
 const ShorthandPropertyClassifierUtils = require('../utils/ShorthandPropertyClassifierUtils');
 const PATHS = require('../constants/paths');
@@ -21,7 +22,8 @@ const formattedData = Object.entries(properties)
   // reduce it down to an object again so we can write it to a file
   .reduce((propertyMap, [property, data]) => Object.assign({ [property]: data }, propertyMap), {});
 
-fs.writeJson(`${PATHS.FORMATTED_DATA_PATH}${SHORTHAND_FORMATTED_DATA_FILE_NAME}`, formattedData, { spaces: 2 })
-  .then(() => (
-    console.log(`Successfully formatted data to ${PATHS.FORMATTED_DATA_PATH}${SHORTHAND_FORMATTED_DATA_FILE_NAME}`)
-  ));
+fs.writeJson(path.join(PATHS.FORMATTED_DATA_PATH, SHORTHAND_FORMATTED_DATA_FILE_NAME), formattedData, { spaces: 2 })
+  .then(() => {
+    const fdPath = path.join(PATHS.FORMATTED_DATA_PATH, SHORTHAND_FORMATTED_DATA_FILE_NAME);
+    console.log(`Successfully formatted data to ${fdPath}`);
+  });

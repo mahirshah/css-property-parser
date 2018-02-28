@@ -1,5 +1,5 @@
 const { assert } = require('chai');
-const properties = require('../formatted-data/properties.json');
+const properties = require('../src/formatted-data/properties.json');
 const {
    initialValue,
    initialValues,

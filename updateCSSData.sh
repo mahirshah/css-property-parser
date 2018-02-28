@@ -13,8 +13,8 @@ function realpath()
     echo "$dir$base"
 }
 cd "$(dirname "$(realpath "$0")")";
-rm -rf formatted-data src/grammars/generated/json
-mkdir -p formatted-data src/grammars/generated/json
+rm -rf src/formatted-data src/grammars/generated/json
+mkdir -p src/formatted-data src/grammars/generated/json
 node ./node_modules/nearley/bin/nearleyc.js ./src/grammars/nearley/formalSyntax.ne > ./src/grammars/js/formalSyntax.js || exit 1
 node ./src/scripts/updateBasicDataUnits.js || exit 1
 node ./src/scripts/formatData.js || exit 1
