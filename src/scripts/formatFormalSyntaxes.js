@@ -42,7 +42,8 @@ Object.entries(overriddenPropertySyntaxMap)
 // filter out any entries that we need to do manually
   .filter(([grammarName]) => !manualSyntaxes.includes(grammarName))
   .forEach(([grammarName, formalSyntax]) => {
-    const filename = path.join(PATHS.GENERATED_JSON_GRAMMAR_PATH, `${grammarName}.json`);
+    const safeName = grammarName.replace('*', 'STAR');
+    const filename = path.join(PATHS.GENERATED_JSON_GRAMMAR_PATH, `${safeName}.json`);
     console.log(`creating ${filename}`);
     const jsonGrammar = JsonGrammarFormatter.format(formalSyntax);
     fs.writeJson(filename, jsonGrammar, { spaces: 2 });

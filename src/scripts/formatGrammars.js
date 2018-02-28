@@ -65,8 +65,9 @@ const jsModules = [];
 const compilationCommands = fs.readdirSync(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH)
   .map((fileName) => {
     const propName = fileName.replace(`.${GRAMMAR_CONSTANTS.GRAMMAR_FILE_EXTENSION}`, '');
-    const jsFileName = `${propName}.${JAVASCRIPT_FILE_EXTENSION}`;
-    const nearleyFilePath = JSON.stringify(path.join(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH, fileName));
+    const safeFileName = propName.replace('*', 'STAR');
+    const jsFileName = `${safeFileName}.${JAVASCRIPT_FILE_EXTENSION}`;
+    const nearleyFilePath = JSON.stringify(path.join(PATHS.GENERATED_NEARLEY_GRAMMAR_PATH, fileName.replace('*', 'STAR')));
     const jsFilePath = JSON.stringify(
       path.join(PATHS.GENERATED_JS_GRAMMAR_PATH, jsFileName)
     );
