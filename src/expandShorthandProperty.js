@@ -98,7 +98,7 @@ module.exports = function expandShorthandProperty(propertyName,
   try {
     parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar)).feed(formattedPropertyValue);
   } catch (parseError) {
-    throw new ParseError(`'Error parsing shorthand property ${propertyName}: ${propertyValue}. ${parseError.message}`);
+    throw new ParseError(`Error parsing shorthand property ${propertyName}: ${propertyValue}. ${parseError.message}`);
   }
 
   // get the first parsing and use the formatter for the specific shorthand type for this property
